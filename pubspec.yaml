@@ -1,0 +1,39 @@
+name: aguaconectada
+description: "AguaConectada, una aplicación especializada para APRs de todo Chile."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.1     # Para gestión de estado
+  http: ^1.2.0         # Para realizar peticiones HTTP
+  shared_preferences: ^2.2.2  # Para almacenamiento local
+  intl: ^0.19.0        # Para internacionalización y formateo de fechas
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.3
+  syncfusion_flutter_charts: ^27.1.50
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1  # Actualizado a la última versión
+  mockito: ^5.4.4        # Para pruebas unitarias
+
+
+flutter:
+  uses-material-design: true
+
+
+#  fonts:
+#    - family: Roboto
+#      fonts:
+#        - asset: assets/fonts/Roboto-Regular.ttf
+#        - asset: assets/fonts/Roboto-Bold.ttf
+#          weight: 700

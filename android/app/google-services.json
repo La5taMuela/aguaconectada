@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "537062332466",
+    "project_id": "aguaconectada-46262",
+    "storage_bucket": "aguaconectada-46262.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537062332466:android:c01587d67c2c5e1cb2c42b",
+        "android_client_info": {
+          "package_name": "com.example.aguaconectada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGqMNYme7798Wz2ddhwKRpC1jDk1crNm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+    ],
+  "configuration_version": "1"
+}

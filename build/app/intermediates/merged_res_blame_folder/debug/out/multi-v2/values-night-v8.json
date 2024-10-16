@@ -1,0 +1,52 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Joaquin\\.gradle\\daemon\\7.6.3\\com.example.aguaconectada.app-mergeDebugResources-31:\\values-night-v8\\values-night-v8.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Joaquin\\StudioProjects\\AguaConectada\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "from": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "57,238",
+                        "endLines": "4,7",
+                        "endColumns": "12,12",
+                        "endOffsets": "232,413"
+                    },
+                    "to": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,233",
+                        "endLines": "4,7",
+                        "endColumns": "12,12",
+                        "endOffsets": "228,406"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.example.aguaconectada.app-mergeDebugResources-31:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Joaquin\\StudioProjects\\AguaConectada\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "175",
+                        "endLines": "7",
+                        "endColumns": "12",
+                        "endOffsets": "482"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "231"
+                    }
+                }
+            ]
+        }
+    ]
+}
