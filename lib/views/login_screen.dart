@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:aguaconectada/controllers/auth_controller.dart';
+import 'package:aguaconectada/views/admin/admin_home.dart';
+import 'package:aguaconectada/views/operator/operator_home.dart';
 import 'package:aguaconectada/views/user/user_home.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -80,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su R.U.T',
                                 prefixIcon:
-                                    Icon(Icons.person, color: Colors.white70),
+                                Icon(Icons.person, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
@@ -97,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su N° de socio',
                                 prefixIcon:
-                                    Icon(Icons.numbers, color: Colors.white70),
+                                Icon(Icons.numbers, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
@@ -147,10 +149,25 @@ class _LoginScreenState extends State<LoginScreen> {
     var result = await _authController.login(rut, socioString);
 
     if (result["success"]) {
+      Widget homeScreen;
+      switch (result['userType']) {
+        case 'Administrador':
+          homeScreen = AdminHome(userName: result['nombre'], userType: result['userType']);
+          break;
+        case 'Operador':
+          homeScreen = OperatorHome(userName: result['nombre'], userType: result['userType']);
+          break;
+        case 'Usuarios':
+          homeScreen = UserMenu(userName: result['nombre'], userType: result['userType']);
+          break;
+        default:
+          _showMessage('Error: Tipo de usuario desconocido');
+          return;
+      }
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => UserMenu(userType: result['userType'])),
+        MaterialPageRoute(builder: (context) => homeScreen),
       );
     } else {
       _showMessage(result['message']);

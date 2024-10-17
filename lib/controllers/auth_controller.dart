@@ -13,19 +13,27 @@ class AuthController {
     }
 
     try {
-      var querySnapshot = await FirebaseFirestore.instance
-          .collection('Usuarios')
-          .where('rut', isEqualTo: rut)
-          .where('socio', isEqualTo: socio)
-          .get();
+      List<String> collections = ['Administrador', 'Operador', 'Usuarios'];
 
-      if (querySnapshot.docs.isNotEmpty) {
-        var userData = querySnapshot.docs.first.data();
-        String userType = userData['tipo'] ?? 'usuario';
-        return {'success': true, 'userType': userType};
-      } else {
-        return {'success': false, 'message': 'Datos incorrectos, verifique su RUT o número de socio.'};
+      for (String collection in collections) {
+        var querySnapshot = await FirebaseFirestore.instance
+            .collection(collection)
+            .where('rut', isEqualTo: rut)
+            .where('socio', isEqualTo: socio)
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          var userData = querySnapshot.docs.first.data();
+          String userName = userData['nombre'] ?? 'Usuario';
+          return {
+            'success': true,
+            'userType': collection,
+            'nombre': userName,
+          };
+        }
       }
+
+      return {'success': false, 'message': 'Datos incorrectos, verifique su RUT o número de socio.'};
     } catch (e) {
       return {'success': false, 'message': 'Error al iniciar sesión: $e'};
     }

@@ -1,4 +1,4 @@
-#Sun Sep 29 21:15:29 CLST 2024
+#Thu Oct 17 11:49:22 CLST 2024
 base.0=C\:\\Users\\Joaquin\\StudioProjects\\AguaConectada\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\Joaquin\\StudioProjects\\AguaConectada\\build\\app\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\Joaquin\\StudioProjects\\AguaConectada\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
