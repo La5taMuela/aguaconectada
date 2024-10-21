@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:aguaconectada/models/user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserController extends ChangeNotifier {
   UserModel? _user;

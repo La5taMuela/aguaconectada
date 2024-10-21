@@ -6,7 +6,7 @@ import 'package:aguaconectada/views/operator/operator_home.dart';
 import 'package:aguaconectada/views/user/user_home.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           SafeArea(
             child: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height -
@@ -50,17 +50,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
                       children: [
-                        Spacer(flex: 1),
+                        const Spacer(flex: 1),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.water_drop,
                               size: 120,
                               color: Colors.white,
                             ),
-                            SizedBox(height: 48),
-                            Text(
+                            const SizedBox(height: 48),
+                            const Text(
                               'Inicio de sesión',
                               style: TextStyle(
                                 color: Colors.white,
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
+                            const Text(
                               'AguaConectada',
                               style: TextStyle(
                                 color: Colors.white,
@@ -76,60 +76,60 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 48),
+                            const SizedBox(height: 48),
                             TextField(
                               controller: _rutController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su R.U.T',
                                 prefixIcon:
-                                Icon(Icons.person, color: Colors.white70),
+                                const Icon(Icons.person, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintStyle: TextStyle(color: Colors.white70),
+                                hintStyle: const TextStyle(color: Colors.white70),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             TextField(
                               controller: _socioController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su N° de socio',
                                 prefixIcon:
-                                Icon(Icons.numbers, color: Colors.white70),
+                                const Icon(Icons.numbers, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintStyle: TextStyle(color: Colors.white70),
+                                hintStyle: const TextStyle(color: Colors.white70),
                               ),
                               keyboardType: TextInputType.number,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
-                            SizedBox(height: 24),
+                            const SizedBox(height: 24),
                             ElevatedButton(
                               onPressed: _submit,
-                              child: Text('Iniciar sesión'),
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.blue[800],
                                 backgroundColor: Colors.white,
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 50, vertical: 15),
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
+                              child: const Text('Iniciar sesión'),
                             ),
                           ],
                         ),
-                        Spacer(flex: 3),
+                        const Spacer(flex: 3),
                       ],
                     ),
                   ),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:aguaconectada/views/login_screen.dart';
 
 class UserMenu extends StatefulWidget {
   final String userType;
   final String userName;
 
-  const UserMenu({Key? key, required this.userType, required this.userName}) : super(key: key);
+  const UserMenu({super.key, required this.userType, required this.userName});
 
   @override
   _UserMenuState createState() => _UserMenuState();
@@ -26,7 +25,7 @@ class _UserMenuState extends State<UserMenu> {
           backgroundColor: Colors.blue[400],
           actions: [
             IconButton(
-              icon: Icon(Icons.notifications, color: Colors.black87),
+              icon: const Icon(Icons.notifications, color: Colors.black87),
               iconSize: 40.0,
               onPressed: () {
                 print('Notificaciones presionadas');
@@ -34,7 +33,7 @@ class _UserMenuState extends State<UserMenu> {
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(1.0),
+            preferredSize: const Size.fromHeight(1.0),
             child: Container(),
           ),
         ),
@@ -43,8 +42,8 @@ class _UserMenuState extends State<UserMenu> {
           Column(
             children: [
               Container(
-                padding: EdgeInsets.all(16.0),
-                margin: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(16.0),
+                margin: const EdgeInsets.all(20.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
@@ -58,7 +57,7 @@ class _UserMenuState extends State<UserMenu> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Información Importante',
                       style: TextStyle(
                         fontSize: 22,
@@ -73,18 +72,18 @@ class _UserMenuState extends State<UserMenu> {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.black,
                         backgroundColor: Colors.white,
-                        side: BorderSide(color: Colors.black87),
+                        side: const BorderSide(color: Colors.black87),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       ),
-                      child: Text('Pagar'),
+                      child: const Text('Pagar'),
                     ),
                   ],
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 4,
                 color: Colors.black87,
                 indent: 60,
@@ -181,7 +180,7 @@ class _UserMenuState extends State<UserMenu> {
                     break;
                 }
               },
-              destinations: <Widget>[
+              destinations: const <Widget>[
                 NavigationDestination(
                   icon: Icon(Icons.notifications, color: Colors.black87),
                   label: 'Generar reporte',

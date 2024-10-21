@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:aguaconectada/views/login_screen.dart';
 
 class AdminHome extends StatefulWidget {
   final String userType;
   final String userName;
 
-  const AdminHome({Key? key, required this.userType, required this.userName}) : super(key: key);
+  const AdminHome({super.key, required this.userType, required this.userName});
 
   @override
   _AdminHomeState createState() => _AdminHomeState();
@@ -26,7 +25,7 @@ class _AdminHomeState extends State<AdminHome> {
           backgroundColor: Colors.blue[800],
           actions: [
             IconButton(
-              icon: Icon(Icons.notifications, color: Colors.white),
+              icon: const Icon(Icons.notifications, color: Colors.white),
               iconSize: 40.0,
               onPressed: () {
                 print('Notificaciones presionadas');
@@ -34,7 +33,7 @@ class _AdminHomeState extends State<AdminHome> {
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(1.0),
+            preferredSize: const Size.fromHeight(1.0),
             child: Container(),
           ),
         ),
@@ -43,8 +42,8 @@ class _AdminHomeState extends State<AdminHome> {
           Column(
             children: [
               Container(
-                padding: EdgeInsets.all(16.0),
-                margin: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(16.0),
+                margin: const EdgeInsets.all(20.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
@@ -65,7 +64,7 @@ class _AdminHomeState extends State<AdminHome> {
                         color: Colors.blue[800],
                       ),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,7 +72,7 @@ class _AdminHomeState extends State<AdminHome> {
                         _buildStatCard('Consumo Total', '5,678 m³'),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
                         print('Ver informe detallado');
@@ -84,9 +83,9 @@ class _AdminHomeState extends State<AdminHome> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       ),
-                      child: Text('Ver Informe Detallado'),
+                      child: const Text('Ver Informe Detallado'),
                     ),
                   ],
                 ),
@@ -105,7 +104,7 @@ class _AdminHomeState extends State<AdminHome> {
             itemCount: 10,
             itemBuilder: (context, index) {
               return Card(
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: ListTile(
                   leading: CircleAvatar(
                     child: Text('U${index + 1}'),
@@ -113,7 +112,7 @@ class _AdminHomeState extends State<AdminHome> {
                   title: Text('Usuario ${index + 1}'),
                   subtitle: Text('Correo: usuario${index + 1}@example.com'),
                   trailing: IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     onPressed: () {
                       print('Editar Usuario ${index + 1}');
                     },
@@ -125,35 +124,35 @@ class _AdminHomeState extends State<AdminHome> {
 
           // Settings page
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Configuración del Sistema',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ListTile(
-                  leading: Icon(Icons.security),
-                  title: Text('Seguridad'),
-                  trailing: Icon(Icons.chevron_right),
+                  leading: const Icon(Icons.security),
+                  title: const Text('Seguridad'),
+                  trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     print('Configuración de Seguridad');
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.notifications),
-                  title: Text('Notificaciones'),
-                  trailing: Icon(Icons.chevron_right),
+                  leading: const Icon(Icons.notifications),
+                  title: const Text('Notificaciones'),
+                  trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     print('Configuración de Notificaciones');
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.backup),
-                  title: Text('Respaldo de Datos'),
-                  trailing: Icon(Icons.chevron_right),
+                  leading: const Icon(Icons.backup),
+                  title: const Text('Respaldo de Datos'),
+                  trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     print('Configuración de Respaldo');
                   },
@@ -172,7 +171,7 @@ class _AdminHomeState extends State<AdminHome> {
               currentPageIndex = index;
             });
           },
-          destinations: <Widget>[
+          destinations: const <Widget>[
             NavigationDestination(
               icon: Icon(Icons.dashboard, color: Colors.white),
               label: 'Dashboard',
@@ -193,7 +192,7 @@ class _AdminHomeState extends State<AdminHome> {
 
   Widget _buildStatCard(String title, String value) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.blue[100],
         borderRadius: BorderRadius.circular(8),
@@ -202,12 +201,12 @@ class _AdminHomeState extends State<AdminHome> {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             value,
             style: TextStyle(

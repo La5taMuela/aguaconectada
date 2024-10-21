@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">537062332466</string>
+    <string name="google_api_key" translatable="false">AIzaSyDGqMNYme7798Wz2ddhwKRpC1jDk1crNm4</string>
+    <string name="google_app_id" translatable="false">1:537062332466:android:c01587d67c2c5e1cb2c42b</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDGqMNYme7798Wz2ddhwKRpC1jDk1crNm4</string>
+    <string name="google_storage_bucket" translatable="false">aguaconectada-46262.appspot.com</string>
+    <string name="project_id" translatable="false">aguaconectada-46262</string>
+</resources>
