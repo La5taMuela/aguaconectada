@@ -17,6 +17,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _socioController = TextEditingController();
   final AuthController _authController = AuthController();
 
+  String _formatRut(String rut) {
+    // Remove dots and dashes
+    String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
+    // Convert 'K' to lowercase 'k'
+    return cleanRut.replaceAll('K', 'k');
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -143,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _submit() async {
-    String rut = _rutController.text.trim();
+    String rut = _formatRut(_rutController.text.trim());
     String socioString = _socioController.text.trim();
 
     var result = await _authController.login(rut, socioString);

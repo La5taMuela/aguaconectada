@@ -1,11 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController {
+  String _formatRut(String rut) {
+    // Remove dots and dashes
+    String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
+    // Convert 'K' to lowercase 'k'
+    return cleanRut.replaceAll('K', 'k');
+  }
+
   Future<Map<String, dynamic>> login(String rut, String numeroSocio) async {
     if (rut.isEmpty || numeroSocio.isEmpty) {
       return {'success': false, 'message': 'Por favor, complete todos los campos.'};
     }
 
+    String formattedRut = _formatRut(rut);
     int? socio = int.tryParse(numeroSocio);
 
     if (socio == null) {
@@ -18,7 +26,7 @@ class AuthController {
       for (String collection in collections) {
         var querySnapshot = await FirebaseFirestore.instance
             .collection(collection)
-            .where('rut', isEqualTo: rut)
+            .where('rut', isEqualTo: formattedRut)
             .where('socio', isEqualTo: socio)
             .get();
 

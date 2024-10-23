@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:aguaconectada/controllers/operator_controller.dart'; // Controlador de Firebase
+import 'package:aguaconectada/controllers/operator_controller.dart';
 
 class AddUserPage extends StatefulWidget {
   const AddUserPage({super.key});
@@ -13,90 +12,53 @@ class _AddUserPageState extends State<AddUserPage> {
   final _formKey = GlobalKey<FormState>();
   final OperatorController _operatorController = OperatorController();
 
-  // Controladores para los campos del formulario
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController segundoNombreController = TextEditingController();
   final TextEditingController apellidoPaternoController = TextEditingController();
   final TextEditingController apellidoMaternoController = TextEditingController();
-  final TextEditingController direccionController = TextEditingController();
   final TextEditingController rutController = TextEditingController();
+  final TextEditingController notaController = TextEditingController();
 
-  List<String> _direccionesSugeridas = []; // Lista de sugerencias de direcciones
-  int _siguienteSocio = 1; // Número del próximo socio disponible
+  int? _siguienteIdUsuario;
 
   @override
   void initState() {
     super.initState();
-    _cargarSiguienteSocio(); // Cargar el próximo número de socio al abrir la pantalla
+    _cargarSiguienteId();
   }
 
-  Future<void> _cargarSiguienteSocio() async {
-    int ultimoSocio = await _operatorController.getUltimoSocio();
+  Future<void> _cargarSiguienteId() async {
+    final id = await _operatorController.getNextUserId();
     setState(() {
-      _siguienteSocio = ultimoSocio + 1;
+      _siguienteIdUsuario = id;
     });
   }
 
-  // Función para validar y normalizar el RUT
   String _formatRut(String rut) {
-    return rut.replaceAll('.', '').replaceAll('-', '').toUpperCase();
-  }
-
-  String _capitalize(String input) {
-    return input.trim().split(' ').map((str) {
-      return '${str[0].toUpperCase()}${str.substring(1).toLowerCase()}';
-    }).join(' ');
-  }
-
-  // Validaciones
-  String? _validateRequiredField(String? value, String fieldName) {
-    return (value == null || value.trim().isEmpty)
-        ? 'El campo $fieldName es obligatorio'
-        : null;
-  }
-
-  String? _validateRut(String? value) {
-    final cleanedRut = _formatRut(value ?? '');
-    if (cleanedRut.length < 8 || cleanedRut.length > 10) {
-      return 'RUT inválido';
-    }
-    return null;
+    // Remove dots and dashes
+    String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
+    // Convert 'K' to lowercase 'k'
+    return cleanRut.replaceAll('K', 'k');
   }
 
   Future<void> _saveUser() async {
     if (_formKey.currentState!.validate()) {
-      String nombre = _capitalize(nombreController.text);
-      String segundoNombre = _capitalize(segundoNombreController.text);
-      String apellidoPaterno = _capitalize(apellidoPaternoController.text);
-      String apellidoMaterno = _capitalize(apellidoMaternoController.text);
-      String direccion = direccionController.text.trim();
-      String rut = _formatRut(rutController.text);
-
-      // Verificar que el RUT no exista
-      bool rutExiste = await _operatorController.verificarRutExistente(rut);
-      if (rutExiste) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('El RUT ya está registrado')),
-        );
-        return;
-      }
-
-      // Crear los datos del usuario
-      Map<String, dynamic> userData = {
-        'nombre': nombre,
-        'segundoNombre': segundoNombre.isNotEmpty ? segundoNombre : null,
-        'apellidoPaterno': apellidoPaterno,
-        'apellidoMaterno': apellidoMaterno.isNotEmpty ? apellidoMaterno : null,
-        'direccion': direccion,
-        'rut': rut,
-        'socio': _siguienteSocio,
+      final userData = {
+        'idUsuario': _siguienteIdUsuario,
+        'nombre': nombreController.text.trim(),
+        'segundoNombre': segundoNombreController.text.trim(),
+        'apellidoPaterno': apellidoPaternoController.text.trim(),
+        'apellidoMaterno': apellidoMaternoController.text.trim(),
+        'rut': _formatRut(rutController.text.trim()),
+        'nota': notaController.text.trim(),
+        'socio': _siguienteIdUsuario,
       };
 
       try {
-        await _operatorController.addUser(userData);
-        _mostrarDialogoExito(); // Mostrar diálogo de éxito
-        _limpiarCampos(); // Limpiar los campos
-        await _cargarSiguienteSocio(); // Actualizar el siguiente socio disponible
+        await _operatorController.addUserWithInitialConsumption(userData);
+        _mostrarDialogoExito();
+        _limpiarCampos();
+        await _cargarSiguienteId();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error al agregar usuario: $e')),
@@ -110,8 +72,8 @@ class _AddUserPageState extends State<AddUserPage> {
     segundoNombreController.clear();
     apellidoPaternoController.clear();
     apellidoMaternoController.clear();
-    direccionController.clear();
     rutController.clear();
+    notaController.clear();
   }
 
   void _mostrarDialogoExito() {
@@ -119,7 +81,7 @@ class _AddUserPageState extends State<AddUserPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Éxito'),
-        content: const Text('Usuario agregado exitosamente'),
+        content: const Text('Usuario agregado exitosamente con consumos inicializados.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -142,71 +104,43 @@ class _AddUserPageState extends State<AddUserPage> {
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
-                controller: nombreController,
-                decoration: const InputDecoration(labelText: 'Nombre'),
-                validator: (value) => _validateRequiredField(value, 'Nombre'),
-              ),
-              TextFormField(
-                controller: segundoNombreController,
-                decoration: const InputDecoration(labelText: 'Segundo Nombre (Opcional)'),
-              ),
-              TextFormField(
-                controller: apellidoPaternoController,
-                decoration: const InputDecoration(labelText: 'Apellido Paterno'),
-                validator: (value) => _validateRequiredField(value, 'Apellido Paterno'),
-              ),
-              TextFormField(
-                controller: apellidoMaternoController,
-                decoration: const InputDecoration(labelText: 'Apellido Materno (Opcional)'),
-              ),
-              TextFormField(
-                controller: direccionController,
-                decoration: const InputDecoration(labelText: 'Dirección'),
-                onChanged: (value) async {
-                  List<String> sugerencias = await _operatorController.getSugerenciasDirecciones(value);
-                  setState(() {
-                    _direccionesSugeridas = sugerencias;
-                  });
-                },
-              ),
-              if (_direccionesSugeridas.isNotEmpty)
-                DropdownButton<String>(
-                  items: _direccionesSugeridas.map((direccion) {
-                    return DropdownMenuItem(
-                      value: direccion,
-                      child: Text(direccion),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    direccionController.text = value!;
-                  },
-                ),
-              TextFormField(
-                controller: rutController,
-                decoration: const InputDecoration(labelText: 'RUT'),
-                validator: _validateRut,
-              ),
+              _buildTextField(nombreController, 'Nombre'),
+              const SizedBox(height: 10),
+              _buildTextField(segundoNombreController, 'Segundo Nombre (Opcional)'),
+              const SizedBox(height: 10),
+              _buildTextField(apellidoPaternoController, 'Apellido Paterno'),
+              const SizedBox(height: 10),
+              _buildTextField(apellidoMaternoController, 'Apellido Materno (Opcional)'),
+              const SizedBox(height: 10),
+              _buildTextField(rutController, 'RUT'),
+              const SizedBox(height: 10),
+              _buildTextField(notaController, 'Nota (Opcional)'),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _saveUser,
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.blue[800],
-                  backgroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 50, vertical: 15),
-                  textStyle: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
                 child: const Text('Agregar usuario'),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField(
+      TextEditingController controller,
+      String label, {
+        String? Function(String?)? validator,
+      }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      validator: validator,
     );
   }
 }

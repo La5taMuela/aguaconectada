@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:aguaconectada/controllers/operator_controller.dart'; // Importar controlador
-import 'package:aguaconectada/views/operator/profile_page.dart'; // Importar view de perfil
-import 'package:aguaconectada/views/operator/reports_page.dart'; // Importar view de reportes
-import 'package:aguaconectada/views/operator/tasks_page.dart'; // Importar view de tareas
-import 'package:aguaconectada/views/operator/add_user_page.dart'; // Importar view de añadir usuario
-
+import 'package:aguaconectada/views/operator/profile_page.dart';
+import 'package:aguaconectada/views/operator/reports_page.dart';
+import 'package:aguaconectada/views/operator/tasks_page.dart';
+import 'package:aguaconectada/views/operator/add_user_page.dart';
+import 'package:aguaconectada/views/operator/user_list_page.dart'; // Nueva página de lista de usuarios
 
 class OperatorHome extends StatefulWidget {
   final String userType;
   final String userName;
-  const OperatorHome({super.key, required this.userType, required this.userName});
+
+  const OperatorHome({
+    super.key,
+    required this.userType,
+    required this.userName,
+  });
 
   @override
   _OperatorHomeState createState() => _OperatorHomeState();
 }
 
 class _OperatorHomeState extends State<OperatorHome> {
-  int currentPageIndex = 0; // Control del índice de la página actual
+  int currentPageIndex = 4; // Página inicial (Lista de usuarios)
 
   // Lista de páginas disponibles
   final List<Widget> pages = [
     const TasksPage(),
     const ReportsPage(),
     const ProfilePage(),
-    const AddUserPage(), // Agregar Usuario
+    const AddUserPage(),
+    const UserListPage(), // Nueva página
   ];
 
   @override
@@ -52,7 +56,7 @@ class _OperatorHomeState extends State<OperatorHome> {
                 setState(() {
                   currentPageIndex = 0;
                 });
-                Navigator.pop(context); // Cierra el drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -80,7 +84,17 @@ class _OperatorHomeState extends State<OperatorHome> {
               title: const Text('Agregar Usuario'),
               onTap: () {
                 setState(() {
-                  currentPageIndex = 3; // Índice de la pantalla "Agregar Usuario"
+                  currentPageIndex = 3;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.list),
+              title: const Text('Lista de Usuarios'),
+              onTap: () {
+                setState(() {
+                  currentPageIndex = 4; // Índice de la lista de usuarios
                 });
                 Navigator.pop(context);
               },
@@ -88,7 +102,7 @@ class _OperatorHomeState extends State<OperatorHome> {
           ],
         ),
       ),
-      body: pages[currentPageIndex], // Muestra la página correspondiente al índice seleccionado
+      body: pages[currentPageIndex], // Mostrar la página seleccionada
     );
   }
 }
