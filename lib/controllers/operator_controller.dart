@@ -77,13 +77,20 @@ class OperatorController {
       return errorMessages;
     }
 
-    userData['consumos'] = {
-      DateTime.now().year.toString(): {
-        'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
-        'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
-        'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
+    // Obtiene el año actual
+    final currentYear = DateTime.now().year;
+
+    // Mapa para consumos inicializados con el año actual
+    Map<String, dynamic> consumptionData = {
+      'consumos': {
+        currentYear.toString(): {
+          'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
+          'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
+          'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
+        }
       }
     };
+    userData['consumos'] = consumptionData;
 
     try {
       await _firestore.collection('Usuarios').doc(rut).set(userData);
@@ -92,6 +99,7 @@ class OperatorController {
       return {'general': 'Error al agregar el usuario: $e'};
     }
   }
+
 
   /// Retrieves the last registered member number
   Future<int> getUltimoSocio() async {
@@ -109,41 +117,70 @@ class OperatorController {
   }
 
   /// Saves monthly consumption for a user
+  /// Saves monthly consumption for a user
   Future<void> saveMonthlyConsumption(String rut, Map<String, int> consumptionData) async {
-    await _checkRutExists(rut);
+    final existe = await verificarRutExistente(rut);
+    if (!existe) {
+      throw UserOperationException('El RUT no está registrado.');
+    }
+
+    // Obtiene el año actual
+    final currentYear = DateTime.now().year.toString();
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
-      await userRef.update({
+      Map<String, dynamic> updateData = {
         for (var entry in consumptionData.entries)
-          'consumos.${entry.key}': entry.value
-      });
+          'consumos.$currentYear.${entry.key}': entry.value
+      };
+      await userRef.update(updateData);
     } catch (e) {
       throw UserOperationException('Error al guardar el consumo mensual: $e');
     }
   }
 
+
+  /// Retrieves monthly consumption for a user
   /// Retrieves monthly consumption for a user
   Future<Map<String, int>> getMonthlyConsumption(String rut) async {
-    await _checkRutExists(rut);
+    final consumptionData = <String, int>{};
 
     try {
+      // Fetch the user's document from the Usuarios collection
       final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
 
+      // Check if the document exists
       if (!userDoc.exists) {
         throw UserOperationException('El usuario no existe.');
       }
 
-      final consumptionData = userDoc.data()?['consumos'] as Map<String, dynamic>? ?? {};
-      return consumptionData.map((key, value) => MapEntry(key, value as int));
+      // Get the consumption data
+      final data = userDoc.data()?['consumos'] as Map<String, dynamic>? ?? {};
+      final currentYear = DateTime.now().year.toString(); // Get the current year
+
+      // Retrieve monthly consumption for the current year
+      final monthlyData = data[currentYear] as Map<String, dynamic>? ?? {};
+      for (var month in ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+        'Junio', 'Julio', 'Agosto', 'Septiembre',
+        'Octubre', 'Noviembre', 'Diciembre']) {
+        consumptionData[month] = (monthlyData[month] as int?) ?? 0; // Ensure it's an int
+      }
     } catch (e) {
       throw UserOperationException('Error al obtener el consumo mensual: $e');
     }
+
+    return consumptionData;
   }
 
-  /// Updates the consumption for a specific month
+
+
+
+  /// Actualiza el consumo de un mes específico.
   Future<void> updateMonthlyConsumption(String rut, String mes, int newValue) async {
-    await _checkRutExists(rut);
+    final existe = await verificarRutExistente(rut);
+    if (!existe) {
+      throw UserOperationException('El RUT no está registrado.');
+    }
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
@@ -152,6 +189,7 @@ class OperatorController {
       throw UserOperationException('Error al actualizar el consumo: $e');
     }
   }
+
 
   /// Deletes all consumptions for a user
   Future<void> deleteAllConsumos(String rut) async {

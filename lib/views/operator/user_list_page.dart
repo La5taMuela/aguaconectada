@@ -93,6 +93,17 @@ class UserListPage extends StatelessWidget {
               for (var month in months) {
                 _controllers[month]!.text = consumptionData[month]?.toString() ?? '';
               }
+            } else if (snapshot.hasError) {
+              return AlertDialog(
+                title: const Text('Error'),
+                content: Text(snapshot.error.toString()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Cerrar'),
+                  ),
+                ],
+              );
             }
 
             return AlertDialog(
@@ -145,7 +156,12 @@ class UserListPage extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Guardar'),
+                  child: const Text('Guardar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             );

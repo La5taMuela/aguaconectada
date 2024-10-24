@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Importa SharedPreferences
 
 class AuthController {
   String _formatRut(String rut) {
@@ -31,11 +32,17 @@ class AuthController {
         if (querySnapshot.docs.isNotEmpty) {
           var userData = querySnapshot.docs.first.data();
           String userName = userData['nombre'] ?? 'Usuario';
+
+          // Almacena el RUT y el número de socio en SharedPreferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('rut', formattedRut);
+          await prefs.setString('socio', socio.toString());
+
           return {
             'success': true,
             'userType': collection,
             'nombre': userName,
-            'rut': formattedRut, // Add this line to return the RUT
+            'rut': formattedRut,
           };
         }
       }
