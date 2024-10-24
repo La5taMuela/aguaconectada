@@ -1,4 +1,4 @@
-#Mon Oct 21 00:05:21 CLST 2024
+#Thu Oct 24 01:13:28 CLST 2024
 base.0=C\:\\Users\\Joaquin\\StudioProjects\\AguaConectada\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

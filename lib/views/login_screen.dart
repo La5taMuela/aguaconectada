@@ -4,6 +4,7 @@ import 'package:aguaconectada/controllers/auth_controller.dart';
 import 'package:aguaconectada/views/admin/admin_home.dart';
 import 'package:aguaconectada/views/operator/operator_home.dart';
 import 'package:aguaconectada/views/user/user_home.dart';
+import 'package:aguaconectada/utils/utils.dart'; // Importar la función de utilidades
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,13 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _rutController = TextEditingController();
   final TextEditingController _socioController = TextEditingController();
   final AuthController _authController = AuthController();
-
-  String _formatRut(String rut) {
-    // Remove dots and dashes
-    String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
-    // Convert 'K' to lowercase 'k'
-    return cleanRut.replaceAll('K', 'k');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _rutController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su R.U.T',
-                                prefixIcon:
-                                const Icon(Icons.person, color: Colors.white70),
+                                prefixIcon: const Icon(Icons.person, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
@@ -99,14 +92,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                 hintStyle: const TextStyle(color: Colors.white70),
                               ),
                               style: const TextStyle(color: Colors.white),
+                              onChanged: (value) {
+                                setState(() {
+                                  _rutController.text = formatRut(value);
+                                  _rutController.selection = TextSelection.fromPosition(TextPosition(offset: _rutController.text.length));
+                                });
+                              },
                             ),
                             const SizedBox(height: 16),
                             TextField(
                               controller: _socioController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su N° de socio',
-                                prefixIcon:
-                                const Icon(Icons.numbers, color: Colors.white70),
+                                prefixIcon: const Icon(Icons.numbers, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
@@ -124,10 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.blue[800],
                                 backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 15),
-                                textStyle: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                                textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
@@ -150,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _submit() async {
-    String rut = _formatRut(_rutController.text.trim());
+    String rut = formatRut(_rutController.text.trim());
     String socioString = _socioController.text.trim();
 
     var result = await _authController.login(rut, socioString);

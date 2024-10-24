@@ -14,7 +14,10 @@ class UserListPage extends StatelessWidget {
         backgroundColor: Colors.green[600],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('Usuarios').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('Usuarios')
+            .orderBy('socio')
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

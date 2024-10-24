@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:aguaconectada/controllers/operator_controller.dart';
+import 'package:aguaconectada/controllers/user_controller.dart';
+import 'package:aguaconectada/models/user.dart';
+import '../../controllers/validation_controller.dart';
+import '../../controllers/operator_controller.dart';
 
 class AddUserPage extends StatefulWidget {
   const AddUserPage({super.key});
@@ -10,7 +13,7 @@ class AddUserPage extends StatefulWidget {
 
 class _AddUserPageState extends State<AddUserPage> {
   final _formKey = GlobalKey<FormState>();
-  final OperatorController _operatorController = OperatorController();
+  final UserController _userController = UserController();
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController segundoNombreController = TextEditingController();
@@ -29,15 +32,10 @@ class _AddUserPageState extends State<AddUserPage> {
   }
 
   Future<void> _cargarSiguienteId() async {
-    final id = await _operatorController.getNextUserId();
+    final id = await _userController.getNextUserId();
     setState(() {
       _siguienteIdUsuario = id;
     });
-  }
-
-  String _formatRut(String rut) {
-    String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
-    return cleanRut.replaceAll('K', 'k');
   }
 
   Future<void> _saveUser() async {
@@ -46,18 +44,25 @@ class _AddUserPageState extends State<AddUserPage> {
     });
 
     if (_formKey.currentState!.validate()) {
-      final userData = {
-        'idUsuario': _siguienteIdUsuario,
-        'nombre': nombreController.text.trim(),
-        'segundoNombre': segundoNombreController.text.trim(),
-        'apellidoPaterno': apellidoPaternoController.text.trim(),
-        'apellidoMaterno': apellidoMaternoController.text.trim(),
-        'rut': _formatRut(rutController.text.trim()),
-        'nota': notaController.text.trim(),
-        'socio': _siguienteIdUsuario,
-      };
+      final user = User(
+        idUsuario: _siguienteIdUsuario!,
+        nombre: nombreController.text.trim(),
+        segundoNombre: segundoNombreController.text.trim(),
+        apellidoPaterno: apellidoPaternoController.text.trim(),
+        apellidoMaterno: apellidoMaternoController.text.trim(),
+        rut: rutController.text.trim(),
+        nota: notaController.text.trim(),
+        socio: _siguienteIdUsuario!,
+        consumos: {
+          DateTime.now().year.toString(): {
+            'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
+            'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
+            'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
+          }
+        },
+      );
 
-      final errorResponse = await _operatorController.addUserWithInitialConsumption(userData);
+      final errorResponse = await _userController.addUserWithInitialConsumption(user);
 
       if (errorResponse.isEmpty) {
         _mostrarDialogoExito();
@@ -118,7 +123,17 @@ class _AddUserPageState extends State<AddUserPage> {
               const SizedBox(height: 10),
               _buildTextField(apellidoMaternoController, 'Apellido Materno (Opcional)'),
               const SizedBox(height: 10),
-              _buildTextField(rutController, 'RUT', _validateRut),
+              _buildTextField(
+                rutController,
+                'RUT',
+                    (value) {
+                  if (!ValidationController().isValidRut(value!)) {
+                    return 'El RUT es obligatorio y debe tener 9 caracteres sin símbolos.';
+                  }
+                  return null; // Valid RUT
+                },
+                null, // No onChanged callback
+              ),
               if (_errorMessages['rut'] != null) _buildErrorText(_errorMessages['rut']),
               const SizedBox(height: 10),
               _buildTextField(notaController, 'Nota (Opcional)'),
@@ -144,18 +159,8 @@ class _AddUserPageState extends State<AddUserPage> {
     if (value == null || value.isEmpty) {
       return 'Campo obligatorio';
     }
-    if (value.length < 3) {
-      return 'El nombre debe tener al menos 3 letras.';
-    }
-    return null;
-  }
-
-  String? _validateRut(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Campo obligatorio';
-    }
-    if (value.length != 9) { // Cambiado a 9 caracteres exactos
-      return 'El RUT debe tener 9 caracteres.';
+    if (value.length < 1) {
+      return 'El nombre debe tener al menos 1 letras.';
     }
     return null;
   }
@@ -164,6 +169,7 @@ class _AddUserPageState extends State<AddUserPage> {
       TextEditingController controller,
       String label, [
         String? Function(String?)? validator,
+        void Function(String)? onChanged,
       ]) {
     return TextFormField(
       controller: controller,
@@ -174,6 +180,7 @@ class _AddUserPageState extends State<AddUserPage> {
         ),
       ),
       validator: validator,
+      onChanged: onChanged, // Keep this for other fields if necessary
     );
   }
 

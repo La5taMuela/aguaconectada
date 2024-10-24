@@ -8,12 +8,19 @@ class UserOperationException implements Exception {
 class OperatorController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  /// Validaciones de los datos del usuario
-  bool _isValidName(String name) => name.length >= 3 && _hasNoSpecialCharacters(name);
+  /// Validations for user data
+  bool _isValidName(String name) => name.length >= 1 && _hasNoSpecialCharacters(name);
   bool _isValidRut(String rut) => rut.length == 9 && _hasNoSpecialCharacters(rut);
-  bool _hasNoSpecialCharacters(String value) => RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value);
+  bool _hasNoSpecialCharacters(String value) => RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9]+$').hasMatch(value);
 
-  /// Obtiene el próximo ID para los usuarios.
+  /// Helper to verify if RUT exists and throw an exception if not
+  Future<void> _checkRutExists(String rut) async {
+    if (!await verificarRutExistente(rut)) {
+      throw UserOperationException('El RUT no está registrado.');
+    }
+  }
+
+  /// Retrieves the next user ID
   Future<int> getNextUserId() async {
     try {
       final usuarios = await _firestore
@@ -22,16 +29,13 @@ class OperatorController {
           .limit(1)
           .get();
 
-      final int lastIdUsuario = usuarios.docs.isNotEmpty
-          ? usuarios.docs.first['idUsuario']
-          : 0;
-      return lastIdUsuario + 1;
+      return usuarios.docs.isNotEmpty ? usuarios.docs.first['idUsuario'] + 1 : 1;
     } catch (e) {
       throw UserOperationException('Error al obtener el próximo ID de usuario.');
     }
   }
 
-  /// Verifica si un RUT ya existe en la colección 'Usuarios'.
+  /// Checks if a RUT already exists in the 'Usuarios' collection
   Future<bool> verificarRutExistente(String rut) async {
     try {
       final result = await _firestore.collection('Usuarios').doc(rut).get();
@@ -41,61 +45,55 @@ class OperatorController {
     }
   }
 
-  /// Agrega un usuario con consumos inicializados, si no existe.
-  Future<Map<String, String?>> addUserWithInitialConsumption(Map<String, dynamic> userData) async {
-    final nombre = userData['nombre'];
-    final apellidoPaterno = userData['apellidoPaterno'];
-    final rut = userData['rut'];
+  /// Validate user data and return error messages if any
+  Map<String, String?> _validateUserData(Map<String, dynamic> userData) {
+    final errorMessages = <String, String?>{};
 
-    // Mapa para almacenar mensajes de error
-    Map<String, String?> errorMessages = {};
-
-    if (!_isValidName(nombre)) {
-      errorMessages['nombre'] = 'El nombre debe tener al menos 3 letras';
+    if (!_isValidName(userData['nombre'])) {
+      errorMessages['nombre'] = 'El nombre debe tener al menos 1 letra.';
     }
-    if (!_isValidName(apellidoPaterno)) {
-      errorMessages['apellidoPaterno'] = 'El apellido paterno debe tener al menos 3 letras';
+    if (!_isValidName(userData['apellidoPaterno'])) {
+      errorMessages['apellidoPaterno'] = 'El apellido paterno debe tener al menos 3 letras.';
     }
-    if (!_isValidRut(rut)) {
+    if (!_isValidRut(userData['rut'])) {
       errorMessages['rut'] = 'El RUT es obligatorio y no puede contener símbolos.';
     }
 
-    // Si hay errores, devolver el mapa de mensajes
-    if (errorMessages.isNotEmpty) {
-      return errorMessages;
-    }
+    return errorMessages;
+  }
 
-    final existe = await verificarRutExistente(rut);
-    if (existe) {
+  /// Adds a user with initialized consumptions if they don't exist
+  Future<Map<String, String?>> addUserWithInitialConsumption(Map<String, dynamic> userData) async {
+    final errorMessages = _validateUserData(userData);
+
+    if (errorMessages.isNotEmpty) return errorMessages;
+
+    // Formatear el RUT eliminando puntos y guiones
+    final rut = userData['rut'].replaceAll(RegExp(r'[.-]'), '');
+    userData['rut'] = rut;
+
+    if (await verificarRutExistente(rut)) {
       errorMessages['rut'] = 'El RUT ya está registrado.';
       return errorMessages;
     }
 
-    final userRef = _firestore.collection('Usuarios').doc(rut);
-
-    // Obtiene el año actual
-    final currentYear = DateTime.now().year;
-
-    // Mapa para consumos inicializados con el año actual
-    Map<String, dynamic> consumptionData = {
-      currentYear.toString(): {
+    userData['consumos'] = {
+      DateTime.now().year.toString(): {
         'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
         'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
         'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
       }
     };
-    userData['consumos'] = consumptionData;
 
     try {
-      await userRef.set(userData);
-      return {}; // Indica éxito sin mensajes de error
+      await _firestore.collection('Usuarios').doc(rut).set(userData);
+      return {}; // Indicate success without error messages
     } catch (e) {
-      errorMessages['general'] = 'Error al agregar el usuario: $e';
-      return errorMessages;
+      return {'general': 'Error al agregar el usuario: $e'};
     }
   }
 
-  /// Obtiene el último número de socio registrado.
+  /// Retrieves the last registered member number
   Future<int> getUltimoSocio() async {
     try {
       final result = await _firestore
@@ -110,27 +108,25 @@ class OperatorController {
     }
   }
 
-  /// Guarda el consumo mensual de un usuario.
+  /// Saves monthly consumption for a user
   Future<void> saveMonthlyConsumption(String rut, Map<String, int> consumptionData) async {
-    final existe = await verificarRutExistente(rut);
-    if (!existe) {
-      throw UserOperationException('El RUT no está registrado.');
-    }
+    await _checkRutExists(rut);
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
-      Map<String, dynamic> updateData = {
+      await userRef.update({
         for (var entry in consumptionData.entries)
           'consumos.${entry.key}': entry.value
-      };
-      await userRef.update(updateData);
+      });
     } catch (e) {
       throw UserOperationException('Error al guardar el consumo mensual: $e');
     }
   }
 
-  /// Obtiene el consumo mensual de un usuario.
+  /// Retrieves monthly consumption for a user
   Future<Map<String, int>> getMonthlyConsumption(String rut) async {
+    await _checkRutExists(rut);
+
     try {
       final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
 
@@ -145,12 +141,9 @@ class OperatorController {
     }
   }
 
-  /// Actualiza el consumo de un mes específico.
+  /// Updates the consumption for a specific month
   Future<void> updateMonthlyConsumption(String rut, String mes, int newValue) async {
-    final existe = await verificarRutExistente(rut);
-    if (!existe) {
-      throw UserOperationException('El RUT no está registrado.');
-    }
+    await _checkRutExists(rut);
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
@@ -160,21 +153,19 @@ class OperatorController {
     }
   }
 
-  /// Elimina todos los consumos de un usuario.
+  /// Deletes all consumptions for a user
   Future<void> deleteAllConsumos(String rut) async {
-    final existe = await verificarRutExistente(rut);
-    if (!existe) {
-      throw UserOperationException('El RUT no está registrado.');
-    }
+    await _checkRutExists(rut);
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
-      Map<String, dynamic> resetConsumptionData = {
-        'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
-        'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
-        'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
-      };
-      await userRef.update({'consumos': resetConsumptionData});
+      await userRef.update({
+        'consumos': {
+          'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
+          'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
+          'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
+        }
+      });
     } catch (e) {
       throw UserOperationException('Error al eliminar los consumos: $e');
     }

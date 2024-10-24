@@ -1,31 +1,25 @@
-class UserModel {
-  final String firstName;
-  final String? secondName;
-  final String lastName;
-  final String motherLastName;
-  final String address;
+class User {
+  final int idUsuario;
+  final String nombre;
+  final String segundoNombre;
+  final String apellidoPaterno;
+  final String apellidoMaterno;
   final String rut;
+  final String nota;
   final int socio;
+  final Map<String, Map<String, int>> consumos;
 
-  UserModel({
-    required this.firstName,
-    this.secondName,
-    required this.lastName,
-    required this.motherLastName,
-    required this.address,
+  User({
+    required this.idUsuario,
+    required this.nombre,
+    required this.segundoNombre,
+    required this.apellidoPaterno,
+    required this.apellidoMaterno,
     required this.rut,
+    required this.nota,
     required this.socio,
+    required this.consumos,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'nombre': firstName,
-      'segundoNombre': secondName,
-      'apellidoPaterno': lastName,
-      'apellidoMaterno': motherLastName,
-      'direccion': address,
-      'rut': rut,
-      'socio': socio,
-    };
-  }
+// Métodos para convertir a/desde JSON si es necesario
 }
