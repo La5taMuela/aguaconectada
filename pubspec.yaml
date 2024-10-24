@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.5.1 <4.0.0'
+  sdk: ">=2.19.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -17,8 +17,7 @@ dependencies:
   intl: ^0.19.0        # Para internacionalización y formateo de fechas
   firebase_core: ^3.6.0
   cloud_firestore: ^5.4.3
-  syncfusion_flutter_charts: ^27.1.50
-
+  fl_chart: ^0.63.0
 
 dev_dependencies:
   flutter_test:

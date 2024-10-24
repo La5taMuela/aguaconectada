@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController {
   String _formatRut(String rut) {
-    // Remove dots and dashes
     String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
-    // Convert 'K' to lowercase 'k'
     return cleanRut.replaceAll('K', 'k');
   }
 
@@ -37,6 +35,7 @@ class AuthController {
             'success': true,
             'userType': collection,
             'nombre': userName,
+            'rut': formattedRut, // Add this line to return the RUT
           };
         }
       }

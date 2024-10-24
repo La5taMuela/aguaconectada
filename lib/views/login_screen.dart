@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
           homeScreen = OperatorHome(userName: result['nombre'], userType: result['userType']);
           break;
         case 'Usuarios':
-          homeScreen = UserMenu(userName: result['nombre'], userType: result['userType']);
+          homeScreen = UserMenu(userName: result['nombre'], userType: result['userType'], userRut : result['rut']);
           break;
         default:
           _showMessage('Error: Tipo de usuario desconocido');

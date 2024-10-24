@@ -20,6 +20,7 @@ class _AddUserPageState extends State<AddUserPage> {
   final TextEditingController notaController = TextEditingController();
 
   int? _siguienteIdUsuario;
+  Map<String, String?> _errorMessages = {};
 
   @override
   void initState() {
@@ -35,13 +36,15 @@ class _AddUserPageState extends State<AddUserPage> {
   }
 
   String _formatRut(String rut) {
-    // Remove dots and dashes
     String cleanRut = rut.replaceAll(RegExp(r'[.-]'), '');
-    // Convert 'K' to lowercase 'k'
     return cleanRut.replaceAll('K', 'k');
   }
 
   Future<void> _saveUser() async {
+    setState(() {
+      _errorMessages.clear();
+    });
+
     if (_formKey.currentState!.validate()) {
       final userData = {
         'idUsuario': _siguienteIdUsuario,
@@ -54,15 +57,16 @@ class _AddUserPageState extends State<AddUserPage> {
         'socio': _siguienteIdUsuario,
       };
 
-      try {
-        await _operatorController.addUserWithInitialConsumption(userData);
+      final errorResponse = await _operatorController.addUserWithInitialConsumption(userData);
+
+      if (errorResponse.isEmpty) {
         _mostrarDialogoExito();
         _limpiarCampos();
         await _cargarSiguienteId();
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al agregar usuario: $e')),
-        );
+      } else {
+        setState(() {
+          _errorMessages = errorResponse;
+        });
       }
     }
   }
@@ -81,7 +85,7 @@ class _AddUserPageState extends State<AddUserPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Éxito'),
-        content: const Text('Usuario agregado exitosamente con consumos inicializados.'),
+        content: const Text('Usuario agregado exitosamente.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -104,21 +108,30 @@ class _AddUserPageState extends State<AddUserPage> {
           key: _formKey,
           child: ListView(
             children: [
-              _buildTextField(nombreController, 'Nombre'),
+              _buildTextField(nombreController, 'Nombre', _validateName),
+              if (_errorMessages['nombre'] != null) _buildErrorText(_errorMessages['nombre']),
               const SizedBox(height: 10),
               _buildTextField(segundoNombreController, 'Segundo Nombre (Opcional)'),
               const SizedBox(height: 10),
-              _buildTextField(apellidoPaternoController, 'Apellido Paterno'),
+              _buildTextField(apellidoPaternoController, 'Apellido Paterno', _validateName),
+              if (_errorMessages['apellidoPaterno'] != null) _buildErrorText(_errorMessages['apellidoPaterno']),
               const SizedBox(height: 10),
               _buildTextField(apellidoMaternoController, 'Apellido Materno (Opcional)'),
               const SizedBox(height: 10),
-              _buildTextField(rutController, 'RUT'),
+              _buildTextField(rutController, 'RUT', _validateRut),
+              if (_errorMessages['rut'] != null) _buildErrorText(_errorMessages['rut']),
               const SizedBox(height: 10),
               _buildTextField(notaController, 'Nota (Opcional)'),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _saveUser,
-                child: const Text('Agregar usuario'),
+                child: const Text('Agregar usuario',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
@@ -127,11 +140,31 @@ class _AddUserPageState extends State<AddUserPage> {
     );
   }
 
+  String? _validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Campo obligatorio';
+    }
+    if (value.length < 3) {
+      return 'El nombre debe tener al menos 3 letras.';
+    }
+    return null;
+  }
+
+  String? _validateRut(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Campo obligatorio';
+    }
+    if (value.length != 9) { // Cambiado a 9 caracteres exactos
+      return 'El RUT debe tener 9 caracteres.';
+    }
+    return null;
+  }
+
   Widget _buildTextField(
       TextEditingController controller,
-      String label, {
+      String label, [
         String? Function(String?)? validator,
-      }) {
+      ]) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -141,6 +174,13 @@ class _AddUserPageState extends State<AddUserPage> {
         ),
       ),
       validator: validator,
+    );
+  }
+
+  Widget _buildErrorText(String? error) {
+    return Text(
+      error ?? '',
+      style: const TextStyle(color: Colors.red),
     );
   }
 }
