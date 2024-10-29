@@ -4,7 +4,8 @@ import 'package:aguaconectada/controllers/auth_controller.dart';
 import 'package:aguaconectada/views/admin/admin_home.dart';
 import 'package:aguaconectada/views/operator/operator_home.dart';
 import 'package:aguaconectada/views/user/user_home.dart';
-import 'package:aguaconectada/utils/utils.dart'; // Importar la función de utilidades
+import 'package:aguaconectada/utils/utils.dart'; // Import the utility function
+import 'package:aguaconectada/models/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -161,7 +162,13 @@ class _LoginScreenState extends State<LoginScreen> {
           homeScreen = OperatorHome(userName: result['nombre'], userType: result['userType']);
           break;
         case 'Usuarios':
-          homeScreen = UserMenu(userName: result['nombre'], userType: result['userType'], userRut : result['rut']);
+          homeScreen = UserMenu(
+            userName: result['nombre'],
+            userType: result['userType'],
+            userRut: result['rut'],
+            apellidoPaterno: '',
+            socio: '',
+          );
           break;
         default:
           _showMessage('Error: Tipo de usuario desconocido');

@@ -14,10 +14,12 @@ dependencies:
   provider: ^6.1.1     # Para gestión de estado
   http: ^1.2.0         # Para realizar peticiones HTTP
   shared_preferences: ^2.2.2  # Para almacenamiento local
-  intl: ^0.19.0        # Para internacionalización y formateo de fechas
-  firebase_core: ^3.6.0
-  cloud_firestore: ^5.4.3
+  intl: ^0.18.1       # Para internacionalización y formateo de fechas
+  firebase_core: ^2.32.0
+  cloud_firestore: ^4.15.5
   fl_chart: ^0.63.0
+  firebase_storage: ^11.7.7
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:

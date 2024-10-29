@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
-
+import 'create_report_page.dart'; // Añade esta importación
 
 class UserMenu extends StatefulWidget {
   final String userType;
   final String userName;
   final String userRut;
+  final String apellidoPaterno;
+  final String socio;
 
   const UserMenu({
     Key? key,
     required this.userType,
     required this.userName,
     required this.userRut,
+    required this.apellidoPaterno,
+    required this.socio,
+
   }) : super(key: key);
 
   @override
@@ -31,10 +36,9 @@ class _UserMenuState extends State<UserMenu> {
     _consumptionController = ConsumptionController();
     _consumptionController.setUserRut(widget.userRut);
 
-    // Set the default selected year from the available years
     List<String> availableYears = _consumptionController.getAvailableYears();
     if (availableYears.isNotEmpty) {
-      selectedYear = availableYears.first; // or use the most recent year
+      selectedYear = availableYears.first;
     }
   }
 
@@ -112,7 +116,6 @@ class _UserMenuState extends State<UserMenu> {
                     indent: 60,
                     endIndent: 60,
                   ),
-                  // Row for title and dropdown
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
@@ -139,8 +142,7 @@ class _UserMenuState extends State<UserMenu> {
                             setState(() {
                               selectedYear = newValue;
                             });
-                            print('Año seleccionado: $selectedYear'); // Debug log
-                            // You may want to trigger a data fetch based on the selected year here.
+                            print('Año seleccionado: $selectedYear');
                           },
                         ),
                       ],
@@ -150,8 +152,8 @@ class _UserMenuState extends State<UserMenu> {
                 ],
               ),
             ),
-            // Notifications page
-            const Center(child: Text('Página de Notificaciones')),
+            // Crear reporte page
+            CreateReportPage(userRut: widget.userRut, nombre: widget.userName, apellidoPaterno: widget.apellidoPaterno, socio: widget.socio,), // Añade esta línea
             // Profile page
             const Center(child: Text('Página de Perfil')),
           ][currentPageIndex],
@@ -171,8 +173,8 @@ class _UserMenuState extends State<UserMenu> {
                 label: 'Inicio',
               ),
               NavigationDestination(
-                icon: Icon(Icons.notifications, color: Colors.black87),
-                label: 'Notificaciones',
+                icon: Icon(Icons.report_problem, color: Colors.black87), // Cambiado a un icono más apropiado
+                label: 'Crear un reporte',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person, color: Colors.black87),
