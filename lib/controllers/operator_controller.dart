@@ -208,4 +208,18 @@ class OperatorController {
       throw UserOperationException('Error al eliminar los consumos: $e');
     }
   }
+  // Method to update notification state
+  Future<void> updateNotificationState(String documentId) async {
+    await _firestore.collection('reportes').doc(documentId).update({
+      'notificationState': true,
+    });
+  }
+
+  // Stream to fetch only unseen notifications
+  Stream<QuerySnapshot> get reportStream {
+    return _firestore.collection('reportes')
+        .where('notificationState', isEqualTo: false)
+        .snapshots();
+  }
+
 }

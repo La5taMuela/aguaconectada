@@ -17,13 +17,19 @@ class ReportController {
       List<dynamic> images,
       ) async {
     try {
+      print('Creating report with:');
+      print('userRut: $userRut, nombre: $nombre, apellidoPaterno: $apellidoPaterno, socio: $socio');
+
+      // Create a new document reference with an auto-generated ID
       DocumentReference reportRef = _firestore.collection('reportes').doc();
+      String reportId = reportRef.id; // Get the auto-generated ID
 
       List<String> imageUrls = await Future.wait(
           images.map((image) => _uploadImage(reportRef.id, image))
       );
 
       await reportRef.set({
+        'id': reportId, // Add the ID to the document
         'userRut': userRut,
         'nombre': nombre,
         'apellidoPaterno': apellidoPaterno,
@@ -32,6 +38,7 @@ class ReportController {
         'description': description,
         'status': 'pendiente',
         'imageUrls': imageUrls,
+        'notificationState':false,
       });
 
       print('Reporte creado exitosamente');
@@ -40,6 +47,7 @@ class ReportController {
       throw e;
     }
   }
+
 
   Future<String> _uploadImage(String reportId, dynamic image) async {
     try {
@@ -56,6 +64,36 @@ class ReportController {
       return downloadUrl;
     } catch (e) {
       print('Error al subir la imagen: $e');
+      throw e;
+    }
+  }
+  Future<void> reviewReport(String reportId, String operatorComment) async {
+    try {
+      await _firestore.collection('reportes').doc(reportId).update({
+        'status': 'revisado',
+        'operatorComment': operatorComment,
+        'notificationState': true,
+      });
+      print('Reporte revisado exitosamente');
+    } catch (e) {
+      print('Error al revisar el reporte: $e');
+      throw e;
+    }
+  }
+  Future<void> deleteReport(String reportId) async {
+    try {
+      // Delete images from storage
+      final report = await _firestore.collection('reportes').doc(reportId).get();
+      final imageUrls = List<String>.from(report.data()?['imageUrls'] ?? []);
+      for (var imageUrl in imageUrls) {
+        await _storage.refFromURL(imageUrl).delete();
+      }
+
+      // Delete report document
+      await _firestore.collection('reportes').doc(reportId).delete();
+      print('Reporte eliminado exitosamente');
+    } catch (e) {
+      print('Error al eliminar el reporte: $e');
       throw e;
     }
   }

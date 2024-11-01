@@ -3,9 +3,9 @@ io.flutter.plugins.firebase.core.firebase_core-jetified-window-1.2.0-1 C:\Users\
 io.flutter.plugins.firebase.core.firebase_core-jetified-core-1.0.0-2 C:\Users\Joaquin\.gradle\caches\transforms-3\240368a4a30718a82b5b7971a6a3c819\transformed\jetified-core-1.0.0\res
 io.flutter.plugins.firebase.core.firebase_core-jetified-profileinstaller-1.3.1-3 C:\Users\Joaquin\.gradle\caches\transforms-3\25452ad24ce856594a21f049045adaa9\transformed\jetified-profileinstaller-1.3.1\res
 io.flutter.plugins.firebase.core.firebase_core-lifecycle-viewmodel-2.7.0-4 C:\Users\Joaquin\.gradle\caches\transforms-3\297b986aa5a71a726964a01afd03c0a2\transformed\lifecycle-viewmodel-2.7.0\res
-io.flutter.plugins.firebase.core.firebase_core-lifecycle-livedata-core-2.7.0-5 C:\Users\Joaquin\.gradle\caches\transforms-3\2d35077542519b41f8122f12cf6cf165\transformed\lifecycle-livedata-core-2.7.0\res
-io.flutter.plugins.firebase.core.firebase_core-jetified-play-services-basement-18.3.0-6 C:\Users\Joaquin\.gradle\caches\transforms-3\2f5e70617d4d48a056d7cd53659417fe\transformed\jetified-play-services-basement-18.3.0\res
-io.flutter.plugins.firebase.core.firebase_core-jetified-firebase-common-21.0.0-7 C:\Users\Joaquin\.gradle\caches\transforms-3\3753e174c7fd9d1e592eb5b546d0a3ce\transformed\jetified-firebase-common-21.0.0\res
+io.flutter.plugins.firebase.core.firebase_core-jetified-firebase-common-20.4.3-5 C:\Users\Joaquin\.gradle\caches\transforms-3\2af514b4bdf52a46e81c41e38c205ea5\transformed\jetified-firebase-common-20.4.3\res
+io.flutter.plugins.firebase.core.firebase_core-lifecycle-livedata-core-2.7.0-6 C:\Users\Joaquin\.gradle\caches\transforms-3\2d35077542519b41f8122f12cf6cf165\transformed\lifecycle-livedata-core-2.7.0\res
+io.flutter.plugins.firebase.core.firebase_core-jetified-play-services-basement-18.3.0-7 C:\Users\Joaquin\.gradle\caches\transforms-3\2f5e70617d4d48a056d7cd53659417fe\transformed\jetified-play-services-basement-18.3.0\res
 io.flutter.plugins.firebase.core.firebase_core-jetified-lifecycle-process-2.7.0-8 C:\Users\Joaquin\.gradle\caches\transforms-3\3951542634a0e7c326d02ab297faa068\transformed\jetified-lifecycle-process-2.7.0\res
 io.flutter.plugins.firebase.core.firebase_core-core-1.13.1-9 C:\Users\Joaquin\.gradle\caches\transforms-3\6be828bfc761ec9853db404755774cad\transformed\core-1.13.1\res
 io.flutter.plugins.firebase.core.firebase_core-lifecycle-runtime-2.7.0-10 C:\Users\Joaquin\.gradle\caches\transforms-3\9301e46e7eea5e10bf895b19d9bcac83\transformed\lifecycle-runtime-2.7.0\res
@@ -20,8 +20,8 @@ io.flutter.plugins.firebase.core.firebase_core-jetified-lifecycle-viewmodel-save
 io.flutter.plugins.firebase.core.firebase_core-jetified-tracing-1.2.0-19 C:\Users\Joaquin\.gradle\caches\transforms-3\e902deee6aa479efed76b1f47efca5a7\transformed\jetified-tracing-1.2.0\res
 io.flutter.plugins.firebase.core.firebase_core-fragment-1.7.1-20 C:\Users\Joaquin\.gradle\caches\transforms-3\f8bd13cffe209ffda3de04754c466aef\transformed\fragment-1.7.1\res
 io.flutter.plugins.firebase.core.firebase_core-jetified-window-java-1.2.0-21 C:\Users\Joaquin\.gradle\caches\transforms-3\fb6486b4d2d25ea6e5e62a1b9586e83d\transformed\jetified-window-java-1.2.0\res
-io.flutter.plugins.firebase.core.firebase_core-main-22 C:\Users\Joaquin\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.6.0\android\src\main\res
-io.flutter.plugins.firebase.core.firebase_core-release-23 C:\Users\Joaquin\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.6.0\android\src\release\res
+io.flutter.plugins.firebase.core.firebase_core-main-22 C:\Users\Joaquin\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-2.32.0\android\src\main\res
+io.flutter.plugins.firebase.core.firebase_core-release-23 C:\Users\Joaquin\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-2.32.0\android\src\release\res
 io.flutter.plugins.firebase.core.firebase_core-pngs-24 C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_core\generated\res\pngs\release
 io.flutter.plugins.firebase.core.firebase_core-resValues-25 C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_core\generated\res\resValues\release
 io.flutter.plugins.firebase.core.firebase_core-rs-26 C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_core\generated\res\rs\release
