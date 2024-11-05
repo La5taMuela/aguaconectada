@@ -24,6 +24,7 @@
   
   class _CreateReportPageState extends State<CreateReportPage> {
     final _formKey = GlobalKey<FormState>();
+    final _titleController = TextEditingController();
     final _descriptionController = TextEditingController();
     List<dynamic> _images = [];
     final ReportController _reportController = ReportController();
@@ -88,8 +89,8 @@
       }
     }
 
-  
-  
+
+
     Future<void> _submitReport() async {
       if (_formKey.currentState!.validate()) {
         setState(() {
@@ -102,6 +103,7 @@
             widget.nombre,
             widget.apellidoPaterno,
             widget.socio,
+            _titleController.text,
             _descriptionController.text,
             _images,
           );
@@ -145,6 +147,7 @@
             child: ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
+
                 Card(
                   elevation: 4,
                   shape: RoundedRectangleBorder(
@@ -156,7 +159,7 @@
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Descripción del Reporte',
+                          'Título del Reporte',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -164,6 +167,35 @@
                           ),
                         ),
                         const SizedBox(height: 8),
+
+
+
+                        const SizedBox(height: 8),
+                        TextFormField(
+                          controller: _titleController,
+                          decoration: InputDecoration(
+                            hintText: 'Ingrese un título para el reporte...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[100],
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingrese un título';
+                            }
+                            return null;
+                          },
+                        ),
+                        Text(
+                          'Descripción del Reporte',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[700],
+                          ),
+                        ),
                         TextFormField(
                           controller: _descriptionController,
                           decoration: InputDecoration(

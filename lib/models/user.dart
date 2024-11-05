@@ -21,5 +21,4 @@ class User {
     required this.consumos,
   });
 
-// Métodos para convertir a/desde JSON si es necesario
 }

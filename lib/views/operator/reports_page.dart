@@ -148,6 +148,8 @@ class _ReportsPageState extends State<ReportsPage> {
   void _showReportDetails(
       BuildContext context, Map<String, dynamic> reporte, List<String> imagenes) {
     final commentController = TextEditingController();
+    String buttonStatus = reporte['status'] == 'pendiente' ? 'Marcar en proceso' : 'Marcar en revisado';
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -233,25 +235,27 @@ class _ReportsPageState extends State<ReportsPage> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          await _reportController.reviewReport(
-                            reporte['id'],
-                            commentController.text,
-                          );
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Marcar como revisado'),
-                      ),
-                      if (reporte['status'] == 'revisado')
-                        ElevatedButton(
-                          onPressed: () async {
-                            await _reportController.deleteReport(reporte['id']);
+                          if (buttonStatus == 'Marcar en proceso') {
+                            await _reportController.reviewReport(
+                              reporte['id'],
+                              commentController.text,
+                              'en proceso',
+                            );
+                            setState(() {
+                              buttonStatus = 'Marcar en revisado';
+                            });
                             Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                          ),
-                          child: const Text('Eliminar reporte'),
-                        ),
+                          } else if (buttonStatus == 'Marcar en revisado') {
+                            await _reportController.reviewReport(
+                              reporte['id'],
+                              commentController.text,
+                              'revisado',
+                            );
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: Text(buttonStatus),
+                      ),
                     ],
                   ),
                 ],

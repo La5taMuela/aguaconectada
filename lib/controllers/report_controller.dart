@@ -13,6 +13,7 @@ class ReportController {
       String nombre,
       String apellidoPaterno,
       String socio,
+      String title,
       String description,
       List<dynamic> images,
       ) async {
@@ -34,6 +35,7 @@ class ReportController {
         'nombre': nombre,
         'apellidoPaterno': apellidoPaterno,
         'socio': socio,
+        'title': title,
         'timestamp': FieldValue.serverTimestamp(),
         'description': description,
         'status': 'pendiente',
@@ -67,19 +69,20 @@ class ReportController {
       throw e;
     }
   }
-  Future<void> reviewReport(String reportId, String operatorComment) async {
+  Future<void> reviewReport(String reportId, String operatorComment, String status) async {
     try {
       await _firestore.collection('reportes').doc(reportId).update({
-        'status': 'revisado',
+        'status': status,
         'operatorComment': operatorComment,
         'notificationState': true,
       });
-      print('Reporte revisado exitosamente');
+      print('Reporte marcado como $status exitosamente');
     } catch (e) {
-      print('Error al revisar el reporte: $e');
+      print('Error al actualizar el estado del reporte: $e');
       throw e;
     }
   }
+
   Future<void> deleteReport(String reportId) async {
     try {
       // Delete images from storage
