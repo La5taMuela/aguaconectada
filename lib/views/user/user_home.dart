@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../controllers/operator_controller.dart';
+import '../../controllers/user_controller.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 import 'create_report_page.dart'; // Añade esta importación
@@ -29,12 +31,20 @@ class _UserMenuState extends State<UserMenu> {
   int currentPageIndex = 0;
   late ConsumptionController _consumptionController;
   String? selectedYear;
+  int? currentMonthConsumption;
 
   @override
   void initState() {
     super.initState();
     _consumptionController = ConsumptionController();
     _consumptionController.setUserRut(widget.userRut);
+
+    final userController = UserController();
+    userController.getCurrentMonthConsumption(widget.userRut).then((consumption) {
+      setState(() {
+        currentMonthConsumption = consumption;
+      });
+    });
 
     List<String> availableYears = _consumptionController.getAvailableYears();
     if (availableYears.isNotEmpty) {
@@ -84,17 +94,31 @@ class _UserMenuState extends State<UserMenu> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Información Importante',
-                          style: TextStyle(
+                        Text(
+                          currentMonthConsumption != null
+                              ? 'Monto a pagar: ${currentMonthConsumption} '
+                              : 'Monto a pagar: Cargando...',
+                          style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {
-                            print('Botón presionado');
+                          onPressed: () async {
+                            try {
+                              // Aquí actualizamos el timestamp al momento de pagar
+                              final operatorController = OperatorController();
+                              await operatorController.saveMonthlyConsumption(widget.userRut, {
+                                'Enero': currentMonthConsumption ?? 0,  // Puedes añadir otros meses si es necesario
+                              });
+                              setState(() {
+                                currentMonthConsumption = 0; // Resetear o actualizar el monto si es necesario
+                              });
+                              print('Pago registrado y timestamp actualizado');
+                            } catch (e) {
+                              print('Error al procesar el pago: $e');
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.black,
@@ -107,6 +131,7 @@ class _UserMenuState extends State<UserMenu> {
                           ),
                           child: const Text('Pagar'),
                         ),
+
                       ],
                     ),
                   ),

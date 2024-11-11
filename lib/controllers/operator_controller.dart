@@ -1,225 +1,220 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart' as http;
 
-class UserOperationException implements Exception {
-  final String message;
-  UserOperationException([this.message = '']);
+class TariffData {
+  final int m3;
+  final double variable1;
+  final double totalAPagar1;
+
+  TariffData(this.m3, this.variable1, this.totalAPagar1);
 }
 
 class OperatorController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  static List<TariffData>? _cachedTariffData;
+  static DateTime? _lastFetchTime;
+  static const cacheDuration = Duration(hours: 1);
 
-  /// Validations for user data
-  bool _isValidName(String name) => name.length >= 1 && _hasNoSpecialCharacters(name);
-  bool _isValidRut(String rut) => rut.length == 9 && _hasNoSpecialCharacters(rut);
-  bool _hasNoSpecialCharacters(String value) => RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚÑñ0-9]+$').hasMatch(value);
-
-  /// Helper to verify if RUT exists and throw an exception if not
-  Future<void> _checkRutExists(String rut) async {
-    if (!await verificarRutExistente(rut)) {
-      throw UserOperationException('El RUT no está registrado.');
-    }
-  }
-
-  /// Retrieves the next user ID
-  Future<int> getNextUserId() async {
-    try {
-      final usuarios = await _firestore
-          .collection('Usuarios')
-          .orderBy('idUsuario', descending: true)
-          .limit(1)
-          .get();
-
-      return usuarios.docs.isNotEmpty ? usuarios.docs.first['idUsuario'] + 1 : 1;
-    } catch (e) {
-      throw UserOperationException('Error al obtener el próximo ID de usuario.');
-    }
-  }
-
-  /// Checks if a RUT already exists in the 'Usuarios' collection
-  Future<bool> verificarRutExistente(String rut) async {
-    try {
-      final result = await _firestore.collection('Usuarios').doc(rut).get();
-      return result.exists;
-    } catch (e) {
-      throw UserOperationException('Error al verificar la existencia del RUT.');
-    }
-  }
-
-  /// Validate user data and return error messages if any
-  Map<String, String?> _validateUserData(Map<String, dynamic> userData) {
-    final errorMessages = <String, String?>{};
-
-    if (!_isValidName(userData['nombre'])) {
-      errorMessages['nombre'] = 'El nombre debe tener al menos 1 letra.';
-    }
-    if (!_isValidName(userData['apellidoPaterno'])) {
-      errorMessages['apellidoPaterno'] = 'El apellido paterno debe tener al menos 3 letras.';
-    }
-    if (!_isValidRut(userData['rut'])) {
-      errorMessages['rut'] = 'El RUT es obligatorio y no puede contener símbolos.';
-    }
-
-    return errorMessages;
-  }
-
-  /// Adds a user with initialized consumptions if they don't exist
-  Future<Map<String, String?>> addUserWithInitialConsumption(Map<String, dynamic> userData) async {
-    final errorMessages = _validateUserData(userData);
-
-    if (errorMessages.isNotEmpty) return errorMessages;
-
-    // Formatear el RUT eliminando puntos y guiones
-    final rut = userData['rut'].replaceAll(RegExp(r'[.-]'), '');
-    userData['rut'] = rut;
-
-    if (await verificarRutExistente(rut)) {
-      errorMessages['rut'] = 'El RUT ya está registrado.';
-      return errorMessages;
-    }
-
-    // Obtiene el año actual
-    final currentYear = DateTime.now().year;
-
-    // Mapa para consumos inicializados con el año actual
-    Map<String, dynamic> consumptionData = {
-      'consumos': {
-        currentYear.toString(): {
-          'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
-          'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
-          'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
-        }
-      }
-    };
-    userData['consumos'] = consumptionData;
-
-    try {
-      await _firestore.collection('Usuarios').doc(rut).set(userData);
-      return {}; // Indicate success without error messages
-    } catch (e) {
-      return {'general': 'Error al agregar el usuario: $e'};
-    }
-  }
-
-
-  /// Retrieves the last registered member number
-  Future<int> getUltimoSocio() async {
-    try {
-      final result = await _firestore
-          .collection('Usuarios')
-          .orderBy('socio', descending: true)
-          .limit(1)
-          .get();
-
-      return result.docs.isNotEmpty ? result.docs.first['socio'] : 0;
-    } catch (e) {
-      throw UserOperationException('Error al obtener el último número de socio.');
-    }
-  }
-
-  /// Saves monthly consumption for a user
-  /// Saves monthly consumption for a user
   Future<void> saveMonthlyConsumption(String rut, Map<String, int> consumptionData) async {
-    final existe = await verificarRutExistente(rut);
-    if (!existe) {
-      throw UserOperationException('El RUT no está registrado.');
-    }
-
-    // Obtiene el año actual
     final currentYear = DateTime.now().year.toString();
+    print('Saving monthly consumption for $rut, year: $currentYear');
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
-      Map<String, dynamic> updateData = {
-        for (var entry in consumptionData.entries)
-          'consumos.$currentYear.${entry.key}': entry.value
-      };
-      await userRef.update(updateData);
-    } catch (e) {
-      throw UserOperationException('Error al guardar el consumo mensual: $e');
-    }
-  }
+      final userDoc = await userRef.get();
 
-
-  /// Retrieves monthly consumption for a user
-  /// Retrieves monthly consumption for a user
-  Future<Map<String, int>> getMonthlyConsumption(String rut) async {
-    final consumptionData = <String, int>{};
-
-    try {
-      // Fetch the user's document from the Usuarios collection
-      final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
-
-      // Check if the document exists
       if (!userDoc.exists) {
-        throw UserOperationException('El usuario no existe.');
+        throw Exception('Usuario no encontrado');
       }
 
-      // Get the consumption data
-      final data = userDoc.data()?['consumos'] as Map<String, dynamic>? ?? {};
-      final currentYear = DateTime.now().year.toString(); // Get the current year
+      final userData = userDoc.data()!;
+      final currentConsumption = (userData['consumos'] as Map<String, dynamic>?)?[currentYear] as Map<String, dynamic>? ?? {};
+      print('Current consumption data: $currentConsumption');
 
-      // Retrieve monthly consumption for the current year
-      final monthlyData = data[currentYear] as Map<String, dynamic>? ?? {};
-      for (var month in ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
-        'Junio', 'Julio', 'Agosto', 'Septiembre',
-        'Octubre', 'Noviembre', 'Diciembre']) {
-        consumptionData[month] = (monthlyData[month] as int?) ?? 0; // Ensure it's an int
-      }
-    } catch (e) {
-      throw UserOperationException('Error al obtener el consumo mensual: $e');
-    }
+      Map<String, dynamic> updates = {};
 
-    return consumptionData;
-  }
+      for (var entry in consumptionData.entries) {
+        final String month = entry.key;
+        final int newValue = entry.value;
+        final int oldValue = (currentConsumption[month] as int?) ?? 0;
+        print('Month: $month, New Value: $newValue, Old Value: $oldValue');
 
+        if (newValue != oldValue) {
+          updates['consumos.$currentYear.$month'] = newValue;
 
+          try {
+            final payment = await calculateMonthlyPayment(rut, month, newValue);
 
 
-  /// Actualiza el consumo de un mes específico.
-  Future<void> updateMonthlyConsumption(String rut, String mes, int newValue) async {
-    final existe = await verificarRutExistente(rut);
-    if (!existe) {
-      throw UserOperationException('El RUT no está registrado.');
-    }
+            updates['montosMensuales.$currentYear.$month'] = payment;
 
-    try {
-      final userRef = _firestore.collection('Usuarios').doc(rut);
-      await userRef.update({'consumos.$mes': newValue});
-    } catch (e) {
-      throw UserOperationException('Error al actualizar el consumo: $e');
-    }
-  }
-
-
-  /// Deletes all consumptions for a user
-  Future<void> deleteAllConsumos(String rut) async {
-    await _checkRutExists(rut);
-
-    try {
-      final userRef = _firestore.collection('Usuarios').doc(rut);
-      await userRef.update({
-        'consumos': {
-          'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
-          'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
-          'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
+            print('Calculated payment for $month: $payment');
+          } catch (e) {
+            print('Error calculating payment for $month: $e');
+          }
         }
-      });
+      }
+
+      if (updates.isNotEmpty) {
+        await userRef.update(updates);
+        print('Updated user consumption and payment data: $updates');
+      } else {
+        print('No updates needed for consumption data');
+      }
+
     } catch (e) {
-      throw UserOperationException('Error al eliminar los consumos: $e');
+      print('Error saving consumption data: $e');
+      throw Exception('Error al guardar el consumo y calcular pagos: $e');
     }
   }
-  // Method to update notification state
+
+  Future<List<TariffData>> _getTariffData() async {
+    if (_cachedTariffData != null && _lastFetchTime != null &&
+        DateTime.now().difference(_lastFetchTime!) < cacheDuration) {
+      print('Using cached tariff data');
+      return _cachedTariffData!;
+    }
+
+    try {
+      print('Fetching tariff data from Firebase Storage...');
+      final tariffRef = _storage.ref('tarifas/san miguel/tabla de tarifas san miguel de ablemo.json');
+      final downloadUrl = await tariffRef.getDownloadURL();
+
+      final response = await http.get(Uri.parse(downloadUrl));
+      if (response.statusCode != 200) {
+        throw Exception('Error al obtener archivo de tarifas (${response.statusCode})');
+      }
+
+      final data = response.body;
+      final Map<String, dynamic> jsonData = jsonDecode(data);
+      print('Raw JSON data: $jsonData');
+
+      List<TariffData> tariffData = [];
+      for (var item in jsonData['tarifas']) {
+        final m3 = item['M3']?.toInt() ?? 0;
+        final variable1 = (item['Variable_1'] as num).toDouble();
+        final totalAPagar1 = (item['Total_a_Pagar_1'] as num).toDouble();
+
+        if (m3 > 0 && variable1 > 0) {
+          tariffData.add(TariffData(m3, variable1, totalAPagar1));
+          print('Added tariff data: M3: $m3, Variable1: $variable1, TotalAPagar1: $totalAPagar1');
+        }
+      }
+
+      _cachedTariffData = tariffData;
+      _lastFetchTime = DateTime.now();
+      print('Tariff data fetched and cached: $_cachedTariffData');
+
+      return tariffData;
+    } catch (e) {
+      print('Error fetching tariff data: $e');
+      throw Exception('Error al obtener datos de tarifa: $e');
+    }
+  }
+
+  int _getPreviousMonthConsumption(Map<String, dynamic> yearConsumption, String currentMonth) {
+    final months = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    final currentIndex = months.indexOf(currentMonth);
+    if (currentIndex <= 0) return 0;
+
+    final prevConsumption = yearConsumption[months[currentIndex - 1]] ?? 0;
+    print('Previous month consumption for $currentMonth: $prevConsumption');
+    return prevConsumption;
+  }
+
+  Future<double> calculateMonthlyPayment(String rut, String month, int consumption) async {
+    try {
+      final tariffData = await _getTariffData();
+      print('Calculating monthly payment for RUT: $rut, Month: $month, Consumption: $consumption');
+
+      final userData = await _firestore.collection('Usuarios').doc(rut).get();
+      if (!userData.exists) {
+        throw Exception('Usuario no encontrado');
+      }
+
+      final consumos = userData.data()?['consumos'] as Map<String, dynamic>?;
+      if (consumos == null) {
+        throw Exception('Datos de consumo no encontrados');
+      }
+
+      final currentYear = DateTime.now().year.toString();
+      final yearConsumption = consumos[currentYear] as Map<String, dynamic>?;
+      if (yearConsumption == null) {
+        throw Exception('Datos del año actual no encontrados');
+      }
+
+      final previousConsumption = _getPreviousMonthConsumption(yearConsumption, month);
+      final difference = consumption - previousConsumption;
+      print('Consumption difference for $month: $difference');
+
+      double payment = 4460.0;
+
+      if (difference > 0) {
+        payment += _calculateVariablePayment(difference, tariffData);
+      }
+
+      print('Final calculated payment for $month: $payment');
+      return payment;
+
+    } catch (e) {
+      print('Error calculating monthly payment: $e');
+      throw Exception('Error en el cálculo del pago: $e');
+    }
+  }
+
+  double _calculateVariablePayment(int consumption, List<TariffData> tariffData) {
+    if (consumption <= 0) return 0;
+    if (consumption > 360) consumption = 360;
+
+    for (var tariff in tariffData) {
+      if (consumption <= tariff.m3) {
+        print('Variable payment found for consumption $consumption: ${tariff.variable1}');
+        return tariff.variable1;
+      }
+    }
+
+    print('Using last total payment as fallback: ${tariffData.last.totalAPagar1}');
+    return tariffData.isEmpty ? 0 : tariffData.last.totalAPagar1;
+  }
+
+  Future<Map<String, int>> getMonthlyConsumption(String rut) async {
+    try {
+      print('Fetching monthly consumption for RUT: $rut');
+      final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
+      if (!userDoc.exists) {
+        throw Exception('El usuario no existe.');
+      }
+
+      final data = userDoc.data()?['consumos'] as Map<String, dynamic>? ?? {};
+      final currentYear = DateTime.now().year.toString();
+      final monthlyData = data[currentYear] as Map<String, dynamic>? ?? {};
+
+      print('Monthly consumption data retrieved: $monthlyData');
+      return Map<String, int>.from(monthlyData);
+    } catch (e) {
+      print('Error fetching monthly consumption: $e');
+      throw Exception('Error al obtener el consumo mensual: $e');
+    }
+  }
+
   Future<void> updateNotificationState(String documentId) async {
+    print('Updating notification state for document ID: $documentId');
     await _firestore.collection('reportes').doc(documentId).update({
       'notificationState': true,
     });
   }
 
-  // Stream to fetch only unseen notifications
   Stream<QuerySnapshot> get reportStream {
+    print('Fetching report stream for pending notifications');
     return _firestore.collection('reportes')
         .where('notificationState', isEqualTo: false)
         .snapshots();
   }
-
 }

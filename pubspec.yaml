@@ -21,12 +21,13 @@ dependencies:
   firebase_storage: ^11.7.7
   image_picker: ^1.0.7
   badges: ^3.0.2
-
+  excel: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1  # Actualizado a la última versión
   mockito: ^5.4.4        # Para pruebas unitarias
+  intl: ^0.18.0
 
 
 flutter:
