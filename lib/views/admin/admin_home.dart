@@ -83,7 +83,8 @@ class _AdminHomeState extends State<AdminHome> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 12),
                       ),
                       child: const Text('Ver Informe Detallado'),
                     ),

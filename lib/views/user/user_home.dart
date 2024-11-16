@@ -21,7 +21,6 @@ class UserMenu extends StatefulWidget {
     required this.userRut,
     required this.apellidoPaterno,
     required this.socio,
-
   }) : super(key: key);
 
   @override
@@ -35,7 +34,6 @@ class _UserMenuState extends State<UserMenu> {
   String? selectedYear;
   int? currentMonthConsumption;
 
-
   @override
   void initState() {
     super.initState();
@@ -44,9 +42,10 @@ class _UserMenuState extends State<UserMenu> {
     _consumptionController = ConsumptionController();
     _consumptionController.setUserRut(widget.userRut);
 
-
     final userController = UserController();
-    userController.getCurrentMonthConsumption(widget.userRut).then((consumption) {
+    userController
+        .getCurrentMonthConsumption(widget.userRut)
+        .then((consumption) {
       setState(() {
         currentMonthConsumption = consumption;
       });
@@ -113,13 +112,17 @@ class _UserMenuState extends State<UserMenu> {
                         ElevatedButton(
                           onPressed: () async {
                             try {
-                              await _paymentController.handlePayment(widget.userRut);
+                              await _paymentController
+                                  .handlePayment(widget.userRut);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Pago registrado exitosamente')),
+                                const SnackBar(
+                                    content:
+                                        Text('Pago registrado exitosamente')),
                               );
                             } catch (e) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Error: ${e.toString()}')),
+                                SnackBar(
+                                    content: Text('Error: ${e.toString()}')),
                               );
                             }
                           },
@@ -130,7 +133,8 @@ class _UserMenuState extends State<UserMenu> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 12),
                           ),
                           child: const Text('Pagar'),
                         ),
@@ -159,7 +163,9 @@ class _UserMenuState extends State<UserMenu> {
                         DropdownButton<String>(
                           value: selectedYear,
                           hint: const Text('Selecciona un año'),
-                          items: _consumptionController.getAvailableYears().map((String year) {
+                          items: _consumptionController
+                              .getAvailableYears()
+                              .map((String year) {
                             return DropdownMenuItem<String>(
                               value: year,
                               child: Text(year),
@@ -180,7 +186,12 @@ class _UserMenuState extends State<UserMenu> {
               ),
             ),
             // Crear reporte page
-            CreateReportPage(userRut: widget.userRut, nombre: widget.userName, apellidoPaterno: widget.apellidoPaterno, socio: widget.socio,), // Añade esta línea
+            CreateReportPage(
+              userRut: widget.userRut,
+              nombre: widget.userName,
+              apellidoPaterno: widget.apellidoPaterno,
+              socio: widget.socio,
+            ), // Añade esta línea
             // Profile page
             const Center(child: Text('Página de Perfil')),
           ][currentPageIndex],
@@ -200,7 +211,8 @@ class _UserMenuState extends State<UserMenu> {
                 label: 'Inicio',
               ),
               NavigationDestination(
-                icon: Icon(Icons.report_problem, color: Colors.black87), // Cambiado a un icono más apropiado
+                icon: Icon(Icons.report_problem,
+                    color: Colors.black87), // Cambiado a un icono más apropiado
                 label: 'Crear un reporte',
               ),
               NavigationDestination(

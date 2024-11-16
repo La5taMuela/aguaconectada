@@ -20,13 +20,23 @@ class ConsumptionChart extends StatelessWidget {
 
         final Map<String, double> chartData = controller.consumptionData.isEmpty
             ? {
-          'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
-          'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
-          'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0
-        }
+                'Enero': 0,
+                'Febrero': 0,
+                'Marzo': 0,
+                'Abril': 0,
+                'Mayo': 0,
+                'Junio': 0,
+                'Julio': 0,
+                'Agosto': 0,
+                'Septiembre': 0,
+                'Octubre': 0,
+                'Noviembre': 0,
+                'Diciembre': 0
+              }
             : controller.consumptionData;
 
-        final maxY = chartData.values.reduce((max, value) => value > max ? value : max);
+        final maxY =
+            chartData.values.reduce((max, value) => value > max ? value : max);
 
         return Container(
           height: 300,
@@ -40,7 +50,20 @@ class ConsumptionChart extends StatelessWidget {
                     showTitles: true,
                     reservedSize: 30,
                     getTitlesWidget: (double value, TitleMeta meta) {
-                      const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                      const months = [
+                        'Ene',
+                        'Feb',
+                        'Mar',
+                        'Abr',
+                        'May',
+                        'Jun',
+                        'Jul',
+                        'Ago',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dic'
+                      ];
                       final index = value.toInt();
                       if (index >= 0 && index < months.length) {
                         return Text(
@@ -72,8 +95,10 @@ class ConsumptionChart extends StatelessWidget {
                     reservedSize: 28,
                   ),
                 ),
-                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                topTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               ),
               borderData: FlBorderData(
                 show: true,

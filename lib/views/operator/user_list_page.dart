@@ -47,7 +47,8 @@ class UserListPage extends StatelessWidget {
                     ),
                   ),
                   title: Text(nombreCompleto),
-                  subtitle: Text('RUT: ${usuario['rut']} - Socio: ${usuario['socio']}'),
+                  subtitle: Text(
+                      'RUT: ${usuario['rut']} - Socio: ${usuario['socio']}'),
                   trailing: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green[600],
@@ -71,8 +72,18 @@ class UserListPage extends StatelessWidget {
     final Map<String, TextEditingController> _controllers = {};
 
     final months = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
     ];
     for (var month in months) {
       _controllers[month] = TextEditingController();
@@ -91,7 +102,8 @@ class UserListPage extends StatelessWidget {
             if (snapshot.hasData) {
               final consumptionData = snapshot.data!;
               for (var month in months) {
-                _controllers[month]!.text = consumptionData[month]?.toString() ?? '';
+                _controllers[month]!.text =
+                    consumptionData[month]?.toString() ?? '';
               }
             } else if (snapshot.hasError) {
               return AlertDialog(
@@ -140,14 +152,17 @@ class UserListPage extends StatelessWidget {
                   onPressed: () async {
                     Map<String, int> consumoData = {};
                     for (var month in months) {
-                      final value = int.tryParse(_controllers[month]!.text) ?? 0;
+                      final value =
+                          int.tryParse(_controllers[month]!.text) ?? 0;
                       consumoData[month] = value;
                     }
 
                     try {
-                      await _controller.saveMonthlyConsumption(rut, consumoData);
+                      await _controller.saveMonthlyConsumption(
+                          rut, consumoData);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Consumo guardado exitosamente')),
+                        const SnackBar(
+                            content: Text('Consumo guardado exitosamente')),
                       );
                       Navigator.pop(context);
                     } catch (e) {
@@ -156,7 +171,8 @@ class UserListPage extends StatelessWidget {
                       );
                     }
                   },
-                  child: const Text('Guardar',
+                  child: const Text(
+                    'Guardar',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

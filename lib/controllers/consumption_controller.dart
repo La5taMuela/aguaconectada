@@ -34,13 +34,20 @@ class ConsumptionController extends ChangeNotifier {
       print("Setting up listener for userRut: $userRut"); // Debug log
 
       // Use a snapshot listener
-      _firestore.collection('Usuarios').doc(userRut).snapshots().listen((DocumentSnapshot userDoc) {
+      _firestore
+          .collection('Usuarios')
+          .doc(userRut)
+          .snapshots()
+          .listen((DocumentSnapshot userDoc) {
         if (userDoc.exists) {
-          Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+          Map<String, dynamic> userData =
+              userDoc.data() as Map<String, dynamic>;
 
           // Access the 'consumos' map and then the specific year (e.g., '2024')
-          Map<String, dynamic> consumos = userData['consumos'] as Map<String, dynamic>? ?? {};
-          Map<String, dynamic> yearData = consumos['2024'] as Map<String, dynamic>? ?? {};
+          Map<String, dynamic> consumos =
+              userData['consumos'] as Map<String, dynamic>? ?? {};
+          Map<String, dynamic> yearData =
+              consumos['2024'] as Map<String, dynamic>? ?? {};
 
           print("Fetched yearData for 2024: $yearData"); // Debug log
 
@@ -74,6 +81,7 @@ class ConsumptionController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   List<String> getAvailableYears() {
     // This method can return the available years.
     // For demonstration, let's assume the years are hardcoded.

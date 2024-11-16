@@ -27,13 +27,16 @@ class PaymentController extends ChangeNotifier {
 
   Future<void> getCurrentMonthAmount(String userRut) async {
     try {
-      final userData = await _firestore.collection('Usuarios').doc(userRut).get();
+      final userData =
+          await _firestore.collection('Usuarios').doc(userRut).get();
       if (userData.exists) {
-        final montosMensuales = userData.data()?['montosMensuales'] as Map<String, dynamic>?;
+        final montosMensuales =
+            userData.data()?['montosMensuales'] as Map<String, dynamic>?;
         if (montosMensuales != null) {
           final currentYear = DateTime.now().year.toString();
           final currentMonth = _getCurrentMonth();
-          currentMonthAmount = montosMensuales[currentYear]?[currentMonth]?.toDouble() ?? 0.0;
+          currentMonthAmount =
+              montosMensuales[currentYear]?[currentMonth]?.toDouble() ?? 0.0;
         }
       }
       notifyListeners();
@@ -44,26 +47,37 @@ class PaymentController extends ChangeNotifier {
 
   void setAvailableYears() {
     final currentYear = DateTime.now().year;
-    final availableYears = List.generate(5, (index) => (currentYear - index).toString());
+    final availableYears =
+        List.generate(5, (index) => (currentYear - index).toString());
     selectedYear = availableYears.first;
     notifyListeners();
   }
+
   void _listenToMonthlyAmount() {
     if (_userRut.isEmpty) return;
 
     final currentYear = DateTime.now().year.toString();
     final currentMonth = _getCurrentMonth();
 
-    _firestore.collection('Usuarios').doc(_userRut).snapshots().listen((snapshot) {
+    _firestore
+        .collection('Usuarios')
+        .doc(_userRut)
+        .snapshots()
+        .listen((snapshot) {
       if (snapshot.exists) {
         final data = snapshot.data() as Map<String, dynamic>;
-        currentMonthAmount = data['montosMensuales']?[currentYear]?[currentMonth]?.toDouble() ?? 0.0;
+        currentMonthAmount =
+            data['montosMensuales']?[currentYear]?[currentMonth]?.toDouble() ??
+                0.0;
         notifyListeners();
       }
     });
   }
+
   Future<void> handlePayment(String userRut) async {
-    if (isProcessingPayment || currentMonthAmount == null || currentMonthAmount == 0) {
+    if (isProcessingPayment ||
+        currentMonthAmount == null ||
+        currentMonthAmount == 0) {
       return;
     }
 
@@ -99,15 +113,26 @@ class PaymentController extends ChangeNotifier {
     final currentYear = DateTime.now().year.toString();
     final currentMonth = _getCurrentMonth();
 
-    await _firestore.collection('Usuarios').doc(_userRut).update({
-      'montosMensuales.$currentYear.$currentMonth': 0
-    });
+    await _firestore
+        .collection('Usuarios')
+        .doc(_userRut)
+        .update({'montosMensuales.$currentYear.$currentMonth': 0});
   }
 
   String _getCurrentMonth() {
     final months = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
     ];
     return months[DateTime.now().month - 1];
   }

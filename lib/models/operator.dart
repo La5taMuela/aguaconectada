@@ -20,5 +20,4 @@ class Operator {
     required this.socio,
     required this.Locacion,
   });
-
 }

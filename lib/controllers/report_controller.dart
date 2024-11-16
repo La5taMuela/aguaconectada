@@ -9,25 +9,25 @@ class ReportController {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> createReport(
-      String userRut,
-      String nombre,
-      String apellidoPaterno,
-      String socio,
-      String title,
-      String description,
-      List<dynamic> images,
-      ) async {
+    String userRut,
+    String nombre,
+    String apellidoPaterno,
+    String socio,
+    String title,
+    String description,
+    List<dynamic> images,
+  ) async {
     try {
       print('Creating report with:');
-      print('userRut: $userRut, nombre: $nombre, apellidoPaterno: $apellidoPaterno, socio: $socio');
+      print(
+          'userRut: $userRut, nombre: $nombre, apellidoPaterno: $apellidoPaterno, socio: $socio');
 
       // Create a new document reference with an auto-generated ID
       DocumentReference reportRef = _firestore.collection('reportes').doc();
       String reportId = reportRef.id; // Get the auto-generated ID
 
       List<String> imageUrls = await Future.wait(
-          images.map((image) => _uploadImage(reportRef.id, image))
-      );
+          images.map((image) => _uploadImage(reportRef.id, image)));
 
       await reportRef.set({
         'id': reportId, // Add the ID to the document
@@ -40,7 +40,7 @@ class ReportController {
         'description': description,
         'status': 'pendiente',
         'imageUrls': imageUrls,
-        'notificationState':false,
+        'notificationState': false,
       });
 
       print('Reporte creado exitosamente');
@@ -49,7 +49,6 @@ class ReportController {
       throw e;
     }
   }
-
 
   Future<String> _uploadImage(String reportId, dynamic image) async {
     try {
@@ -69,7 +68,9 @@ class ReportController {
       throw e;
     }
   }
-  Future<void> reviewReport(String reportId, String operatorComment, String status) async {
+
+  Future<void> reviewReport(
+      String reportId, String operatorComment, String status) async {
     try {
       await _firestore.collection('reportes').doc(reportId).update({
         'status': status,
@@ -86,7 +87,8 @@ class ReportController {
   Future<void> deleteReport(String reportId) async {
     try {
       // Delete images from storage
-      final report = await _firestore.collection('reportes').doc(reportId).get();
+      final report =
+          await _firestore.collection('reportes').doc(reportId).get();
       final imageUrls = List<String>.from(report.data()?['imageUrls'] ?? []);
       for (var imageUrl in imageUrls) {
         await _storage.refFromURL(imageUrl).delete();

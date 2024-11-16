@@ -20,5 +20,4 @@ class User {
     required this.socio,
     required this.consumos,
   });
-
 }

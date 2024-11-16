@@ -83,20 +83,24 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _rutController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su R.U.T',
-                                prefixIcon: const Icon(Icons.person, color: Colors.white70),
+                                prefixIcon: const Icon(Icons.person,
+                                    color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintStyle: const TextStyle(color: Colors.white70),
+                                hintStyle:
+                                    const TextStyle(color: Colors.white70),
                               ),
                               style: const TextStyle(color: Colors.white),
                               onChanged: (value) {
                                 setState(() {
                                   _rutController.text = formatRut(value);
-                                  _rutController.selection = TextSelection.fromPosition(TextPosition(offset: _rutController.text.length));
+                                  _rutController.selection =
+                                      TextSelection.fromPosition(TextPosition(
+                                          offset: _rutController.text.length));
                                 });
                               },
                             ),
@@ -105,14 +109,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _socioController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su N° de socio',
-                                prefixIcon: const Icon(Icons.numbers, color: Colors.white70),
+                                prefixIcon: const Icon(Icons.numbers,
+                                    color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintStyle: const TextStyle(color: Colors.white70),
+                                hintStyle:
+                                    const TextStyle(color: Colors.white70),
                               ),
                               keyboardType: TextInputType.number,
                               style: const TextStyle(color: Colors.white),
@@ -123,8 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.blue[800],
                                 backgroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                                textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 15),
+                                textStyle: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
@@ -156,10 +164,12 @@ class _LoginScreenState extends State<LoginScreen> {
       Widget homeScreen;
       switch (result['userType']) {
         case 'Administrador':
-          homeScreen = AdminHome(userName: result['nombre'], userType: result['userType']);
+          homeScreen = AdminHome(
+              userName: result['nombre'], userType: result['userType']);
           break;
         case 'Operador':
-          homeScreen = OperatorHome(userName: result['nombre'], userType: result['userType']);
+          homeScreen = OperatorHome(
+              userName: result['nombre'], userType: result['userType']);
           break;
         case 'Usuarios':
           homeScreen = UserMenu(

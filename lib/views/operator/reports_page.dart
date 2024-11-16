@@ -69,7 +69,8 @@ class _ReportsPageState extends State<ReportsPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.report_problem, size: 64, color: Colors.grey[400]),
+                    Icon(Icons.report_problem,
+                        size: 64, color: Colors.grey[400]),
                     const SizedBox(height: 16),
                     Text(
                       'No hay reportes disponibles.',
@@ -91,7 +92,8 @@ class _ReportsPageState extends State<ReportsPage> {
                 final fecha = reporte['timestamp'] as Timestamp?;
 
                 return Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -120,7 +122,8 @@ class _ReportsPageState extends State<ReportsPage> {
                         const SizedBox(height: 4),
                         Text(
                           'Fecha: ${fecha != null ? DateFormat('dd/MM/yyyy HH:mm').format(fecha.toDate()) : 'No disponible'}',
-                          style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 12),
                         ),
                       ],
                     ),
@@ -130,7 +133,8 @@ class _ReportsPageState extends State<ReportsPage> {
                         if (imagenes.isNotEmpty)
                           Icon(Icons.image, color: Colors.blue[700]),
                         ElevatedButton(
-                          onPressed: () => _showReportDetails(context, reporte, imagenes),
+                          onPressed: () =>
+                              _showReportDetails(context, reporte, imagenes),
                           child: const Text('Revisar reporte'),
                         ),
                       ],
@@ -145,10 +149,12 @@ class _ReportsPageState extends State<ReportsPage> {
     );
   }
 
-  void _showReportDetails(
-      BuildContext context, Map<String, dynamic> reporte, List<String> imagenes) {
+  void _showReportDetails(BuildContext context, Map<String, dynamic> reporte,
+      List<String> imagenes) {
     final commentController = TextEditingController();
-    String buttonStatus = reporte['status'] == 'pendiente' ? 'Marcar en proceso' : 'Marcar en revisado';
+    String buttonStatus = reporte['status'] == 'pendiente'
+        ? 'Marcar en proceso'
+        : 'Marcar en revisado';
 
     showDialog(
       context: context,
@@ -193,8 +199,7 @@ class _ReportsPageState extends State<ReportsPage> {
                   const SizedBox(height: 16),
                   if (imagenes.isNotEmpty) ...[
                     const Text('Imágenes:',
-                        style: TextStyle(fontWeight: FontWeight.bold)
-                    ),
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     SizedBox(
                       height: 200,
@@ -211,8 +216,7 @@ class _ReportsPageState extends State<ReportsPage> {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return const Center(
-                                    child: Text('Imagen no disponible')
-                                );
+                                    child: Text('Imagen no disponible'));
                               },
                             ),
                           );

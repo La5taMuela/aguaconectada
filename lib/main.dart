@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.blue[400],
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.blue[800],
-
         ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
@@ -32,8 +31,8 @@ class MyApp extends StatelessWidget {
           // background: Colors.blue[50]!,
         ),
         textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.black),//blue[900]
-          bodyMedium: TextStyle(color: Colors.black),//blue[800]
+          bodyLarge: TextStyle(color: Colors.black), //blue[900]
+          bodyMedium: TextStyle(color: Colors.black), //blue[800]
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

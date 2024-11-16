@@ -28,12 +28,12 @@ class _OperatorHomeState extends State<OperatorHome> {
 
   // Lista de páginas disponibles
   List<Widget> get pages => [
-    const TasksPage(),
-    ReportsPage(reportId: selectedReportId ?? ''),
-    const ProfilePage(),
-    const AddUserPage(),
-    const UserListPage(),
-  ];
+        const TasksPage(),
+        ReportsPage(reportId: selectedReportId ?? ''),
+        const ProfilePage(),
+        const AddUserPage(),
+        const UserListPage(),
+      ];
 
   void _showReportModal(BuildContext context, List reports) {
     showDialog(
@@ -55,14 +55,16 @@ class _OperatorHomeState extends State<OperatorHome> {
                     subtitle: Text(report['description'] ?? 'Sin descripción'),
                     onTap: () {
                       // Update Firestore to mark notification as viewed
-                      _operatorController.updateNotificationState(report['documentId']);
+                      _operatorController
+                          .updateNotificationState(report['documentId']);
 
                       Navigator.of(context).pop(); // Close modal
 
                       // Set the selected report ID and navigate to ReportsPage
                       setState(() {
                         selectedReportId = report['documentId'];
-                        currentPageIndex = 1; // Index of ReportsPage in the pages list
+                        currentPageIndex =
+                            1; // Index of ReportsPage in the pages list
                       });
                     },
                   ),

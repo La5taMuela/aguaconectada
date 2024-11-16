@@ -12,26 +12,20 @@ class TariffData {
   TariffData(this.m3, this.variable1, this.totalAPagar1);
 }
 
-class OperatorController extends ChangeNotifier{
+class OperatorController extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   static List<TariffData>? _cachedTariffData;
   static DateTime? _lastFetchTime;
   static const cacheDuration = Duration(hours: 1);
 
-
   Future<void> updatePaymentHistory(
-      String rut,
-      String month,
-      Map<String, dynamic> paymentData
-      ) async {
+      String rut, String month, Map<String, dynamic> paymentData) async {
     try {
       final currentYear = DateTime.now().year.toString();
 
       final userRef = _firestore.collection('Usuarios').doc(rut);
-      await userRef.update({
-        'historialPagos.$currentYear.$month': paymentData
-      });
+      await userRef.update({'historialPagos.$currentYear.$month': paymentData});
 
       notifyListeners();
     } catch (e) {
@@ -40,7 +34,8 @@ class OperatorController extends ChangeNotifier{
     }
   }
 
-  Future<void> saveMonthlyConsumption(String rut, Map<String, int> consumptionData) async {
+  Future<void> saveMonthlyConsumption(
+      String rut, Map<String, int> consumptionData) async {
     final currentYear = DateTime.now().year.toString();
 
     try {
@@ -71,7 +66,6 @@ class OperatorController extends ChangeNotifier{
         await userRef.update(updates);
         notifyListeners();
       }
-
     } catch (e) {
       print('Error saving consumption data: $e');
       rethrow;
@@ -79,14 +73,16 @@ class OperatorController extends ChangeNotifier{
   }
 
   Future<List<TariffData>> _getTariffData() async {
-    if (_cachedTariffData != null && _lastFetchTime != null &&
+    if (_cachedTariffData != null &&
+        _lastFetchTime != null &&
         DateTime.now().difference(_lastFetchTime!) < cacheDuration) {
       return _cachedTariffData!;
     }
 
     try {
       // Configure Firebase Storage for public access
-      final tariffRef = _storage.ref('tarifas/san miguel/tabla de tarifas san miguel de ablemo.json');
+      final tariffRef = _storage
+          .ref('tarifas/san miguel/tabla de tarifas san miguel de ablemo.json');
       final downloadUrl = await tariffRef.getDownloadURL();
 
       // Add cache-control headers to prevent CORS issues
@@ -99,7 +95,8 @@ class OperatorController extends ChangeNotifier{
       );
 
       if (response.statusCode != 200) {
-        throw Exception('Error al obtener archivo de tarifas (${response.statusCode})');
+        throw Exception(
+            'Error al obtener archivo de tarifas (${response.statusCode})');
       }
 
       final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
@@ -122,10 +119,21 @@ class OperatorController extends ChangeNotifier{
     }
   }
 
-  int _getPreviousMonthConsumption(Map<String, dynamic> yearConsumption, String currentMonth) {
+  int _getPreviousMonthConsumption(
+      Map<String, dynamic> yearConsumption, String currentMonth) {
     final months = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
     ];
 
     final currentIndex = months.indexOf(currentMonth);
@@ -135,7 +143,8 @@ class OperatorController extends ChangeNotifier{
     return (yearConsumption[prevMonth] as num?)?.toInt() ?? 0;
   }
 
-  Future<double> calculateMonthlyPayment(String rut, String month, int consumption) async {
+  Future<double> calculateMonthlyPayment(
+      String rut, String month, int consumption) async {
     try {
       final tariffData = await _getTariffData();
 
@@ -145,7 +154,9 @@ class OperatorController extends ChangeNotifier{
       }
 
       final currentYear = DateTime.now().year.toString();
-      final consumos = userData.data()?['consumos']?[currentYear] as Map<String, dynamic>? ?? {};
+      final consumos =
+          userData.data()?['consumos']?[currentYear] as Map<String, dynamic>? ??
+              {};
 
       final previousConsumption = _getPreviousMonthConsumption(consumos, month);
       final difference = consumption - previousConsumption;
@@ -171,18 +182,21 @@ class OperatorController extends ChangeNotifier{
     }
   }
 
-  double _calculateVariablePayment(int consumption, List<TariffData> tariffData) {
+  double _calculateVariablePayment(
+      int consumption, List<TariffData> tariffData) {
     if (consumption <= 0) return 0;
     if (consumption > 360) consumption = 360;
 
     for (var tariff in tariffData) {
       if (consumption <= tariff.m3) {
-        print('Variable payment found for consumption $consumption: ${tariff.variable1}');
+        print(
+            'Variable payment found for consumption $consumption: ${tariff.variable1}');
         return tariff.variable1;
       }
     }
 
-    print('Using last total payment as fallback: ${tariffData.last.totalAPagar1}');
+    print(
+        'Using last total payment as fallback: ${tariffData.last.totalAPagar1}');
     return tariffData.isEmpty ? 0 : tariffData.last.totalAPagar1;
   }
 
@@ -215,9 +229,9 @@ class OperatorController extends ChangeNotifier{
 
   Stream<QuerySnapshot> get reportStream {
     print('Fetching report stream for pending notifications');
-    return _firestore.collection('reportes')
+    return _firestore
+        .collection('reportes')
         .where('notificationState', isEqualTo: false)
         .snapshots();
   }
-
 }

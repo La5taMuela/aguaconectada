@@ -17,8 +17,10 @@ class _AddUserPageState extends State<AddUserPage> {
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController segundoNombreController = TextEditingController();
-  final TextEditingController apellidoPaternoController = TextEditingController();
-  final TextEditingController apellidoMaternoController = TextEditingController();
+  final TextEditingController apellidoPaternoController =
+      TextEditingController();
+  final TextEditingController apellidoMaternoController =
+      TextEditingController();
   final TextEditingController rutController = TextEditingController();
   final TextEditingController notaController = TextEditingController();
 
@@ -55,14 +57,24 @@ class _AddUserPageState extends State<AddUserPage> {
         socio: _siguienteIdUsuario!,
         consumos: {
           DateTime.now().year.toString(): {
-            'Enero': 0, 'Febrero': 0, 'Marzo': 0, 'Abril': 0,
-            'Mayo': 0, 'Junio': 0, 'Julio': 0, 'Agosto': 0,
-            'Septiembre': 0, 'Octubre': 0, 'Noviembre': 0, 'Diciembre': 0,
+            'Enero': 0,
+            'Febrero': 0,
+            'Marzo': 0,
+            'Abril': 0,
+            'Mayo': 0,
+            'Junio': 0,
+            'Julio': 0,
+            'Agosto': 0,
+            'Septiembre': 0,
+            'Octubre': 0,
+            'Noviembre': 0,
+            'Diciembre': 0,
           }
         },
       );
 
-      final errorResponse = await _userController.addUserWithInitialConsumption(user);
+      final errorResponse =
+          await _userController.addUserWithInitialConsumption(user);
 
       if (errorResponse.isEmpty) {
         _mostrarDialogoExito();
@@ -114,19 +126,24 @@ class _AddUserPageState extends State<AddUserPage> {
           child: ListView(
             children: [
               _buildTextField(nombreController, 'Nombre', _validateName),
-              if (_errorMessages['nombre'] != null) _buildErrorText(_errorMessages['nombre']),
+              if (_errorMessages['nombre'] != null)
+                _buildErrorText(_errorMessages['nombre']),
               const SizedBox(height: 10),
-              _buildTextField(segundoNombreController, 'Segundo Nombre (Opcional)'),
+              _buildTextField(
+                  segundoNombreController, 'Segundo Nombre (Opcional)'),
               const SizedBox(height: 10),
-              _buildTextField(apellidoPaternoController, 'Apellido Paterno', _validateName),
-              if (_errorMessages['apellidoPaterno'] != null) _buildErrorText(_errorMessages['apellidoPaterno']),
+              _buildTextField(
+                  apellidoPaternoController, 'Apellido Paterno', _validateName),
+              if (_errorMessages['apellidoPaterno'] != null)
+                _buildErrorText(_errorMessages['apellidoPaterno']),
               const SizedBox(height: 10),
-              _buildTextField(apellidoMaternoController, 'Apellido Materno (Opcional)'),
+              _buildTextField(
+                  apellidoMaternoController, 'Apellido Materno (Opcional)'),
               const SizedBox(height: 10),
               _buildTextField(
                 rutController,
                 'RUT',
-                    (value) {
+                (value) {
                   if (!ValidationController().isValidRut(value!)) {
                     return 'El RUT es obligatorio y debe tener 9 caracteres sin símbolos.';
                   }
@@ -134,13 +151,15 @@ class _AddUserPageState extends State<AddUserPage> {
                 },
                 null, // No onChanged callback
               ),
-              if (_errorMessages['rut'] != null) _buildErrorText(_errorMessages['rut']),
+              if (_errorMessages['rut'] != null)
+                _buildErrorText(_errorMessages['rut']),
               const SizedBox(height: 10),
               _buildTextField(notaController, 'Nota (Opcional)'),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _saveUser,
-                child: const Text('Agregar usuario',
+                child: const Text(
+                  'Agregar usuario',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -166,11 +185,11 @@ class _AddUserPageState extends State<AddUserPage> {
   }
 
   Widget _buildTextField(
-      TextEditingController controller,
-      String label, [
-        String? Function(String?)? validator,
-        void Function(String)? onChanged,
-      ]) {
+    TextEditingController controller,
+    String label, [
+    String? Function(String?)? validator,
+    void Function(String)? onChanged,
+  ]) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(

@@ -9,7 +9,10 @@ class AuthController {
 
   Future<Map<String, dynamic>> login(String rut, String numeroSocio) async {
     if (rut.isEmpty || numeroSocio.isEmpty) {
-      return {'success': false, 'message': 'Por favor, complete todos los campos.'};
+      return {
+        'success': false,
+        'message': 'Por favor, complete todos los campos.'
+      };
     }
 
     String formattedRut = _formatRut(rut);
@@ -47,7 +50,10 @@ class AuthController {
         }
       }
 
-      return {'success': false, 'message': 'Datos incorrectos, verifique su RUT o número de socio.'};
+      return {
+        'success': false,
+        'message': 'Datos incorrectos, verifique su RUT o número de socio.'
+      };
     } catch (e) {
       return {'success': false, 'message': 'Error al iniciar sesión: $e'};
     }

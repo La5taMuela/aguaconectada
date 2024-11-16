@@ -4,6 +4,7 @@ import '../models/user.dart';
 import 'validation_controller.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/foundation.dart';
+
 class UserController extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ValidationController _validationController = ValidationController();
@@ -16,7 +17,9 @@ class UserController extends ChangeNotifier {
           .limit(1)
           .get();
 
-      return usuarios.docs.isNotEmpty ? usuarios.docs.first['idUsuario'] + 1 : 1;
+      return usuarios.docs.isNotEmpty
+          ? usuarios.docs.first['idUsuario'] + 1
+          : 1;
     } catch (e) {
       throw Exception('Error al obtener el próximo ID de usuario.');
     }
@@ -95,8 +98,10 @@ class UserController extends ChangeNotifier {
       'nota': user.nota,
       'socio': user.socio,
       'consumos': user.consumos,
-      'montosMensuales': montosMensuales, // Add montosMensuales with just months
-      'historialPagos': historialPagos,   // Add historialPagos with valor and timestamp
+      'montosMensuales':
+          montosMensuales, // Add montosMensuales with just months
+      'historialPagos':
+          historialPagos, // Add historialPagos with valor and timestamp
     };
 
     try {
@@ -107,20 +112,23 @@ class UserController extends ChangeNotifier {
     }
   }
 
-
-
-
   Map<String, String?> _validateUserData(User user) {
     final validations = {
-      'nombre': _validationController.isValidName(user.nombre) ? null : 'El nombre debe tener al menos 1 letra.',
-      'apellidoPaterno': _validationController.isValidName(user.apellidoPaterno) ? null : 'El apellido paterno debe tener al menos 3 letras.',
-      'rut': _validationController.isValidRut(user.rut) ? null : 'El RUT es obligatorio y no puede contener símbolos.',
+      'nombre': _validationController.isValidName(user.nombre)
+          ? null
+          : 'El nombre debe tener al menos 1 letra.',
+      'apellidoPaterno': _validationController.isValidName(user.apellidoPaterno)
+          ? null
+          : 'El apellido paterno debe tener al menos 3 letras.',
+      'rut': _validationController.isValidRut(user.rut)
+          ? null
+          : 'El RUT es obligatorio y no puede contener símbolos.',
     };
     return validations..removeWhere((key, value) => value == null);
   }
 
-
-  Future<void> saveMonthlyConsumption(String rut, Map<String, int> consumptionData) async {
+  Future<void> saveMonthlyConsumption(
+      String rut, Map<String, int> consumptionData) async {
     if (!await verificarRutExistente(rut)) {
       throw Exception('El RUT no está registrado.');
     }
@@ -136,7 +144,8 @@ class UserController extends ChangeNotifier {
     }
   }
 
-  Future<void> updateMonthlyConsumption(String rut, String mes, int newValue) async {
+  Future<void> updateMonthlyConsumption(
+      String rut, String mes, int newValue) async {
     if (!await verificarRutExistente(rut)) {
       throw Exception('El RUT no está registrado.');
     }
@@ -165,6 +174,7 @@ class UserController extends ChangeNotifier {
       throw Exception('Error al actualizar el consumo: $e');
     }
   }
+
   Future<int?> getCurrentMonthConsumption(String rut) async {
     try {
       await initializeDateFormatting('es_ES', null);
