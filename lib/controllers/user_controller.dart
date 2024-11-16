@@ -201,6 +201,29 @@ class UserController extends ChangeNotifier {
     }
   }
 
+  Future<Map<String, dynamic>> getPaymentStatusByMonth(String rut) async {
+    try {
+      final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
+      if (userDoc.exists) {
+        final currentYear = DateTime.now().year.toString();
+        final paymentData = userDoc.data()?['historialPagos'][currentYear] ?? {};
+        final Map<String, dynamic> result = {};
+
+        for (var month in [
+          'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+          'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ]) {
+          result[month] = paymentData[month] ?? {'valor': 0, 'fecha': null};
+        }
+
+        return result;
+      } else {
+        throw Exception('Usuario no encontrado');
+      }
+    } catch (e) {
+      throw Exception('Error al obtener el estado de pago por mes: $e');
+    }
+  }
   String formatTimestamp(int timestamp) {
     final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
     return DateFormat('dd/MM/yyyy HH:mm:ss').format(date);

@@ -4,7 +4,7 @@ import '../../controllers/operator_controller.dart';
 import '../../controllers/user_controller.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
-import 'create_report_page.dart'; // Añade esta importación
+import 'create_report_page.dart';
 import '../../controllers/payment_controller.dart';
 
 class UserMenu extends StatefulWidget {
@@ -41,20 +41,6 @@ class _UserMenuState extends State<UserMenu> {
     _paymentController.initializeData(widget.userRut);
     _consumptionController = ConsumptionController();
     _consumptionController.setUserRut(widget.userRut);
-
-    final userController = UserController();
-    userController
-        .getCurrentMonthConsumption(widget.userRut)
-        .then((consumption) {
-      setState(() {
-        currentMonthConsumption = consumption;
-      });
-    });
-
-    List<String> availableYears = _consumptionController.getAvailableYears();
-    if (availableYears.isNotEmpty) {
-      selectedYear = availableYears.first;
-    }
   }
 
   @override
@@ -147,12 +133,12 @@ class _UserMenuState extends State<UserMenu> {
                     indent: 60,
                     endIndent: 60,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'Gráfico de consumo',
                           style: TextStyle(
                             fontSize: 22,
@@ -160,39 +146,95 @@ class _UserMenuState extends State<UserMenu> {
                             color: Colors.black87,
                           ),
                         ),
-                        DropdownButton<String>(
-                          value: selectedYear,
-                          hint: const Text('Selecciona un año'),
-                          items: _consumptionController
-                              .getAvailableYears()
-                              .map((String year) {
-                            return DropdownMenuItem<String>(
-                              value: year,
-                              child: Text(year),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              selectedYear = newValue;
-                            });
-                            print('Año seleccionado: $selectedYear');
-                          },
-                        ),
                       ],
                     ),
                   ),
                   const ConsumptionChart(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Historial de Pagos',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: FutureBuilder<Map<String, dynamic>>(
+                        future: UserController()
+                            .getPaymentStatusByMonth(widget.userRut),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Text(
+                                'No hay datos de pago disponibles.');
+                          } else {
+                            final paymentData = snapshot.data!;
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: paymentData.entries.map((entry) {
+                                final month = entry.key;
+                                final details = entry.value;
+                                return Card(
+                                  color: Colors.white, // Make each card background transparent
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+
+                                    child: Center(
+                                      child: Text(
+                                        details['valor'] == 0
+                                            ? '$month: Mes no pagado'
+                                            : '$month: Pago ${details['fecha']}\nTotal: \$${details['valor']}',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            // Crear reporte page
             CreateReportPage(
               userRut: widget.userRut,
               nombre: widget.userName,
               apellidoPaterno: widget.apellidoPaterno,
               socio: widget.socio,
-            ), // Añade esta línea
-            // Profile page
+            ),
             const Center(child: Text('Página de Perfil')),
           ][currentPageIndex],
           bottomNavigationBar: NavigationBar(
@@ -211,8 +253,7 @@ class _UserMenuState extends State<UserMenu> {
                 label: 'Inicio',
               ),
               NavigationDestination(
-                icon: Icon(Icons.report_problem,
-                    color: Colors.black87), // Cambiado a un icono más apropiado
+                icon: Icon(Icons.report_problem, color: Colors.black87),
                 label: 'Crear un reporte',
               ),
               NavigationDestination(
