@@ -3,7 +3,8 @@ import 'package:intl/intl.dart';
 import '../models/user.dart';
 import 'validation_controller.dart';
 import 'package:intl/date_symbol_data_local.dart';
-class UserController {
+import 'package:flutter/foundation.dart';
+class UserController extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ValidationController _validationController = ValidationController();
 
@@ -68,18 +69,18 @@ class UserController {
     // Create the historialPagos structure with months as maps containing 'valor' and 'timestamp'
     final historialPagos = {
       currentYear: {
-        'Enero': {'valor': 0, 'timestamp': 0},
-        'Febrero': {'valor': 0, 'timestamp': 0},
-        'Marzo': {'valor': 0, 'timestamp': 0},
-        'Abril': {'valor': 0, 'timestamp': 0},
-        'Mayo': {'valor': 0, 'timestamp': 0},
-        'Junio': {'valor': 0, 'timestamp': 0},
-        'Julio': {'valor': 0, 'timestamp': 0},
-        'Agosto': {'valor': 0, 'timestamp': 0},
-        'Septiembre': {'valor': 0, 'timestamp': 0},
-        'Octubre': {'valor': 0, 'timestamp': 0},
-        'Noviembre': {'valor': 0, 'timestamp': 0},
-        'Diciembre': {'valor': 0, 'timestamp': 0},
+        'Enero': {'valor': 0, 'fecha': 0},
+        'Febrero': {'valor': 0, 'fecha': 0},
+        'Marzo': {'valor': 0, 'fecha': 0},
+        'Abril': {'valor': 0, 'fecha': 0},
+        'Mayo': {'valor': 0, 'fecha': 0},
+        'Junio': {'valor': 0, 'fecha': 0},
+        'Julio': {'valor': 0, 'fecha': 0},
+        'Agosto': {'valor': 0, 'fecha': 0},
+        'Septiembre': {'valor': 0, 'fecha': 0},
+        'Octubre': {'valor': 0, 'fecha': 0},
+        'Noviembre': {'valor': 0, 'fecha': 0},
+        'Diciembre': {'valor': 0, 'fecha': 0},
       }
     };
 
@@ -110,20 +111,14 @@ class UserController {
 
 
   Map<String, String?> _validateUserData(User user) {
-    final errorMessages = <String, String?>{};
-
-    if (!_validationController.isValidName(user.nombre)) {
-      errorMessages['nombre'] = 'El nombre debe tener al menos 1 letra.';
-    }
-    if (!_validationController.isValidName(user.apellidoPaterno)) {
-      errorMessages['apellidoPaterno'] = 'El apellido paterno debe tener al menos 3 letras.';
-    }
-    if (!_validationController.isValidRut(user.rut)) {
-      errorMessages['rut'] = 'El RUT es obligatorio y no puede contener símbolos.';
-    }
-
-    return errorMessages;
+    final validations = {
+      'nombre': _validationController.isValidName(user.nombre) ? null : 'El nombre debe tener al menos 1 letra.',
+      'apellidoPaterno': _validationController.isValidName(user.apellidoPaterno) ? null : 'El apellido paterno debe tener al menos 3 letras.',
+      'rut': _validationController.isValidRut(user.rut) ? null : 'El RUT es obligatorio y no puede contener símbolos.',
+    };
+    return validations..removeWhere((key, value) => value == null);
   }
+
 
   Future<void> saveMonthlyConsumption(String rut, Map<String, int> consumptionData) async {
     if (!await verificarRutExistente(rut)) {
@@ -148,38 +143,57 @@ class UserController {
 
     try {
       final userRef = _firestore.collection('Usuarios').doc(rut);
-      await userRef.update({'consumos.$mes': newValue});
+      final userDoc = await userRef.get();
+      final userData = userDoc.data() as Map<String, dynamic>;
+
+      final currentYear = DateTime.now().year.toString();
+      final currentConsumption = userData['consumos'][currentYear][mes] ?? 0;
+
+      // Calculate the difference
+      final difference = newValue - currentConsumption;
+
+      // Update the consumption
+      await userRef.update({'consumos.$currentYear.$mes': newValue});
+
+      // Update montosMensuales
+      final currentAmount = userData['montosMensuales'][currentYear][mes] ?? 0;
+      final newAmount = currentAmount + difference;
+      await userRef.update({'montosMensuales.$currentYear.$mes': newAmount});
+
+      notifyListeners();
     } catch (e) {
       throw Exception('Error al actualizar el consumo: $e');
     }
   }
   Future<int?> getCurrentMonthConsumption(String rut) async {
     try {
-      // Inicializa los datos de localización para el idioma español
       await initializeDateFormatting('es_ES', null);
 
       final now = DateTime.now();
       final year = now.year.toString();
-      final month = DateFormat.MMMM('es_ES').format(now).capitalize(); // Nombre del mes en español con la primera letra en mayúscula
+      final month = DateFormat.MMMM('es_ES').format(now).capitalize();
 
-      // Imprimir los valores de mes y año para ver qué se está buscando
       print('Buscando consumo para el mes: $month, año: $year');
 
       final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
       if (userDoc.exists) {
-        // Accede a "montosMensuales" en lugar de "consumosMensuales"
-        final monthlyConsumption = userDoc.data()?['montosMensuales']?[year]?[month];
+        final monthlyAmount = userDoc.data()?['montosMensuales']?[year]?[month];
 
-        // Imprimir el consumo obtenido (si existe)
-        print('Consumo encontrado: $monthlyConsumption');
-
-        return monthlyConsumption;
+        // Ensure we return an integer
+        if (monthlyAmount != null) {
+          return monthlyAmount.toInt();
+        }
       }
       return null;
     } catch (e) {
       print('Error al obtener el consumo del mes actual: $e');
-      throw Exception('Error al obtener el consumo del mes actual: $e');
+      return null;
     }
+  }
+
+  String formatTimestamp(int timestamp) {
+    final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    return DateFormat('dd/MM/yyyy HH:mm:ss').format(date);
   }
 }
 

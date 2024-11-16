@@ -5,6 +5,7 @@ import '../../controllers/user_controller.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 import 'create_report_page.dart'; // Añade esta importación
+import '../../controllers/payment_controller.dart';
 
 class UserMenu extends StatefulWidget {
   final String userType;
@@ -29,15 +30,20 @@ class UserMenu extends StatefulWidget {
 
 class _UserMenuState extends State<UserMenu> {
   int currentPageIndex = 0;
+  late PaymentController _paymentController;
   late ConsumptionController _consumptionController;
   String? selectedYear;
   int? currentMonthConsumption;
 
+
   @override
   void initState() {
     super.initState();
+    _paymentController = PaymentController();
+    _paymentController.initializeData(widget.userRut);
     _consumptionController = ConsumptionController();
     _consumptionController.setUserRut(widget.userRut);
+
 
     final userController = UserController();
     userController.getCurrentMonthConsumption(widget.userRut).then((consumption) {
@@ -107,17 +113,14 @@ class _UserMenuState extends State<UserMenu> {
                         ElevatedButton(
                           onPressed: () async {
                             try {
-                              // Aquí actualizamos el timestamp al momento de pagar
-                              final operatorController = OperatorController();
-                              await operatorController.saveMonthlyConsumption(widget.userRut, {
-                                'Enero': currentMonthConsumption ?? 0,  // Puedes añadir otros meses si es necesario
-                              });
-                              setState(() {
-                                currentMonthConsumption = 0; // Resetear o actualizar el monto si es necesario
-                              });
-                              print('Pago registrado y timestamp actualizado');
+                              await _paymentController.handlePayment(widget.userRut);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Pago registrado exitosamente')),
+                              );
                             } catch (e) {
-                              print('Error al procesar el pago: $e');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Error: ${e.toString()}')),
+                              );
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -131,7 +134,6 @@ class _UserMenuState extends State<UserMenu> {
                           ),
                           child: const Text('Pagar'),
                         ),
-
                       ],
                     ),
                   ),

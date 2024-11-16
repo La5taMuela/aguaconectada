@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:8:5-39:19
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:8:5-40:19
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:firebase_storage] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
@@ -46,11 +46,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Jo
 	android:name
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-MERGED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
+MERGED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_storage] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_core] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
@@ -104,15 +104,15 @@ INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\debu
 INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-52:12
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -127,17 +127,17 @@ ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\An
 	android:name
 		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:7:22-77
 queries
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:45:5-50:15
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:46:5-51:15
 intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:46:9-49:18
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:47:9-50:18
 action#android.intent.action.PROCESS_TEXT
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:47:13-72
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:13-72
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:47:21-70
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:21-70
 data
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:13-50
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:49:13-50
 	android:mimeType
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:19-48
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:49:19-48
 uses-sdk
 INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
