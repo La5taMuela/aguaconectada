@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:aguaconectada/controllers/user_controller.dart';
 import 'package:aguaconectada/models/user.dart';
 import '../../controllers/validation_controller.dart';
-import '../../controllers/operator_controller.dart';
 
 class AddUserPage extends StatefulWidget {
   const AddUserPage({super.key});
@@ -17,10 +16,8 @@ class _AddUserPageState extends State<AddUserPage> {
 
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController segundoNombreController = TextEditingController();
-  final TextEditingController apellidoPaternoController =
-      TextEditingController();
-  final TextEditingController apellidoMaternoController =
-      TextEditingController();
+  final TextEditingController apellidoPaternoController = TextEditingController();
+  final TextEditingController apellidoMaternoController = TextEditingController();
   final TextEditingController rutController = TextEditingController();
   final TextEditingController notaController = TextEditingController();
 
@@ -47,14 +44,8 @@ class _AddUserPageState extends State<AddUserPage> {
 
     if (_formKey.currentState!.validate()) {
       final user = User(
-        idUsuario: _siguienteIdUsuario!,
-        nombre: nombreController.text.trim(),
-        segundoNombre: segundoNombreController.text.trim(),
-        apellidoPaterno: apellidoPaternoController.text.trim(),
         apellidoMaterno: apellidoMaternoController.text.trim(),
-        rut: rutController.text.trim(),
-        nota: notaController.text.trim(),
-        socio: _siguienteIdUsuario!,
+        apellidoPaterno: apellidoPaternoController.text.trim(),
         consumos: {
           DateTime.now().year.toString(): {
             'Enero': 0,
@@ -71,10 +62,17 @@ class _AddUserPageState extends State<AddUserPage> {
             'Diciembre': 0,
           }
         },
+        historialPagos: {},
+        idUsuario: _siguienteIdUsuario!,
+        montosMensuales: {},
+        nombre: nombreController.text.trim(),
+        nota: notaController.text.trim(),
+        rut: rutController.text.trim(),
+        segundoNombre: segundoNombreController.text.trim(),
+        socio: _siguienteIdUsuario!,
       );
 
-      final errorResponse =
-          await _userController.addUserWithInitialConsumption(user);
+      final errorResponse = await _userController.addUserWithInitialConsumption(user);
 
       if (errorResponse.isEmpty) {
         _mostrarDialogoExito();
@@ -129,27 +127,23 @@ class _AddUserPageState extends State<AddUserPage> {
               if (_errorMessages['nombre'] != null)
                 _buildErrorText(_errorMessages['nombre']),
               const SizedBox(height: 10),
-              _buildTextField(
-                  segundoNombreController, 'Segundo Nombre (Opcional)'),
+              _buildTextField(segundoNombreController, 'Segundo Nombre (Opcional)'),
               const SizedBox(height: 10),
-              _buildTextField(
-                  apellidoPaternoController, 'Apellido Paterno', _validateName),
+              _buildTextField(apellidoPaternoController, 'Apellido Paterno', _validateName),
               if (_errorMessages['apellidoPaterno'] != null)
                 _buildErrorText(_errorMessages['apellidoPaterno']),
               const SizedBox(height: 10),
-              _buildTextField(
-                  apellidoMaternoController, 'Apellido Materno (Opcional)'),
+              _buildTextField(apellidoMaternoController, 'Apellido Materno (Opcional)'),
               const SizedBox(height: 10),
               _buildTextField(
                 rutController,
                 'RUT',
-                (value) {
+                    (value) {
                   if (!ValidationController().isValidRut(value!)) {
                     return 'El RUT es obligatorio y debe tener 9 caracteres sin símbolos.';
                   }
-                  return null; // Valid RUT
+                  return null;
                 },
-                null, // No onChanged callback
               ),
               if (_errorMessages['rut'] != null)
                 _buildErrorText(_errorMessages['rut']),
@@ -185,11 +179,10 @@ class _AddUserPageState extends State<AddUserPage> {
   }
 
   Widget _buildTextField(
-    TextEditingController controller,
-    String label, [
-    String? Function(String?)? validator,
-    void Function(String)? onChanged,
-  ]) {
+      TextEditingController controller,
+      String label, [
+        String? Function(String?)? validator,
+      ]) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -199,7 +192,6 @@ class _AddUserPageState extends State<AddUserPage> {
         ),
       ),
       validator: validator,
-      onChanged: onChanged, // Keep this for other fields if necessary
     );
   }
 

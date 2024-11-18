@@ -172,19 +172,14 @@ class _LoginScreenState extends State<LoginScreen> {
               userName: result['nombre'], userType: result['userType']);
           break;
         case 'Usuarios':
-          homeScreen = UserMenu(
-            userName: result['nombre'],
-            userType: result['userType'],
-            userRut: result['rut'],
-            apellidoPaterno: '',
-            socio: '',
-          );
+        // Create a User object from the login result
+          User user = User.fromMap(result);
+          homeScreen = UserMenu(user: user);
           break;
         default:
           _showMessage('Error: Tipo de usuario desconocido');
           return;
       }
-
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => homeScreen),

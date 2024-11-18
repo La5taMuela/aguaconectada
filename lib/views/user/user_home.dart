@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../controllers/operator_controller.dart';
 import '../../controllers/user_controller.dart';
+import '../../models/user.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 import 'create_report_page.dart';
 import '../../controllers/payment_controller.dart';
 
 class UserMenu extends StatefulWidget {
-  final String userType;
-  final String userName;
-  final String userRut;
-  final String apellidoPaterno;
-  final String socio;
+  final User user;
 
   const UserMenu({
     Key? key,
-    required this.userType,
-    required this.userName,
-    required this.userRut,
-    required this.apellidoPaterno,
-    required this.socio,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -38,9 +30,10 @@ class _UserMenuState extends State<UserMenu> {
   void initState() {
     super.initState();
     _paymentController = PaymentController();
-    _paymentController.initializeData(widget.userRut);
+    _paymentController.initializeData(widget.user.rut);
     _consumptionController = ConsumptionController();
-    _consumptionController.setUserRut(widget.userRut);
+    _consumptionController.setUserRut(widget.user.rut);
+    print('Setting userRut: ${widget.user.rut}');
   }
 
   @override
@@ -52,7 +45,8 @@ class _UserMenuState extends State<UserMenu> {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text('Menú de ${widget.userName}'),
+            title: Text('Menú de ${widget.user.nombreCompleto()}'),
+
             backgroundColor: Colors.blue[400],
             actions: [
               IconButton(
@@ -99,7 +93,7 @@ class _UserMenuState extends State<UserMenu> {
                           onPressed: () async {
                             try {
                               await _paymentController
-                                  .handlePayment(widget.userRut);
+                                  .handlePayment(widget.user.rut);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content:
@@ -176,7 +170,7 @@ class _UserMenuState extends State<UserMenu> {
                       ),
                       child: FutureBuilder<Map<String, dynamic>>(
                         future: UserController()
-                            .getPaymentStatusByMonth(widget.userRut),
+                            .getPaymentStatusByMonth(widget.user.rut),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -230,10 +224,10 @@ class _UserMenuState extends State<UserMenu> {
               ),
             ),
             CreateReportPage(
-              userRut: widget.userRut,
-              nombre: widget.userName,
-              apellidoPaterno: widget.apellidoPaterno,
-              socio: widget.socio,
+              userRut: widget.user.rut,
+              nombre: widget.user.nombre,
+              apellidoPaterno: widget.user.apellidoPaterno,
+              socio: widget.user.socio.toString(),
             ),
             const Center(child: Text('Página de Perfil')),
           ][currentPageIndex],

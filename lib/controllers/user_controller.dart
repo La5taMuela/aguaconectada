@@ -99,9 +99,9 @@ class UserController extends ChangeNotifier {
       'socio': user.socio,
       'consumos': user.consumos,
       'montosMensuales':
-          montosMensuales, // Add montosMensuales with just months
+      montosMensuales, // Add montosMensuales with just months
       'historialPagos':
-          historialPagos, // Add historialPagos with valor and timestamp
+      historialPagos, // Add historialPagos with valor and timestamp
     };
 
     try {
@@ -176,6 +176,11 @@ class UserController extends ChangeNotifier {
   }
 
   Future<int?> getCurrentMonthConsumption(String rut) async {
+    if (rut.isEmpty) {
+      print('Error: RUT is empty');
+      return null;
+    }
+
     try {
       await initializeDateFormatting('es_ES', null);
 
@@ -183,7 +188,7 @@ class UserController extends ChangeNotifier {
       final year = now.year.toString();
       final month = DateFormat.MMMM('es_ES').format(now).capitalize();
 
-      print('Buscando consumo para el mes: $month, año: $year');
+      print('Buscando consumo para el mes: $month, año: $year, RUT: $rut');
 
       final userDoc = await _firestore.collection('Usuarios').doc(rut).get();
       if (userDoc.exists) {
@@ -193,6 +198,8 @@ class UserController extends ChangeNotifier {
         if (monthlyAmount != null) {
           return monthlyAmount.toInt();
         }
+      } else {
+        print('Error: User document not found for RUT: $rut');
       }
       return null;
     } catch (e) {
