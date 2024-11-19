@@ -6,7 +6,7 @@ import 'package:aguaconectada/controllers/report_controller.dart';
 class ReportsPage extends StatefulWidget {
   final String reportId;
 
-  const ReportsPage({Key? key, required this.reportId}) : super(key: key);
+  const ReportsPage({super.key, required this.reportId});
 
   @override
   State<ReportsPage> createState() => _ReportsPageState();

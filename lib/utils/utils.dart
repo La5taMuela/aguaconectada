@@ -6,9 +6,7 @@ String formatRut(String rut) {
   if (cleanRut.length < 2) return rut;
 
   // Agregar el guion antes del último dígito
-  String formattedRut = cleanRut.substring(0, cleanRut.length - 1) +
-      '-' +
-      cleanRut.substring(cleanRut.length - 1);
+  String formattedRut = '${cleanRut.substring(0, cleanRut.length - 1)}-${cleanRut.substring(cleanRut.length - 1)}';
 
   // Agregar puntos cada tres dígitos desde el final
   formattedRut = formattedRut.replaceAllMapped(

@@ -46,7 +46,7 @@ class ReportController {
       print('Reporte creado exitosamente');
     } catch (e) {
       print('Error al crear el reporte: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -65,7 +65,7 @@ class ReportController {
       return downloadUrl;
     } catch (e) {
       print('Error al subir la imagen: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -80,7 +80,7 @@ class ReportController {
       print('Reporte marcado como $status exitosamente');
     } catch (e) {
       print('Error al actualizar el estado del reporte: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -99,7 +99,7 @@ class ReportController {
       print('Reporte eliminado exitosamente');
     } catch (e) {
       print('Error al eliminar el reporte: $e');
-      throw e;
+      rethrow;
     }
   }
 }

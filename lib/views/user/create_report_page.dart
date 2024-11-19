@@ -11,12 +11,12 @@ class CreateReportPage extends StatefulWidget {
   final String socio;
 
   const CreateReportPage({
-    Key? key,
+    super.key,
     required this.userRut,
     required this.nombre,
     required this.apellidoPaterno,
     required this.socio,
-  }) : super(key: key);
+  });
 
   @override
   _CreateReportPageState createState() => _CreateReportPageState();
@@ -26,7 +26,7 @@ class _CreateReportPageState extends State<CreateReportPage> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-  List<dynamic> _images = [];
+  final List<dynamic> _images = [];
   final ReportController _reportController = ReportController();
   bool _isSubmitting = false;
 

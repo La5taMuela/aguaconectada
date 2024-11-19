@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 
 class ConsumptionChart extends StatelessWidget {
-  const ConsumptionChart({Key? key}) : super(key: key);
+  const ConsumptionChart({super.key});
 
   @override
   Widget build(BuildContext context) {

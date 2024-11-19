@@ -172,7 +172,7 @@ class _AddUserPageState extends State<AddUserPage> {
     if (value == null || value.isEmpty) {
       return 'Campo obligatorio';
     }
-    if (value.length < 1) {
+    if (value.isEmpty) {
       return 'El nombre debe tener al menos 1 letras.';
     }
     return null;

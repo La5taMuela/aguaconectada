@@ -68,8 +68,8 @@ class UserListPage extends StatelessWidget {
   }
 
   void _showConsumptionModal(BuildContext context, String rut) {
-    final OperatorController _controller = OperatorController();
-    final Map<String, TextEditingController> _controllers = {};
+    final OperatorController controller = OperatorController();
+    final Map<String, TextEditingController> controllers = {};
 
     final months = [
       'Enero',
@@ -86,14 +86,14 @@ class UserListPage extends StatelessWidget {
       'Diciembre'
     ];
     for (var month in months) {
-      _controllers[month] = TextEditingController();
+      controllers[month] = TextEditingController();
     }
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return FutureBuilder<Map<String, int>>(
-          future: _controller.getMonthlyConsumption(rut),
+          future: controller.getMonthlyConsumption(rut),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -102,7 +102,7 @@ class UserListPage extends StatelessWidget {
             if (snapshot.hasData) {
               final consumptionData = snapshot.data!;
               for (var month in months) {
-                _controllers[month]!.text =
+                controllers[month]!.text =
                     consumptionData[month]?.toString() ?? '';
               }
             } else if (snapshot.hasError) {
@@ -127,7 +127,7 @@ class UserListPage extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: TextFormField(
-                        controller: _controllers[month],
+                        controller: controllers[month],
                         decoration: InputDecoration(
                           labelText: month,
                           border: OutlineInputBorder(
@@ -153,12 +153,12 @@ class UserListPage extends StatelessWidget {
                     Map<String, int> consumoData = {};
                     for (var month in months) {
                       final value =
-                          int.tryParse(_controllers[month]!.text) ?? 0;
+                          int.tryParse(controllers[month]!.text) ?? 0;
                       consumoData[month] = value;
                     }
 
                     try {
-                      await _controller.saveMonthlyConsumption(
+                      await controller.saveMonthlyConsumption(
                           rut, consumoData);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

@@ -27,7 +27,7 @@ class User {
   });
 
   String nombreCompleto() {
-    return '$nombre $apellidoPaterno';
+    return '$nombre $apellidoPaterno $apellidoMaterno';
   }
   // Getters
   String get getApellidoMaterno => apellidoMaterno;
