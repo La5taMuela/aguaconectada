@@ -6,6 +6,7 @@ import 'package:aguaconectada/views/operator/add_user_page.dart';
 import 'package:aguaconectada/views/operator/user_list_page.dart';
 import 'package:aguaconectada/controllers/operator_controller.dart';
 import 'package:badges/badges.dart' as badges;
+import '../../widgets/notification_modal.dart';  // Importamos nuestro modal
 
 class OperatorHome extends StatefulWidget {
   final String userType;
@@ -28,58 +29,31 @@ class _OperatorHomeState extends State<OperatorHome> {
 
   // Lista de páginas disponibles
   List<Widget> get pages => [
-        const TasksPage(),
-        ReportsPage(reportId: selectedReportId ?? ''),
-        const ProfilePage(),
-        const AddUserPage(),
-        const UserListPage(),
-      ];
+    const TasksPage(),
+    ReportsPage(reportId: selectedReportId ?? ''),
+    const ProfilePage(),
+    const AddUserPage(),
+    const UserListPage(),
+  ];
 
   void _showReportModal(BuildContext context, List reports) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Notificaciones"),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: ListView.builder(
-              itemCount: reports.length,
-              itemBuilder: (context, index) {
-                var report = reports[index];
-                return Card(
-                  elevation: 2,
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: ListTile(
-                    title: Text(report['nombre'] ?? 'Sin nombre'),
-                    subtitle: Text(report['description'] ?? 'Sin descripción'),
-                    onTap: () {
-                      // Update Firestore to mark notification as viewed
-                      _operatorController
-                          .updateNotificationState(report['documentId']);
+        return NotificationModal(
+          reports: reports,
+          onReportTap: (reportId) {
+            // Update Firestore to mark notification as viewed
+            _operatorController.updateNotificationState(reportId);
 
-                      Navigator.of(context).pop(); // Close modal
+            Navigator.of(context).pop(); // Close modal
 
-                      // Set the selected report ID and navigate to ReportsPage
-                      setState(() {
-                        selectedReportId = report['documentId'];
-                        currentPageIndex =
-                            1; // Index of ReportsPage in the pages list
-                      });
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-          actions: [
-            TextButton(
-              child: const Text("Cerrar"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+            // Set the selected report ID and navigate to ReportsPage
+            setState(() {
+              selectedReportId = reportId;
+              currentPageIndex = 1; // Index of ReportsPage in the pages list
+            });
+          },
         );
       },
     );
