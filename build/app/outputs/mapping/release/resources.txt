@@ -2,16 +2,18 @@ android.content.res.Resources#getIdentifier present: true
 Web content present: false
 Referenced Strings:
 cancel
-GREATER_THAN_OR_EQUAL
 http://
+GREATER_THAN_OR_EQUAL
+startPreview
 callerContext
-upload
 unavailable
+upload
+dev.flutter.pigeon.camera_android.Cam...
 app_flutter
 connectionSpec
 BrightnessValue
-com.google.android.gms.providerinstal...
 taskState
+com.google.android.gms.providerinstal...
 TAKEN
 preferences_pb
 SDK
@@ -25,6 +27,7 @@ com.google.protobuf.MapFieldSchemaFull
 kotlinx.coroutines.flow.FlowKt__Limit...
 click
 0
+EXPOSURE_LOCK
 AspectFrame
 size
 left
@@ -37,8 +40,8 @@ S_RESUMING_BY_RCV
 EXTRA_DESCRIPTORS
 BEGIN_OBJECT
 H
-LifecycleFragmentImpl
 oldIndex
+LifecycleFragmentImpl
 M
 appExecutor
 io.flutter.plugins.sharedpreferences....
@@ -69,14 +72,15 @@ m
 n
 o
 metadataGeneration
+setExposureOffsetFailed
 DRIVE_EXTERNAL_STORAGE_REQUIRED
 r
 s
 t
 java.lang.Module
 u
-namedViews
 v
+namedViews
 w
 x
 SystemUiMode.edgeToEdge
@@ -85,8 +89,8 @@ com.google.firebase.appcheck.TOKEN_TYPE
 HAS_COMMITTED_MUTATIONS
 PRIORITY
 mimeType
-emailAddress
 startIndex
+emailAddress
 dev.flutter.pigeon.shared_preferences...
 android:style
 componentName
@@ -105,43 +109,47 @@ unsupported
 provider
 TLS_DHE_DSS_WITH_DES_CBC_SHA
 android.os.Build
-valueMode_
 headers
+valueMode_
+onImageAvailable
 declaringFragment.parentFragmentManager
 MOVE_CURSOR_BACKWARD_BY_CHARACTER
 kotlin.collections.List
 appName
 lastIn.fragment.sharedElementSourceNames
 resizeUpLeft
+IOError
 getNextValue
 ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE
 GPSDifferential
 javax.net.ssl.SNIHostName
+FOCUS_POINT
 PAUSED
 android.os.Build$VERSION
+android:cancelable
 executor
 tmp
-android:cancelable
-androidx.window.extensions.WindowExte...
 hasPendingWrites
+androidx.window.extensions.WindowExte...
 block
 onStop
 flow
-maxWidth
 order
+maxWidth
 TLS_KRB5_WITH_DES_CBC_SHA
+LOCKED
 byte
-CAMERA
 IS_NAN
-LESS_THAN
+CAMERA
 getDeferredComponentInstallState
-attrs
+LESS_THAN
 defaultGoogleSignInAccount
+attrs
 sampledToLocalTracing
 XResolution
 onBackInvoked
-creditCardNumber
 resizeUp
+creditCardNumber
 compressor
 TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SH...
 deferred
@@ -153,9 +161,11 @@ LensSerialNumber
 FirestoreWorker
 HEADERS
 top
+STATE_WAITING_PRECAPTURE_DONE
 com.google.android.gms.provider.actio...
-resizeDown
+dev.flutter.pigeon.camera_android.Cam...
 TextInput.setClient
+resizeDown
 TRANSIENT_FAILURE
 SSL_RSA_WITH_RC4_128_MD5
 android:support:lifecycle
@@ -172,9 +182,9 @@ getApplicationProtocol
 hedgingDelay
 LESS_THAN_OR_EQUAL
 HapticFeedback.vibrate
-repeatCount
-decompressor
 longitude
+decompressor
+repeatCount
 kotlinx.coroutines.flow.FlowKt__Chann...
 flutter/restoration
 stopwatchSupplier
@@ -193,8 +203,8 @@ PHONE
 systemNavigationBarColor
 PlatformPlugin
 displayCutout
-lastListenSequenceNumber_
 TLS_ECDH_anon_WITH_AES_256_CBC_SHA
+lastListenSequenceNumber_
 SFIXED64_LIST_PACKED
 SSLv3
 DEAD_CLIENT
@@ -206,8 +216,8 @@ dev.flutter.pigeon.shared_preferences...
 API_NOT_CONNECTED
 newConfig
 perAttemptRecvTimeoutNanos
-Array
 RECONNECTION_TIMED_OUT
+Array
 DISCONNECTED
 setValue
 UNKNOWN
@@ -218,17 +228,16 @@ INVALID_STREAM
 com.google.android.gms.common.interna...
 com.google.android.gms.chimera.contai...
 UINT32
-Produce.kt
 android.provider.action.PICK_IMAGES
+Produce.kt
 CONNECT_ERROR
 NO_TARGET
-state
 android.hangUpIntent
+state
 element
 sClassLoader
 ClientCall.request
 NOT_FOUND
-d5.a
 SUM
 android.view.ViewRootImpl
 TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
@@ -244,15 +253,16 @@ document
 HEADER_EXTRA_LEN
 hasCommittedMutations_
 android.hardware.type.automotive
-getStateMethod
 INVALID
+getStateMethod
 CUSTOM_ACTION
 TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_...
 MODULE_ID
-PLAINTEXT
 WhitePoint
+PLAINTEXT
 forbidden
 getSourceNodeId
+AudioAccessDenied
 androidx.lifecycle.ViewModelProvider....
 runnable
 watch
@@ -265,6 +275,7 @@ outFragment
 source
 Terminated
 before_
+setZoomLevelFailed
 removeListenerMethod
 SCALAR
 addressCity
@@ -279,14 +290,15 @@ peekByte
 TLS_CHACHA20_POLY1305_SHA256
 networkaddress.cache.ttl
 backoffMultiplier
-com.google.android.gms.dynamite.IDyna...
 CLIENT_TELEMETRY
+com.google.android.gms.dynamite.IDyna...
 onRequestPermissionsResult
 TLS_KRB5_EXPORT_WITH_RC4_40_SHA
 EDGE_TO_EDGE
-GPSDateStamp
 _isTerminated
+GPSDateStamp
 libcore.io.Memory
+YUV420
 CREATED
 TLSv1.3
 TLSv1.2
@@ -309,8 +321,8 @@ unaryFilter
 modelClass.constructors
 YResolution
 transformTypeCase_
-UploadTask
 read_time_nanos
+UploadTask
 pokeLong
 TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
 POISONED
@@ -337,6 +349,7 @@ className
 unknown
 android.intent.action.RUN
 android.widget.SeekBar
+low
 KeyEventChannel
 producerIndex
 REMOVE
@@ -347,13 +360,14 @@ GPSDestBearingRef
 value.stringSet.stringsList
 com.google.android.gms.common.interna...
 com.sun.jndi.ldap.read.timeout
+dev.flutter.pigeon.camera_android.Cam...
 flutter_image_picker_max_height
 DIAGNOSTIC_CURRENT_PROFILE_EXISTS
 .immediate
 TextInputAction.unspecified
 TAG
-/index.html
 resultCase_
+/index.html
 TAP
 flutter_image_picker_pending_image_uri
 namedQuery
@@ -365,10 +379,12 @@ com.google.android.gms.signin.interna...
 CLOSE_HANDLER_INVOKED
 GPSLongitudeRef
 2
-endAt
-cancellationListener
-GeneratedPluginRegistrant
+format
 com.google.android.gms.signin
+endAt
+GeneratedPluginRegistrant
+cancellationListener
+CAP
 firstOrNull
 getUri
 Clipboard.setData
@@ -385,11 +401,12 @@ NULL_VALUE
 SINT64_LIST_PACKED
 android.net.ssl.SSLSockets
 documentChanges
+runPictureAutoFocus
 temp
 ISOSpeedLatitudezzz
 VECTOR
-overrideAuthority
 defaultPath
+overrideAuthority
 systemNavigationBarDividerColor
 CLIP_PATH
 google.firestore.v1.Firestore
@@ -406,6 +423,7 @@ PARKING
 BYTES_VALUE
 FOLD
 addObserver
+MEDIUM
 generatedAdapter
 PixelXDimension
 profile
@@ -418,10 +436,11 @@ ON_PAUSE
 MeteringMode
 QUERY
 DataMigrationInitializer.kt
-domain
-StripByteCounts
 setNpnProtocols
+StripByteCounts
+domain
 viewType
+bytesPerPixel
 invokeSuspend
 average
 Set
@@ -429,8 +448,8 @@ getResPackage
 disableStandaloneDynamiteLoader2
 transparent
 onBackInvokedDispatcher
-:scheme
 background_mode
+:scheme
 REMOVING
 StripOffsets
 defaultDisplay
@@ -454,6 +473,7 @@ missingDelimiterValue
 creds2
 creds1
 hasPassword
+dev.flutter.pigeon.camera_android.Cam...
 AwaitContinuation
 kotlin.Boolean
 List
@@ -473,8 +493,8 @@ DynamiteModule
 final
 $e
 bitField0_
-android.verificationIcon
 Localization.getStringResource
+android.verificationIcon
 com.google.android.instantapps.superv...
 DEADLINE_EXCEEDED
 title
@@ -519,9 +539,9 @@ READY
 TextInput.finishAutofillContext
 cookie
 primary.prof
+io.flutter.embedding.android.EnableOp...
 dns
 TLS_AES_256_GCM_SHA384
-io.flutter.embedding.android.EnableOp...
 signed
 PlatformChannel
 FlutterView
@@ -539,15 +559,17 @@ GET_DEFAULT_INSTANCE
 kotlinx.coroutines.flow.CallbackFlowB...
 flutter_image_picker_error_message
 MTLS
-CONDITIONTYPE_NOT_SET
 message_
 targets
+CONDITIONTYPE_NOT_SET
 stream
+dev.flutter.pigeon.camera_android.Cam...
 android.summaryText
 CancellableContinuation
 allowFreeFormInput
-SSL_RSA_WITH_NULL_SHA
 android.intent.extra.MIME_TYPES
+SSL_RSA_WITH_NULL_SHA
+max
 androidx.datastore.preferences.core.P...
 serviceResponseIntentKey
 uri
@@ -558,19 +580,21 @@ newIndent
 KeyboardManager
 WRITE_STREAM_CONNECTION_BACKOFF
 RESUMED
+NOISE_REDUCTION
 channelTracer
 main
 nullValue
-commitBackGesture
 com.google.android.gms.availability
+commitBackGesture
+lensAperture
 onBackStarted
 path_length
 fullMethodName
 direction_
 addressGroups
 EXISTENCE_FILTER_MISMATCH
-birthDateMonth
 androidx.fragment.extra.ACTIVITY_OPTI...
+birthDateMonth
 targetPath
 stopListening
 interrupted
@@ -587,18 +611,21 @@ dispose
 phoneNational
 UNDISPATCHED
 Ssl_Guard
+dev.flutter.pigeon.camera_android.Cam...
 MAX_HEADER_LIST_SIZE
 featureBounds
 SubjectDistance
 autoLoadBalancerFactory
 transformer
 TLS_RSA_WITH_AES_256_GCM_SHA384
+captureStillPicture
 peekLong
 REFUSED
 UINT32_LIST
 getWindowLayoutComponentMethod
 CustomRendered
 UNARY
+plugins.flutter.io/camera_android/ima...
 /1
 DONE_RCV
 kotlin
@@ -607,6 +634,8 @@ kotlinx.coroutines.flow.internal.Chan...
 ACCESSIBLE_NAVIGATION
 Trace
 handleSuccessfulWrite
+uvs
+ultraHigh
 bytes
 RESUME_TOKEN
 LightSource
@@ -614,15 +643,15 @@ ProcessText.processTextAction
 common_google_play_services_restricte...
 ARRAY_CONFIG_UNSPECIFIED
 io.flutter.plugins.sharedpreferences....
-CallOptions
 /cmdline
+CallOptions
 setServerNames
 telephoneNumberNational
-predicate
 observer
-character
+predicate
 ComponentDiscovery
 int2
+character
 int1
 metaState
 INTERNAL
@@ -638,8 +667,8 @@ _decision
 ?
 $this$require
 INTERNAL_STATE_FAILURE
-input_method
 documentsLoaded
+input_method
 endBefore
 SSL_DH_anon_WITH_RC4_128_MD5
 defaultCreationExtras
@@ -648,13 +677,15 @@ TLS_ECDHE_ECDSA_WITH_NULL_SHA
 setCurrentState
 AndroidChannelBuilder
 TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384
-statusCode
 com.google.android.gms.signin.interna...
-SubjectDistanceRange
+statusCode
 subchannel
+SubjectDistanceRange
+AUTO_FOCUS
 CONNECTIVITY_ATTEMPT_TIMER
 components
 latitude
+STATE_WAITING_FOCUS
 URATIONAL
 long
 timeProvider
@@ -694,6 +725,7 @@ TextInput.setEditingState
 androidx.profileinstaller.action.INST...
 ON_START
 KEY_COMPONENT_ACTIVITY_LAUNCHED_KEYS
+VERY_HIGH
 NUMBER
 RUNNING
 io.grpc.internal.ManagedChannelServic...
@@ -706,6 +738,7 @@ _next
 org.apache.harmony.xnet.provider.jsse...
 allow
 StartActivityForResult
+vertexPosition
 INVALID_ACCOUNT
 textservices
 TLS_RSA_WITH_AES_128_CBC_SHA
@@ -714,8 +747,8 @@ keepAlivePinger
 TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA
 pokeByte
 registry
-creditCardExpirationYear
 RESOURCE_EXHAUSTED
+creditCardExpirationYear
 SystemUiMode.leanBack
 document_overlays
 TERMINATE_LOCAL_LISTEN_AND_REQUIRE_WA...
@@ -739,8 +772,8 @@ INITIAL_WINDOW_SIZE
 GREATER_THAN
 NONE
 TLS_DH_anon_WITH_AES_128_CBC_SHA
-_grpc_config.
 state_
+_grpc_config.
 kotlinx.coroutines.semaphore.maxSpinC...
 LOG
 addrs
@@ -749,19 +782,21 @@ cacheControl
 TLS_ECDHE_ECDSA_WITH_RC4_128_SHA
 SyncEngine
 SensorRightBorder
+LOW
 END_OBJECT
 SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA
 brieflyShowPassword
 internal
-gender
 kotlin.collections.MutableMap
+gender
+dev.flutter.pigeon.camera_android.Cam...
 signature
 notifyLocalViewChanges
-p1.a
 typeName
-CT_INFO
 resizeRow
+CT_INFO
 OkHttpClientTransport$ClientFrameHand...
+dev.flutter.pigeon.camera_android.Cam...
 documentMetadata
 HAS_EXPANDED_STATE
 savedStateRegistry
@@ -789,6 +824,7 @@ IS_BUTTON
 Gamma
 DETECT_SET_USER_VISIBLE_HINT
 java.lang.Enum
+dev.flutter.pigeon.camera_android.Cam...
 TextInputType.datetime
 android.hardware.type.embedded
 INITIALIZE_LOCAL_LISTEN_ONLY
@@ -797,18 +833,19 @@ offset
 androidx.core.app.NotificationCompat$...
 failed
 io.grpc.internal.GrpcAttributes.secur...
-sequence
 target_count
+sequence
 updatedTimeMillis
-DATA
 BIDI_STREAMING
 SUCCESSFUL
+DATA
 UTF8
 flutter/localization
 didGainFocus
 putObject
 exceptionHandler
 FlutterRenderer
+t5.a
 previousFragmentId
 Argument
 ARRAY_CONFIG
@@ -820,6 +857,7 @@ parameter
 postfix
 getJavaLangAccess
 opaque
+mvp
 pathList
 GPSDestLongitudeRef
 observeForever
@@ -833,13 +871,14 @@ StandardOutputSensitivity
 TextInput.requestAutofill
 androidx.activity.result.contract.ext...
 SETTINGS
-deviceId
-actionIntent
 io.grpc.EquivalentAddressGroup.ATTR_A...
+actionIntent
+deviceId
 via
 TLS_DH_anon_WITH_DES_CBC_SHA
 GPSSpeed
 verticalText
+setFlashModeFailed
 transitionInfos
 FlutterSharedPreferences
 android.util.LongArray
@@ -848,8 +887,9 @@ delegateBuilder
 ?
 details_
 androidx.activity.result.contract.act...
-givenName
 _handled
+givenName
+google
 version
 androidx.datastore.core.DataMigration...
 kotlinx.coroutines.scheduler.default....
@@ -859,15 +899,15 @@ emitAllImpl$FlowKt__ChannelsKt
 TextInputClient.updateEditingStateWit...
 ALREADY_SELECTED
 DECREASE
-syncContext
 HEADER
+syncContext
 android.intent.extra.PROCESS_TEXT_REA...
 tagSocket
 PREVIOUS
 javax.naming.directory.InitialDirContext
-com.google.common.base.Strings
 MESSAGE
 savedInstanceState
+com.google.common.base.Strings
 http/1.1
 http/1.0
 PHYSICAL_DISPLAY_PLATFORM_VIEW
@@ -881,8 +921,8 @@ TLS_DHE_DSS_WITH_AES_256_CBC_SHA256
 transportExceptionHandler
 androidx.lifecycle.BundlableSavedStat...
 this$0
-padding_
 android:theme
+padding_
 animatorInfo
 RST_STREAM
 Startup
@@ -898,11 +938,11 @@ addressCountry
 flutter_image_picker_image_path
 DID_LOSE_ACCESSIBILITY_FOCUS
 NEW_MUTABLE_INSTANCE
-phoneCountryCode
 RECONNECTION_TIMED_OUT_DURING_UPDATE
+phoneCountryCode
 http
-decimal
 4.17.5
+decimal
 maxInboundMessageSize
 com.google.android.gms.dynamic.IObjec...
 TextInput.setEditableSizeAndTransform
@@ -919,8 +959,8 @@ androidx.datastore.core.SingleProcess...
 java.util.function.Consumer
 android:support:fragments
 setDisplayFeatures
-OUTBOUND
 NO_RESULT
+OUTBOUND
 NO_ACTION_REQUIRED
 cacheSizeBytes
 RESTRICTED_PROFILE
@@ -935,34 +975,35 @@ TextInputType.none
 targetIds_
 GoogleSignatureVerifier
 IN
-getNextMatch
 REFUSED_STREAM
-TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA
 _rootCause
+getNextMatch
+TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA
 datastore/
 400
 VALUETYPE_NOT_SET
 404
 RESULT_NOT_WRITABLE
 etag
-onUndeliveredElement
-%02d:%02d:%02d
 GooglePlayServicesUpdatingDialog
+%02d:%02d:%02d
+onUndeliveredElement
 MAP
 io.flutter.Entrypoint
 CLIP_RECT
+MAX
 android.intent.extra.TEXT
 IS_LINK
 cell
 protocolSelected
-URI
 safeCast
+URI
 URL
 kotlin.Long
 Completing
 imageQuality
-android.settings.APPLICATION_DETAILS_...
 _resumed
+android.settings.APPLICATION_DETAILS_...
 ARRAY_CONTAINS
 isSupportedSocket
 TextInputType.multiline
@@ -978,8 +1019,8 @@ service_googleme
 MD5
 SINGLE
 round_robin
-ExposureProgram
 UTC
+ExposureProgram
 operation.fragment.mView
 onStart
 targetChangeCase_
@@ -987,8 +1028,8 @@ _isCompleting
 onSend
 TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA
 Reset
-HTTP_1_0
 noDrop
+HTTP_1_0
 flutter/keydata
 memoryPressure
 HTTP_1_1
@@ -1013,11 +1054,11 @@ OffsetTime
 OK
 collectionId
 androidx.activity.result.contract.ext...
-android.answerColor
 PARAM_CLAUSE_0
+android.answerColor
 OR
-arrayBaseOffset
 document_mutations
+arrayBaseOffset
 StorageReference
 ASYNC
 Host
@@ -1025,6 +1066,7 @@ transport
 TextInputType.number
 fieldPaths_
 getParentNodeId
+android.intent.action.CONFIGURATION_C...
 androidx.datastore.core.DataMigration...
 getAppBounds
 uncaughtExceptionHandler
@@ -1033,12 +1075,14 @@ receiveSegment
 android.widget.HorizontalScrollView
 java
 NO_CLOSE_CAUSE
+dev.flutter.pigeon.camera_android.Cam...
 exp
+STATE_PREVIEW
 newValue
-creditCardExpirationMonth
 cache
-plugins.flutter.io/firebase_firestore...
+creditCardExpirationMonth
 frameWriter
+plugins.flutter.io/firebase_firestore...
 GmsDynamite
 dev.flutter.pigeon.shared_preferences...
 REMOVE_FROZEN
@@ -1047,8 +1091,8 @@ TRAILER
 .tmp
 PROTO2
 PROTO3
-SSL_RSA_EXPORT_WITH_DES40_CBC_SHA
 kotlinx.coroutines.semaphore.segmentSize
+SSL_RSA_EXPORT_WITH_DES40_CBC_SHA
 SPDY_SYN_STREAM
 mutation_queues
 restricted_profile
@@ -1057,23 +1101,23 @@ TLS_ECDH_RSA_WITH_AES_256_CBC_SHA
 delimiters
 ClientTelemetry.API
 SSL_RSA_WITH_RC4_128_SHA
-clazz.name
 objectFieldOffset
+clazz.name
 outBundle
-AsyncSink.flush
 TLS_ECDH_RSA_WITH_RC4_128_SHA
+AsyncSink.flush
 newLayoutInfo
 ComponentsConfiguration
 AsyncSink.write
 androidx.datastore.core.SingleProcess...
 targetType_
-streetAddress
 registryState
+streetAddress
 ACTION_ARGUMENT_EXTEND_SELECTION_BOOLEAN
 grab
 dimen
-GPSAltitudeRef
 documents
+GPSAltitudeRef
 java.util.ListIterator
 SUCCESS_CACHE
 QUIET
@@ -1082,13 +1126,13 @@ lifecycle
 io.grpc.override.ContextStorageOverride
 allScroll
 isFromCache
-document_
 contentEncoding
+document_
 ViewCompat
 com.google.android.gms.version
 PENALTY_DEATH
-modeCase_
 field_
+modeCase_
 includeSubdomains
 unreachable
 org.eclipse.jetty.alpn.ALPN
@@ -1099,21 +1143,21 @@ UINT64_LIST
 WARN
 ClientStreamListener.onReady
 flutter
-values_
 allDescendants
+values_
 LAST
 dev.flutter.pigeon.image_picker_andro...
 TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256
 dalvik.
-SceneCaptureType
 fields
+SceneCaptureType
 SERVICE_VERSION_UPDATE_REQUIRED
 FIELD_FILTER
 getDescriptor
 enteringNames
 keymap
-string
 FlutterLoader
+string
 deltaStart
 kotlin.coroutines.jvm.internal.BaseCo...
 TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256
@@ -1139,6 +1183,7 @@ primitiveFqNames.values
 totalDocuments
 android.intent.action.VIEW
 window
+lockAutoFocus
 Cancelling
 container
 com.google.android.gms.common.interna...
@@ -1148,8 +1193,8 @@ logger
 Z$
 oemFeature
 REQUEST_TIME
-getBounds
 DialogRedirect
+getBounds
 EmptyCoroutineContext
 okhttp
 TextInputAction.search
@@ -1163,13 +1208,13 @@ TLS_KRB5_EXPORT_WITH_DES_CBC_40_MD5
 INSTANCE
 GET_PARSER
 RelatedSoundFile
-WriteRunnable.runWrite
 TLS_RSA_EXPORT_WITH_RC4_40_MD5
+WriteRunnable.runWrite
 showsUserInterface
 SceneType
 PENALTY_LOG
-flags
 direct
+flags
 onPause
 TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256
 enabled
@@ -1196,21 +1241,22 @@ BYTES
 :host
 kotlinx.coroutines.fast.service.loader
 completedExpandBuffersAndPauseFlag
-KEY_COMPONENT_ACTIVITY_REGISTERED_RCS
 fieldFilter
+KEY_COMPONENT_ACTIVITY_REGISTERED_RCS
 Brightness.dark
 plugins.flutter.io/firebase_firestore...
+dev.flutter.pigeon.camera_android.Cam...
+notification
 SettingsChannel
 2
-notification
 GetMetadataTask
 compressorName
 DETECT_FRAGMENT_TAG_USAGE
 com.google.android.gms.signin.interna...
 java.lang.Byte
 initialBackoffNanos
-deltaEnd
 metadatas
+deltaEnd
 flutter_image_picker_type
 persistenceEnabled
 _consensus
@@ -1226,10 +1272,11 @@ DETECT_WRONG_NESTED_HIERARCHY
 unexpected
 tint_list
 NO_RECEIVE_RESULT
-END_STREAM
 OUT_OF_RANGE
+END_STREAM
 documents_
 FILTERTYPE_NOT_SET
+CameraCaptureCallback
 com.google.android.gms.signin.interna...
 totalBytes
 PlatformViewsChannel
@@ -1243,13 +1290,13 @@ setPosture
 projects/%s/databases/%s
 android.intent.action.PROCESS_TEXT
 TEXTURE_WITH_VIRTUAL_FALLBACK
-NETWORK_ERROR
 a:
+NETWORK_ERROR
 flutter_image_picker_error_code
 user
 DeviceSettingDescription
-getModule
 extent
+getModule
 parent
 $seekCancelLambda
 tooltip
@@ -1259,8 +1306,8 @@ messageType
 GPSSpeedRef
 flutter/keyboard
 systemStatusBarContrastEnforced
-b:
 TARGETTYPE_NOT_SET
+b:
 androidx.lifecycle.LifecycleDispatche...
 DOUBLE_LIST_PACKED
 defaultLifecycleObserver
@@ -1275,8 +1322,8 @@ _COROUTINE
 ar
 kotlinx.coroutines.scheduler.resoluti...
 TLS_DHE_RSA_WITH_AES_128_CBC_SHA
-getType
 FocalLength
+getType
 birthdayDay
 kotlin.jvm.internal.StringCompanionOb...
 com.android.org.conscrypt.OpenSSLProv...
@@ -1287,14 +1334,14 @@ kotlinx.coroutines.flow.internal.Undi...
 orderBy
 serviceIntentCall
 SystemSoundType.click
-INTEGRITY
-TLSv1
 HEADER_NAME
+TLSv1
+INTEGRITY
 TLS_RSA_WITH_RC4_128_SHA
 cn
 e1
-e2
 FRAMEWORK_CLIENT
+e2
 ThreadLocalEventLoop
 VGhpcyBpcyB0aGUgcHJlZml4IGZvciBhIGxpc3Qu
 channelRef
@@ -1320,11 +1367,12 @@ nextServedViewField
 ENABLE_PUSH
 inputAction
 frame
-io.flutter.plugins.sharedpreferences....
 ThumbnailImageLength
+io.flutter.plugins.sharedpreferences....
 SignInCoordinator
 FAILED_PRECONDITION
 fm
+setExposurePointFailed
 HEADER_COMMENT
 h2
 org.apache.harmony.xnet.provider.jsse...
@@ -1347,8 +1395,8 @@ SignIn.INTERNAL_API
 unauthenticated
 bitmap_
 500
-maxOutboundMessageSize
 obj
+maxOutboundMessageSize
 resizeLeft
 androidx.window.extensions.layout.Fol...
 io.perfmark.PerfMark.debug
@@ -1361,10 +1409,10 @@ authorization
 transformAndWrite
 context
 $newLayoutInfo
-?
 com.google.android.gms.signin.interna...
-https
+?
 id
+https
 dispatcher
 ENUM
 dev.flutter.pigeon.FirebaseAppHostApi...
@@ -1373,12 +1421,12 @@ com.google.android.clockwork.home.UPD...
 in
 offloadExecutorPool
 snapshotVersion_
-array_contains_any
 index
+array_contains_any
 is
 it
-UNDECIDED
 stdevFactor
+UNDECIDED
 announce
 SET_PRIMARY_NAV
 TextInputType.address
@@ -1394,16 +1442,17 @@ Authorization
 RIGHT
 logId
 corruptionHandler
-FILE
+camera
 lifecycleImpact
+FILE
 TLS_RSA_WITH_NULL_SHA
 OkHttpClientTransport
 onDestroy
 INITIALIZE_INFLATER
 IS_KEYBOARD_KEY
 GROUP_LIST
-personNameSuffix
 getStackTraceDepth
+personNameSuffix
 kotlin.jvm.functions.Function
 GPSLongitude
 resizeLeftRight
@@ -1413,12 +1462,13 @@ INCREMENT
 ReferenceBlackWhite
 equals
 mH
-ResolutionUnit
 complete
+ResolutionUnit
 /data/misc/profiles/ref/
 flutter/processtext
 ExponenentialBackoff
 newUsername
+c5.a
 Backoff
 writeData$datastore_core
 filterType_
@@ -1427,6 +1477,7 @@ limit
 offset_
 FINE
 index_configuration
+locked
 android.intent.action.USER_UNLOCKED
 DID_GAIN_ACCESSIBILITY_FOCUS
 kotlin.Number
@@ -1455,6 +1506,7 @@ keys
 writeResults_
 ?
 ON_OFF_SWITCH_LABELS
+EGL_ANDROID_presentation_time
 head
 compositeFilter
 inParcel
@@ -1465,8 +1517,8 @@ show_password
 on
 op
 baseKey
-or
 documentType_
+or
 currentDisplay
 DOUBLE_LIST
 pokeByteArray
@@ -1478,8 +1530,8 @@ flutter/textinput
 __local_write_time__
 com.google.protobuf.ExtensionSchemaFull
 com.google.firebase.components:
-callCredentials
 LISTEN_STREAM_IDLE
+callCredentials
 HAS_TOGGLED_STATE
 TLS_DH_anon_WITH_AES_256_CBC_SHA256
 FieldValue.arrayRemove
@@ -1523,8 +1575,8 @@ $this$$receiver
 NO_ERROR
 email
 AndroidConnectivityMonitor
-RESOURCE
 kotlin.Enum.Companion
+RESOURCE
 runMigrations
 unchangedNames_
 profileinstaller_profileWrittenFor_la...
@@ -1534,11 +1586,11 @@ SELECTION_CLICK
 WRITE_SKIP_FILE
 GPSMeasureMode
 ONLINE_STATE_TIMEOUT
-sharedElementLastInViews
 TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+sharedElementLastInViews
 te
-resizeRight
 closed
+resizeRight
 awaitClose
 compressed
 io.flutter.embedding.android.EnableVu...
@@ -1547,6 +1599,7 @@ tv
 TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA
 loader
 resumeType_
+setFocusPointFailed
 cancellable
 project_id
 SERVICE_MISSING_PERMISSION
@@ -1570,6 +1623,7 @@ serviceActionBundleKey
 MULTILINE
 drop
 failurePercentageEjection
+ZOOM_ERROR
 filters_
 destination
 ON_DESTROY
@@ -1586,10 +1640,11 @@ INT64
 flutter/system
 PARTIAL
 https://firebasestorage.googleapis.co...
-api_force_staging
 filters
+api_force_staging
 Dispatchers.Main.immediate
 onWindowLayoutChangeListenerRemoved
+cameraNotFound
 WriteRunnable.runFlush
 location
 getInstance
@@ -1597,14 +1652,15 @@ FLOW_CONTROL_ERROR
 getInitialValue
 FirebaseAppCheckTokenProvider
 GPSProcessingMethod
+setFocusModeFailed
 none
 type
 PING_SENT
 idempotent
 TextCapitalization.sentences
-IMMERSIVE_STICKY
 ClientStreamListener.closed
 DEX_FILES
+IMMERSIVE_STICKY
 HapticFeedbackType.mediumImpact
 connection
 cont
@@ -1624,19 +1680,20 @@ transitioningViews
 LruGarbageCollector
 android.answerIntent
 TLS_KRB5_WITH_3DES_EDE_CBC_MD5
-_state
 consistencySelectorCase_
+_state
 ExifInterfaceUtils
+dev.flutter.pigeon.camera_android.Cam...
 nope
 geoPointValue
-listenToRemoteStore
 UNAUTHENTICATED
+listenToRemoteStore
 flutter/spellcheck
 transportTracer
 IS_TOGGLED
 out
-GooglePlayServicesUtil
 com.google.firebase.appcheck.APP_CHEC...
+GooglePlayServicesUtil
 noop
 REACHABLE
 get
@@ -1648,8 +1705,8 @@ java.lang.Number
 kotlinx.coroutines.flow.internal.Chan...
 no_valid_media_uri
 ArrayArgument
-initializer
 2.32.0
+initializer
 help
 FAKE
 flutter/deferredcomponent
@@ -1661,6 +1718,7 @@ COLLECTION
 addresses
 plugins.flutter.io/firebase_firestore...
 data
+STATE_CAPTURING
 IS_ENABLED
 firebase_database_url
 getWindowExtensionsMethod
@@ -1675,8 +1733,8 @@ transition_animation_scale
 clientHostname
 swipeEdge
 postalAddress
-telephoneNumberDevice
 io.grpc.ManagedChannel.enableAllocati...
+telephoneNumberDevice
 booleanValue
 send
 google_app_id
@@ -1706,26 +1764,28 @@ emit
 clazz
 SCROLL_DOWN
 projects/%s/databases/%s/documents/%s
-FileUtils
 DISMISS
+FileUtils
 eagAttributes
 valueCase_
-kRepeat
 java.lang.Integer
+kRepeat
 .mp4
+zeroShutterLag
 not_in
 unimplemented
 FirebaseAuthCredentialsProvider
 googleSignInAccount
 REQUIRE_WATCH_DISCONNECTION_ONLY
 androidx.window.layout.WindowInfoTrac...
-CONNECTION_SUSPENDED_DURING_CALL
 optional
+CONNECTION_SUSPENDED_DURING_CALL
 Orientation
 RunAggregationQuery
 LIMIT_TO_LAST
 kotlinx.coroutines.DefaultExecutor
 MODULE_VERSION
+sensorSensitivity
 savedListener
 registerWith
 SystemSoundType.alert
@@ -1743,8 +1803,8 @@ EXTRA_BENCHMARK_OPERATION
 isTransparentRetry
 committed
 SUCCESS
-BUFFER_PICKER
 target_documents
+BUFFER_PICKER
 destroy_engine_with_activity
 StreamDownloadTask
 kotlin.String
@@ -1767,24 +1827,26 @@ bufferEndSegment
 where_
 com.google.firebase.components.Compon...
 SIGN_IN_FAILED
-preferencesProto.preferencesMap
 outlier_detection_experimental
+preferencesProto.preferencesMap
 extensionCallback
 com.google.android.gms.signin.interna...
 list
-flutter/keyevent
 DateTimeDigitized
-QUEUING
+flutter/keyevent
 success
+QUEUING
 authority
 AppLifecycleState.
 child
 SystemChrome.setSystemUIOverlayStyle
+IllegalStateException
 addWindowLayoutInfoListener
 maxResponseMessageBytes
 enable_state_restoration
 RESULT_BASELINE_PROFILE_NOT_FOUND
 _invoked
+medium
 locale
 android.declineIntent
 remove
@@ -1820,8 +1882,8 @@ SCOPES_ROUTE
 androidx.profileinstaller.action.SAVE...
 ImageWidth
 SERVICE_MISSING
-io.grpc.netty.NettyChannelProvider
 HTTP/1.0
+io.grpc.netty.NettyChannelProvider
 HTTP/1.1
 sun.misc.SharedSecrets
 flutter_image_picker_shared_preference
@@ -1833,6 +1895,7 @@ SensorLeftBorder
 GPSDestLatitudeRef
 COMBINED
 dev.flutter.pigeon.shared_preferences...
+setExposureModeFailed
 GPSStatus
 SSL_DHE_RSA_WITH_DES_CBC_SHA
 name:
@@ -1847,6 +1910,7 @@ birthDateYear
 MaxApertureValue
 GoogleApiAvailability
 %s.%sParcelizer
+OFF
 CHARACTERS
 io.flutter.embedding.android.EnableVu...
 mNextServedView
@@ -1862,8 +1926,8 @@ transformResults_
 com.sun.jndi.ldap.connect.timeout
 framework
 ConnectionlessLifecycleHelper
-attributes
 ARRAY_VALUE
+attributes
 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 retryThrottling
 New
@@ -1884,10 +1948,10 @@ mStableInsets
 SensitivityType
 sharedElementFirstOutViews
 basic
-androidx.datastore.preferences.core.P...
+expectedCount_
 BODY
 kotlin.Throwable
-expectedCount_
+androidx.datastore.preferences.core.P...
 dev.flutter.pigeon.shared_preferences...
 parkedWorkersStack
 5000
@@ -1896,6 +1960,7 @@ units
 NO_VALUE
 TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384
 MINIMUM
+EXTERNAL
 kotlin.Annotation
 com.google.android.gms.signin.interna...
 GPSTrackRef
@@ -1910,6 +1975,7 @@ ENHANCE_YOUR_CALM
 drainedSubstreams
 io.flutter.plugins.sharedpreferences....
 DigitalZoomRatio
+dev.flutter.pigeon.camera_android.Cam...
 intrface
 prefixes
 ATTACH
@@ -1931,8 +1997,8 @@ CompanionObject
 pending_intent
 UNIMPLEMENTED
 zoomIn
-Reduce.kt
 streamId_
+Reduce.kt
 Destroying.
 GPSImgDirectionRef
 input
@@ -1947,8 +2013,8 @@ limitToLast
 addressTrackerKey
 NoChange
 readAndInitOrPropagateFailure
-STANDARD
 cached_engine_id
+STANDARD
 setRemoveOnCancelPolicy
 receive
 createTime_
@@ -1966,19 +2032,19 @@ NOT_EQUAL
 chars
 arrayIndexScale
 flutter/backgesture
-ALERT
 expectedParentFragment
+ALERT
 LocalizationChannel
 CUSTOM_MANAGERS
-maxResults
 java.lang.Short
+maxResults
 android.widget.Button
-_closeCause
 integerValue
+_closeCause
 INFLATING
 has
-REPLACE
 newBalancerFactory
+REPLACE
 INTEGER
 UINT32_LIST_PACKED
 androidx.datastore.preferences.protob...
@@ -2000,6 +2066,7 @@ BatchGetDocuments
 SEALED
 LifecycleChannel
 https://
+minimal
 NO_OWNER
 SERVER
 SYNCED
@@ -2013,11 +2080,12 @@ TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
 EXISTS
 DNGVersion
 yes
-INTERNAL_ERROR
+dev.flutter.pigeon.camera_android.Cam...
 _windowInsetsCompat
+INTERNAL_ERROR
 callbackWrapper
-firstOutViews
 generic
+firstOutViews
 BOOL_LIST
 FOUND_DOCUMENT
 NotifCompat
@@ -2029,12 +2097,12 @@ MAX_FRAME_SIZE
 TLS_DHE_DSS_WITH_AES_128_CBC_SHA
 time
 IS_HEADER
-ApertureValue
 COMPLETING_RETRY
+ApertureValue
 VISIBLE_PASSWORD
-OrBuilderList
-com.google.android.gms.common.interna...
 remote_documents
+com.google.android.gms.common.interna...
+OrBuilderList
 TextInput.clearClient
 TLS_AES_128_CCM_SHA256
 SCROLL_RIGHT
@@ -2058,26 +2126,30 @@ $callback
 line.separator
 BUFFERED
 light
-GET
 Firestore
-Current
+GET
 uninstallDeferredComponent
+Current
 java.lang.Throwable
 /data/misc/profiles/cur/0/
 FragmentManager:
 ImageReaderSurfaceProducer
+dev.flutter.pigeon.camera_android.Cam...
 GRPC_PROXY_EXP
+EXPOSURE_OFFSET
+CameraAccessException
 INITIALIZED
 io.grpc.Grpc.TRANSPORT_ATTR_SSL_SESSION
 android.support.v13.view.inputmethod....
 android.callType
 CFAPattern
+refreshPreviewCaptureSession
 SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA
 defaultMethodConfig
 serverAuthCode
 END_DOCUMENT
-io.grpc.netty.UdsNettyChannelProvider
 $violation
+io.grpc.netty.UdsNettyChannelProvider
 SBYTE
 UPDATE_TIME
 DeviceOrientation.landscapeLeft
@@ -2085,6 +2157,7 @@ callbackInterface
 RemoteStore
 FIXED32_LIST
 char
+dev.flutter.pigeon.camera_android.Cam...
 IMMERSIVE
 before
 PENTAX
@@ -2129,8 +2202,8 @@ Healthy
 kotlin.String.Companion
 TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
 methodName
-jClass
 TextInput.show
+jClass
 value_
 windowMetrics
 io.grpc.internal.GrpcAttributes.clien...
@@ -2158,25 +2231,26 @@ kotlin.reflect.jvm.internal.Reflectio...
 timeCreated
 application/grpc
 INTERNAL_STATE_PAUSING
-databases
 cleanedAndPointers
+databases
 modelClass
 policyName
 removeMethodName
 SFIXED32_LIST
 android.intent.extra.ALLOW_MULTIPLE
-array_contains
 Method
+array_contains
 METHODS
+FLASH
 guava.concurrent.generate_cancellatio...
 SystemNavigator.setFrameworkHandlesBack
-SPDY_REPLY
 SINT32
-route
+SPDY_REPLY
 cancellation
+route
 ?s
-editingValue
 :path
+editingValue
 database_
 SidecarCompat
 video/
@@ -2186,6 +2260,7 @@ TLS_KRB5_EXPORT_WITH_DES_CBC_40_SHA
 NAMES_ROUTE
 LISTEN_STREAM_CONNECTION_BACKOFF
 embedded
+FPS_RANGE
 RESULT_DESIRED_FORMAT_UNSUPPORTED
 Firebase
 maxBackoff
@@ -2198,6 +2273,7 @@ childFragmentManager
 CANCEL
 LICENSE_CHECK_FAILED
 FALSE_POSITIVE
+dev.flutter.pigeon.camera_android.Cam...
 dev.flutter.pigeon.shared_preferences...
 listener
 com.google.protobuf.NewInstanceSchema...
@@ -2211,14 +2287,17 @@ OECF
 retryTransaction_
 kHdmi
 count
+planes
+dev.flutter.pigeon.camera_android.Cam...
 CACHE
+android.permission.RECORD_AUDIO
 FLTFirebaseFirestore
 ClientCall.start
 navigation_bar_height
 java.lang.annotation.Annotation
 FlutterImageView
-TERMINATED
 QUERY_SCOPE_UNSPECIFIED
+TERMINATED
 TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA
 flutter/navigation
 RESPONSETYPE_NOT_SET
@@ -2231,18 +2310,20 @@ customMetadata
 java.lang.Boolean
 io.flutter.plugins.sharedpreferences....
 owner
-io.grpc.ClientStreamTracer.NAME_RESOL...
 ExifInterface
+io.grpc.ClientStreamTracer.NAME_RESOL...
 com.google.android.gms.common.telemet...
+highQuality
 GRPC_EXPERIMENTAL_PICKFIRST_LB_CONFIG
 TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
 keydown
 activateSystemCursor
-$ClientProvider
+dev.flutter.pigeon.camera_android.Cam...
 flutter/accessibility
+$ClientProvider
 resize
-DROP_OLDEST
 android.support.allowGeneratedReplies
+DROP_OLDEST
 $container
 birthdayMonth
 SFIXED64_LIST
@@ -2263,10 +2344,12 @@ applicationContext
 getResId
 cancelled
 MOVE_CURSOR_FORWARD_BY_WORD
+dev.flutter.pigeon.camera_android.Cam...
 androidx.datastore.preferences.protob...
 arch_disk_io_
 SamplesPerPixel
 google_api_key
+ALWAYS
 trailer
 file
 YCbCrSubSampling
@@ -2279,6 +2362,7 @@ FlashEnergy
 arrayConfig
 onComplete
 REQUIRE_WATCH_CONNECTION_ONLY
+torch
 menu
 getLong
 TextInputAction.done
@@ -2287,20 +2371,23 @@ io.flutter.EntrypointUri
 VIRTUAL_DISPLAY_PLATFORM_VIEW
 IS_SLIDER
 resizeUpLeftDownRight
+texMatrix
 handleRejectedWrite
+HIGH
 KEY_COMPONENT_ACTIVITY_PENDING_RESULT
 SpellCheckChannel
 GmsCore_OpenSSL
-mVisibleInsets
 handleRemoteEvent
+mVisibleInsets
 host
+unlockAutoFocus
 selected
 HTTP_2
 server_timestamp
 accepts
-m4.a
 personMiddleName
 maxAttempts
+AUTO
 task
 code_
 Subchannel
@@ -2331,11 +2418,11 @@ $ServerProvider
 androidx.datastore.preferences.protob...
 Completed
 callback
-UNINITIALIZED
 com.google.protobuf.GeneratedMessageV3
+UNINITIALIZED
+writer
 socket
 mOnKeyListener
-writer
 SINT32_LIST
 apiKey
 TextInput.hide
@@ -2360,8 +2447,10 @@ StartIntentSenderForResult
 kotlin.Function
 kJoystick
 classes_to_restore
+startPreviewWithImageStream
 iat
 FIXED64_LIST
+dev.flutter.pigeon.camera_android.Cam...
 Context
 RowsPerStrip
 AGGREGATION_COUNT
@@ -2374,8 +2463,8 @@ TLS_DH_anon_WITH_AES_128_GCM_SHA256
 autofill
 operation
 invalid_query
-postalCode
 timestampValue
+postalCode
 INTERNAL_STATE_NOT_STARTED
 serviceMethodMap
 TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
@@ -2404,6 +2493,7 @@ onBackPressedCallback
 UNRECOGNIZED
 referenceValue
 kotlinx.coroutines.test.internal.Test...
+ZOOM_LEVEL
 IndexBackfiller
 baseWrites_
 CUTOUT
@@ -2431,26 +2521,27 @@ application/json
 ClientStreamListener.headersRead
 viewRegistryState
 hints
-keyup
 version_
-onWindowLayoutChangeListenerAdded
 java.util.Set
+onWindowLayoutChangeListenerAdded
+keyup
 OkHttpClientTransport$ClientFrameHand...
 androidx.datastore.core.DataMigration...
 getClientInterceptor
 SimpleActor.kt
 newDeviceState
 DELETE_SKIP_FILE
-DETECT_WRONG_FRAGMENT_CONTAINER
 SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA
+DETECT_WRONG_FRAGMENT_CONTAINER
 TLS_ECDH_anon_WITH_RC4_128_SHA
 market://details
 ActivityResultRegistry
-TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
 interceptor
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
 usesVirtualDisplay
 TLS_RSA_WITH_RC4_128_MD5
 TLS_DH_anon_EXPORT_WITH_RC4_40_MD5
+dev.flutter.pigeon.camera_android.Cam...
 serviceMap
 NO_THREAD_ELEMENTS
 tracker
@@ -2466,19 +2557,21 @@ PENDING
 cause_
 FAILURE
 androidx.profileinstaller.action.BENC...
+dev.flutter.pigeon.camera_android.Cam...
 SensorTopBorder
 java.lang.Comparable
 android.text
 fragmentManager.specialEffectsControl...
-spec
 BitsPerSample
+spec
 postalAddressExtended
 reference
-SINT64
 inFragment
+SINT64
+STATE_WAITING_PRECAPTURE_START
 GPSVersionID
-familyName
 enableIMEPersonalizedLearning
+familyName
 consistencySelector_
 from
 DETACHED
@@ -2490,20 +2583,22 @@ SystemChrome.setApplicationSwitcherDe...
 IS_HIDDEN
 NOT_IN
 SERVICE_INVALID
-keyCode
 once_
+keyCode
 ThumbnailImage
 getHostString
 Software
+videoRecordingFailed
 OFFLINE
 $onBackInvoked
 androidx.datastore.preferences.protob...
 hashCount_
 insertProvider
 error
+CameraBackground
 NO_RESOLUTION
-getBoundsMethod
 kotlin.Byte
+getBoundsMethod
 bufferEnd
 operations
 RequestPermissions
@@ -2512,10 +2607,10 @@ value
 REUSABLE_CLAIMED
 0x%08x
 GmsClient
-operation_
 dart_entrypoint_args
-REMOTE_EXCEPTION
+operation_
 int
+REMOTE_EXCEPTION
 IDLE
 statsTraceCtx
 ImageReaderPlatformViewRenderTarget
@@ -2529,48 +2624,52 @@ index_entries
 resolution
 DETECT_FRAGMENT_REUSE
 Runtime
-androidx.datastore.core.SimpleActor$o...
 com.google.app.id
+androidx.datastore.core.SimpleActor$o...
 md5Hash
 verificationMode
 getUncaughtExceptionPreHandler
 SERVICE_DISABLED
 onBackPressed
 android.net.TrafficStats
-clientLanguage
 adapter
-LEFT
+clientLanguage
 LANDSCAPE_RIGHT
+LEFT
 from_
 receiveCatching
 com.google.android.gms.common.securit...
+dev.flutter.pigeon.camera_android.Cam...
 onBackProgressed
 targetId_
-WindowInfoTrackerImpl.kt
 kotlin.jvm.functions.
+WindowInfoTrackerImpl.kt
 androidx.datastore.core.SingleProcess...
 2
 kotlin.internal.JRE7PlatformImplement...
 PORTRAIT_DOWN
 touchOffset
+JPEG
 android.verificationIconCompat
 libapp.so
 OPERATOR_UNSPECIFIED
-middleInitial
 RestorationChannel
-exitingNames
+middleInitial
 TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+exitingNames
 marshaller
+close
 TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA
 codePoint
 RESULT_PARSE_EXCEPTION
 CameraOwnerName
-displayFeatures
 requestStartTime
-ALREADY_LOCKED_BY_OWNER
+displayFeatures
 no_valid_video_uri
-DEVELOPER_ERROR
+ALREADY_LOCKED_BY_OWNER
+fast
 createTime
+DEVELOPER_ERROR
 onNewIntent
 Loaders:
 Initial
@@ -2588,6 +2687,7 @@ helper
 addSuppressed
 ThumbnailImageWidth
 RESULT_OK
+Camera
 protocols
 add
 TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
@@ -2597,11 +2697,12 @@ failed_status
 telephoneNumberCountryCode
 DATA_LOSS
 error_code
-deviceState
 pendingIntent
-projectId
+deviceState
 fragmentStateManager.fragment
+projectId
 GONE
+dev.flutter.pigeon.camera_android.Cam...
 data_migrations
 PixelYDimension
 DOUBLE_VALUE
@@ -2619,23 +2720,26 @@ label
 message
 HapticFeedbackType.lightImpact
 METADATA
+FrameHandlerThread
 creditCardExpirationDay
 age
 username
 grantResults
 collectTo
+dev.flutter.pigeon.camera_android.Cam...
 UNDEFINED
 BYTE
 IS_TEXT_FIELD
 property
 channelLogger
+createSegment
 queryType_
 com.google.android.libraries.stitch.s...
-createSegment
 grantedScopes
 UINT64_LIST_PACKED
 TextInputAction.none
 FileSource
+RESOLUTION
 FocalLengthIn35mmFilm
 handle
 binding.applicationContext
@@ -2651,6 +2755,7 @@ STATE_CANCELLED
 INTERNAL_STATE_SUCCESS
 RESULT_INSTALL_SKIP_FILE_SUCCESS
 other
+runPrecaptureSequence
 ALREADY_EXISTS
 putDouble
 INTERNAL_STATE_CANCELED
@@ -2663,10 +2768,11 @@ addressRegion
 lastLimboFreeSnapshotVersion_
 TLS_AES_128_CCM_8_SHA256
 FIRST
+EXPOSURE_POINT
 maxEjectionTime
 removed
-fragmentStateManager
 future
+fragmentStateManager
 LIGHT_IMPACT
 viewState
 ?
@@ -2693,6 +2799,7 @@ io.grpc.internal.DnsNameResolverProvi...
 buffer
 API_DISABLED_FOR_CONNECTION
 FNumber
+always
 WatchChangeAggregator
 CT_WARNING
 read
@@ -2704,11 +2811,12 @@ consumerAdapter
 FirebaseHeartBeat
 java.util.List
 sharedElementNameMapping.keys
+setDescriptionWhileRecordingFailed
 kotlinx.coroutines.flow.FlowKt__ReduceKt
 hybrid
 kotlin.Int
-google_storage_bucket
 bytesValue
+google_storage_bucket
 collect
 BackGestureChannel
 helperImpl
@@ -2719,18 +2827,18 @@ COMPLETING_ALREADY
 ClientCall.sendMessage
 TLS_KRB5_WITH_RC4_128_SHA
 java.lang.Iterable
-rect
 MakerNote
 INBOUND
 readException
+rect
 kotlinx.coroutines.DefaultExecutor.ke...
 INVERT_COLORS
 and
 $activity
 SKIPPED
-info.displayFeatures
 YCbCrPositioning
 synchronizeToNativeViewHierarchy
+info.displayFeatures
 Conscrypt
 FileDownloadTask
 windowConfiguration
@@ -2739,15 +2847,17 @@ resizeUpRight
 androidx.window.extensions.layout.Win...
 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 gcore_
-DOCUMENT_DELETE
 application
+DOCUMENT_DELETE
 io.grpc.internal.DnsNameResolverProvi...
 flutter/lifecycle
 SLONG
+captureAlreadyActive
 android.media.action.VIDEO_CAPTURE
 reason
 nanos
 SystemChrome.setEnabledSystemUIMode
+veryHigh
 hedgingPolicy
 ANIM
 TLS_KRB5_WITH_DES_CBC_MD5
@@ -2762,8 +2872,8 @@ checkedAdd
 deltaText
 $dispatcher
 Make
-TLS_DH_anon_WITH_3DES_EDE_CBC_SHA
 BUILD_MESSAGE_INFO
+TLS_DH_anon_WITH_3DES_EDE_CBC_SHA
 missing_valid_image_uri
 expirationTime
 latitude_
@@ -2777,10 +2887,10 @@ androidx.savedstate.Restarter
 UpdateMetadataTask
 DROP_SHADER_CACHE
 Open
-oemFeature.bounds
 kotlin.collections.ListIterator
-CT_UNKNOWN
+oemFeature.bounds
 GROUP
+CT_UNKNOWN
 GPSLatitudeRef
 putByte
 TextInputClient.updateEditingStateWit...
@@ -2814,20 +2924,21 @@ WRITE_STREAM_IDLE
 creditCardSecurityCode
 PreviewImageStart
 FULL
+dev.flutter.pigeon.camera_android.Cam...
 finalException
 GPSDestLongitude
 name
 DIAGNOSTIC_REF_PROFILE_DOES_NOT_EXIST
 DartExecutor
-TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA
 parameters
+TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA
 TERMINATE_LOCAL_LISTEN_ONLY
 allowedDataTypes
 IFD
 android
-nameSuffix
 description
 java.lang.module.ModuleDescriptor
+nameSuffix
 rwt
 VISIBLE
 textScaleFactor
@@ -2835,6 +2946,7 @@ indexes
 VALUE_NOT_SET
 Builders.kt
 Dispatchers.Main
+ULTRA_HIGH
 FlutterSurfaceView
 Cancelled
 notify_manager
@@ -2842,6 +2954,7 @@ getEmptyRegistry
 target
 PrimaryChromaticities
 GoogleApiManager
+CameraAccessDenied
 IS_MULTILINE
 middleName
 personFamilyName
@@ -2861,19 +2974,20 @@ loadBalancingConfig
 windowBackend
 SINT64_LIST
 timeService
-SFIXED64
 generation
+SFIXED64
 item
 canvas
 failed_client_id
 dart_entrypoint
 localWriteTime_
-newPassword
 getLogger
+newPassword
+closeCaptureSession
 smsOTPCode
-android.net.Network
-flutter_deeplinking_enabled
 SystemChannel
+flutter_deeplinking_enabled
+android.net.Network
 ConnectionTracker
 INVISIBLE
 HEAVY_IMPACT
@@ -2881,9 +2995,10 @@ kotlin.Short
 bounds
 COUNT
 getDisplayFeatures
+dev.flutter.pigeon.camera_android.Cam...
+MODIFIED
 BLOCKING
 GPSTrack
-MODIFIED
 consumeMessage
 BOOL_LIST_PACKED
 BOLD_TEXT
@@ -2898,14 +3013,15 @@ setDirection
 ENUM_LIST
 ClientStreamListener.messagesAvailable
 SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA
-FRAME_SIZE_ERROR
 java.util.Map$Entry
+FRAME_SIZE_ERROR
 display
 LensModel
 SpellCheck.initiateSpellCheck
 composingExtent
 transportExecutor
 birthDateDay
+CameraAccess
 libflutter.so
 PORTRAIT_UP
 sendSegment
@@ -2918,8 +3034,8 @@ readAndInitOrPropagateAndThrowFailure
 ISOSpeed
 listString
 selectionBase
-plainCodePoint
 getWindowLayoutComponent
+plainCodePoint
 SSL_DH_anon_EXPORT_WITH_RC4_40_MD5
 percentage
 _reusableCancellableContinuation
@@ -2929,35 +3045,36 @@ DONE
 package
 fullyDrawnReporterOwner
 putInt
-kind
 updateEnabledCallbacks
+kind
 Channel
 tracer
 CANCELLED
 SCROLL_UP
 SingleProcessDataStore.kt
-io.grpc.Grpc.TRANSPORT_ATTR_LOCAL_ADDR
 com.google.android.gms.dynamite.descr...
 PUSH_PROMISE
-CLOSED_EMPTY
+io.grpc.Grpc.TRANSPORT_ATTR_LOCAL_ADDR
 kotlin.collections.Iterator
+CLOSED_EMPTY
 job
 TextInputClient.requestExistingInputS...
 preferencesMap
 dev.flutter.pigeon.FirebaseAppHostApi...
 INT
-retryableStatusCodes
 kotlin.Enum
+retryableStatusCodes
 backEvent
 SSL_
-targetChangeType_
 com.google.android.gms.signin.service...
-ARRAY_CONTAINS_ANY
+targetChangeType_
 SensorBottomBorder
 Flash
+ARRAY_CONTAINS_ANY
 firstOut.fragment.mView
 uniqueIdentifier
 move
+q1.a
 transformType_
 androidx.lifecycle.savedstate.vm.tag
 WindowInsetsCompat
@@ -2968,6 +3085,7 @@ loadBalancingPolicy
 tooManyPingsRunnable
 TLS_DHE_DSS_WITH_AES_256_GCM_SHA384
 projects
+VideoRenderer
 SETTINGS_TIMEOUT
 getPrefs
 STREAM_ALREADY_CLOSED
@@ -2980,12 +3098,14 @@ no_available_camera
 DartMessenger
 GALLERY
 SHOULD_BUFFER
+SENSOR_ORIENTATION
 canceled
 kotlin.Unit
 schema
 parent_
 Theme.Dialog.Alert
 INTERNAL_STATE_IN_PROGRESS
+cameraAccess
 icon
 java.
 resizeUpDown
@@ -3003,9 +3123,10 @@ COMPRESSION_ERROR
 kUp
 ACK
 DETACH
-BaseEncoding.
 SERVER_STREAMING
+BaseEncoding.
 RED
+REC
 ClientCall.halfClose
 INACTIVE
 labels_
@@ -3017,8 +3138,8 @@ installDeferredComponent
 FOUND
 TextInputChannel
 androidx.window.java.core.CallbackToF...
-preferences_
 Failed
+preferences_
 OPACITY
 androidx.activity.result.contract.act...
 androidx.datastore.preferences.protob...
@@ -3036,8 +3157,8 @@ MergeSet
 VGhpcyBpcyB0aGUgcHJlZml4IGZvciBCaWdJb...
 contentCommitMimeTypes
 views
-tokenRatio
 finalState
+tokenRatio
 NO_CHANGE
 remote_addr
 DeferredComponentChannel
@@ -3048,9 +3169,10 @@ StorageUtil
 SubSecTimeDigitized
 workerCtl
 TextInputClient.updateEditingState
-failed_resolution
 io.flutter.embedding.android.LeakVM
+failed_resolution
 pushRouteInformation
+BACK
 hedgingDelayNanos
 TextInputAction.next
 setInitialRoute
@@ -3061,14 +3183,15 @@ TEXT
 clipboard
 DateTime
 output
-CT_ERROR
 HINGE
+CT_ERROR
 io.perfmark.impl.SecretPerfMarkImpl$P...
 java.lang.Character
 android.intent.extra.USE_FRONT_CAMERA
+bytesPerRow
 com.google.protobuf.DescriptorMessage...
-birthdayYear
 kDirectionalPad
+birthdayYear
 isolate_snapshot_data
 SPELLOUT
 surface
@@ -3108,6 +3231,7 @@ FUTURE
 VALUE
 expiresIn
 _size
+high
 lastIn.fragment.mView
 mutations
 personMiddleInitial
@@ -3120,8 +3244,8 @@ pokeInt
 ThumbnailOrientation
 DeviceOrientation.portraitDown
 TOO_LATE_TO_CANCEL
-NULL
 REFERENCE_VALUE
+NULL
 level
 android.verificationText
 TLS_DHE_DSS_WITH_AES_256_CBC_SHA
@@ -3134,8 +3258,8 @@ UNFINISHED
 io.flutter.embedding.android.Impeller...
 TLS_ECDH_RSA_WITH_AES_128_CBC_SHA
 RETRY_TRANSACTION
-alwaysUse24HourFormat
 AND
+alwaysUse24HourFormat
 Exif
 SET_MEMOIZED_IS_INITIALIZED
 birthday
@@ -3145,9 +3269,9 @@ peekByteArray
 android.callPersonCompat
 photoUrl
 receivers
-Limit.kt
-HTTP/1.
 kotlin.Comparable
+HTTP/1.
+Limit.kt
 INVALID_ARGUMENT
 consumer
 nativeSpellCheckServiceDefined
@@ -3160,8 +3284,8 @@ GPSInfoIFDPointer
 TLS_DHE_RSA_WITH_AES_256_CBC_SHA
 DefaultCropSize
 LIMBO_RESOLUTION
-unauthorized
 _LifecycleAdapter
+unauthorized
 seconds_
 Artist
 handler
@@ -3171,8 +3295,8 @@ setHostname
 IS_SELECTED
 minimumHosts
 conditionTypeCase_
-/o/
 batchId_
+/o/
 .Companion
 GrpcCallProvider
 startAfter
@@ -3182,38 +3306,40 @@ proxyAddress
 INCLUDE
 writeMutations
 BOTTOM_OVERLAYS
-SpectralSensitivity
+NV21
 enqIdx
+SpectralSensitivity
 invoker
 DETECT_RETAIN_INSTANCE_USAGE
 accept
 CONDITION_FALSE
 ExposureBiasValue
 TLS_RSA_WITH_AES_128_GCM_SHA256
-reportRequestStats
 updateData
+reportRequestStats
 sum
 Listen
-RTL
 android:dialogShowing
+RTL
 getStackTraceElement
 ImageResizer
 ImageTextureRegistryEntry
 key
+dev.flutter.pigeon.camera_android.Cam...
 LONG
 GARBAGE_COLLECTION
 kotlinx.coroutines.flow.StateFlowImpl
 creditCardExpirationDate
 silent
-obscureText
 bytesTransferred
+obscureText
 operandTypeCase_
 GPSAreaInformation
 texture
 maxRequestMessageBytes
 windowMetricsCalculator
-store
 kotlin.Float
+store
 limitType
 STATE_REG
 buf
@@ -3232,15 +3358,17 @@ resultKey
 dest
 personGivenName
 pairs
+dev.flutter.pigeon.camera_android.Cam...
 VALUEMODE_NOT_SET
 variant
 BROKEN
 buffered_nanos
 FragmentContainerView
+sensorExposureTime
 TLS_AES_128_GCM_SHA256
 sink
-query
 java.util.Collection
+query
 mediaType
 CLOSE_HANDLER_CLOSED
 REREGISTER
@@ -3254,14 +3382,16 @@ removeObserver
 TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384
 FLOAT_LIST
 gs://
+cannotCreateFile
 ImageProcessingIFDPointer
 SSL_RSA_EXPORT_WITH_RC4_40_MD5
-getTypeMethod
 flutter/mousecursor
+getTypeMethod
+dev.flutter.pigeon.camera_android.Cam...
 TLS_ECDH_anon_WITH_AES_128_CBC_SHA
 text/plain
-resumeToken_
 Saturation
+resumeToken_
 /v0
 androidx.core.app.NotificationCompat$...
 HAS_IMPLICIT_SCROLLING
@@ -3277,15 +3407,17 @@ android.intent.extra.PROCESS_TEXT
 Index:
 DocumentChangeType.added
 STREAM_CLOSED
+CameraPermissionsRequestOngoing
 actionLabel
-waitForReady
 android.hardware.type.iot
-sslSocketFactory
+waitForReady
 seconds
+sslSocketFactory
 FocalPlaneResolutionUnit
-appops
 plugins.flutter.io/firebase_storage/t...
+appops
 fileOutputStream
+TORCH
 viewToAnimate
 dev.flutter.pigeon.shared_preferences...
 ACTION_ARGUMENT_MOVEMENT_GRANULARITY_INT
@@ -3299,11 +3431,11 @@ io.grpc.internal.CALL_OPTIONS_RPC_OWN...
 dev.flutter.pigeon.shared_preferences...
 SHOW_ON_SCREEN
 android.support.action.semanticAction
-INTEGER_VALUE
 java.lang.Double
+INTEGER_VALUE
 FOCUS
-binding.binaryMessenger
 range
+binding.binaryMessenger
 addListenerMethod
 mapValue
 feature
@@ -3312,12 +3444,12 @@ TLS_RSA_WITH_DES_CBC_SHA
 oneTimeCode
 animatorSet
 loaderVersion
-updateMask_
 CallbackToFlowAdapter.kt
+updateMask_
 android.hardware.type.television
 queryTypeCase_
-token
 sharedElements
+token
 SystemChrome.setPreferredOrientations
 expect
 phoneNumberDevice
@@ -3331,10 +3463,10 @@ sharedElementNameMapping
 TLS_ECDHE_RSA_WITH_NULL_SHA
 lastInViews
 API_VERSION_UPDATE_REQUIRED
-defaultPort
 FirebaseInitProvider
-asyncTraceBegin
+defaultPort
 TextCapitalization.characters
+asyncTraceBegin
 JpgFromRaw
 InteroperabilityIFDPointer
 API_DISABLED
@@ -3347,6 +3479,7 @@ tap
 alias_
 FieldValue.serverTimestamp
 RESULT_UNSUPPORTED_ART_VERSION
+dev.flutter.pigeon.camera_android.Cam...
 controlState
 Active
 kotlin.collections.Iterable
@@ -3367,21 +3500,22 @@ ProviderInstaller
 DocumentSnapshot
 PhotometricInterpretation
 IS_NULL
+prepareMediaRecorder
 android.intent.action.SEND
 onWindowFocusChanged
 TextInputClient.performAction
 jar:file:
+ON_STOP
 addressState
 Channels.kt
-ON_STOP
 kotlin.CharSequence
 BOOLEAN_VALUE
-personName
 file:
+personName
 fragment
 getState
-clientTransportFactoryBuilder
 migrations
+clientTransportFactoryBuilder
 FLOAT_LIST_PACKED
 com.google.android.wearable.app
 PROCESSED
@@ -3397,6 +3531,13 @@ Marking id:text:2131165275 used because it matches string pool constant text
 Marking id:text2:2131165276 used because it matches string pool constant text
 Marking integer:status_bar_notification_info_maxnum:2131230721 used because it matches string pool constant status
 Marking string:status_bar_notification_info_overflow:2131492896 used because it matches string pool constant status
+Marking drawable:googleg_disabled_color_18:2131099667 used because it matches string pool constant google
+Marking drawable:googleg_standard_color_18:2131099668 used because it matches string pool constant google
+Marking integer:google_play_services_version:2131230720 used because it matches string pool constant google
+Marking string:google_api_key:2131492891 used because it matches string pool constant google
+Marking string:google_app_id:2131492892 used because it matches string pool constant google
+Marking string:google_crash_reporting_api_key:2131492893 used because it matches string pool constant google
+Marking string:google_storage_bucket:2131492894 used because it matches string pool constant google
 Marking xml:flutter_image_picker_file_paths:2131689472 used because it matches string pool constant flutter
 Marking color:notification_action_color_filter:2130968591 used because it matches string pool constant notification
 Marking color:notification_icon_bg_color:2130968592 used because it matches string pool constant notification
@@ -3524,6 +3665,10 @@ Marking id:accessibility_custom_action_8:2131165215 used because it matches stri
 Marking id:accessibility_custom_action_9:2131165216 used because it matches string pool constant acc
 Marking attr:scopeUris:2130903070 used because it matches string pool constant scope
 Marking attr:animationBackgroundColor:2130903044 used because it matches string pool constant animation
+Marking attr:alwaysExpand:2130903043 used because it matches string pool constant always
+Marking id:always:2131165225 used because it matches string pool constant always
+Marking id:alwaysAllow:2131165226 used because it matches string pool constant always
+Marking id:alwaysDisallow:2131165227 used because it matches string pool constant always
 Marking string:google_storage_bucket:2131492894 used because it matches string pool constant google_storage_bucket
 Marking color:androidx_core_ripple_material_light:2130968576 used because it matches string pool constant and
 Marking color:androidx_core_secondary_text_default_material_light:2130968577 used because it matches string pool constant and
@@ -3595,7 +3740,7 @@ Marking id:fragment_container_view_tag:2131165238 used because it matches string
 @attr/activityAction : reachable=true
 @attr/activityName : reachable=true
 @attr/alpha : reachable=false
-@attr/alwaysExpand : reachable=false
+@attr/alwaysExpand : reachable=true
 @attr/animationBackgroundColor : reachable=true
 @attr/buttonSize : reachable=false
 @attr/circleCrop : reachable=false
@@ -3729,8 +3874,8 @@ Marking id:fragment_container_view_tag:2131165238 used because it matches string
     @drawable/common_google_signin_btn_text_light_normal_background
     @drawable/googleg_standard_color_18
 @drawable/common_google_signin_btn_text_light_normal_background : reachable=false
-@drawable/googleg_disabled_color_18 : reachable=false
-@drawable/googleg_standard_color_18 : reachable=false
+@drawable/googleg_disabled_color_18 : reachable=true
+@drawable/googleg_standard_color_18 : reachable=true
 @drawable/ic_call_answer : reachable=true
 @drawable/ic_call_answer_low : reachable=false
 @drawable/ic_call_answer_video : reachable=true
@@ -3804,9 +3949,9 @@ Marking id:fragment_container_view_tag:2131165238 used because it matches string
 @id/adjacent : reachable=false
 @id/adjust_height : reachable=false
 @id/adjust_width : reachable=false
-@id/always : reachable=false
-@id/alwaysAllow : reachable=false
-@id/alwaysDisallow : reachable=false
+@id/always : reachable=true
+@id/alwaysAllow : reachable=true
+@id/alwaysDisallow : reachable=true
 @id/androidx_window_activity_scope : reachable=true
 @id/async : reachable=false
 @id/auto : reachable=true
@@ -3926,7 +4071,7 @@ Marking id:fragment_container_view_tag:2131165238 used because it matches string
 @string/gcm_defaultSenderId : reachable=true
 @string/google_api_key : reachable=true
 @string/google_app_id : reachable=true
-@string/google_crash_reporting_api_key : reachable=false
+@string/google_crash_reporting_api_key : reachable=true
 @string/google_storage_bucket : reachable=true
 @string/project_id : reachable=true
 @string/status_bar_notification_info_overflow : reachable=true
@@ -3957,6 +4102,7 @@ The root reachable resources are:
  animator:fragment_open_exit:2130837509
  attr:activityAction:2130903040
  attr:activityName:2130903041
+ attr:alwaysExpand:2130903043
  attr:animationBackgroundColor:2130903044
  attr:imageAspectRatio:2130903063
  attr:imageAspectRatioAdjust:2130903064
@@ -3986,6 +4132,8 @@ The root reachable resources are:
  dimen:notification_top_pad:2131034132
  dimen:notification_top_pad_large_text:2131034133
  drawable:common_full_open_on_phone:2131099648
+ drawable:googleg_disabled_color_18:2131099667
+ drawable:googleg_standard_color_18:2131099668
  drawable:ic_call_answer:2131099669
  drawable:ic_call_answer_video:2131099671
  drawable:ic_call_decline:2131099673
@@ -4039,6 +4187,9 @@ The root reachable resources are:
  id:action_image:2131165219
  id:action_text:2131165220
  id:actions:2131165221
+ id:always:2131165225
+ id:alwaysAllow:2131165226
+ id:alwaysDisallow:2131165227
  id:androidx_window_activity_scope:2131165228
  id:auto:2131165230
  id:blocking:2131165231
@@ -4117,6 +4268,7 @@ The root reachable resources are:
  string:gcm_defaultSenderId:2131492890
  string:google_api_key:2131492891
  string:google_app_id:2131492892
+ string:google_crash_reporting_api_key:2131492893
  string:google_storage_bucket:2131492894
  string:project_id:2131492895
  string:status_bar_notification_info_overflow:2131492896
@@ -4147,8 +4299,6 @@ Skipped unused resource res/drawable-mdpi-v4/common_google_signin_btn_icon_dark_
 Skipped unused resource res/drawable-mdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png: 500 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-mdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png: 615 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-mdpi-v4/common_google_signin_btn_text_light_normal_background.9.png: 465 bytes (replaced with small dummy file of size 77 bytes)
-Skipped unused resource res/drawable-mdpi-v4/googleg_disabled_color_18.png: 281 bytes (replaced with small dummy file of size 67 bytes)
-Skipped unused resource res/drawable-mdpi-v4/googleg_standard_color_18.png: 562 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-mdpi-v4/ic_call_answer_low.png: 317 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-mdpi-v4/ic_call_answer_video_low.png: 206 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-mdpi-v4/ic_call_decline_low.png: 264 bytes (replaced with small dummy file of size 67 bytes)
@@ -4156,8 +4306,6 @@ Skipped unused resource res/drawable-hdpi-v4/common_google_signin_btn_icon_dark_
 Skipped unused resource res/drawable-hdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png: 683 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-hdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png: 960 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-hdpi-v4/common_google_signin_btn_text_light_normal_background.9.png: 694 bytes (replaced with small dummy file of size 77 bytes)
-Skipped unused resource res/drawable-hdpi-v4/googleg_disabled_color_18.png: 410 bytes (replaced with small dummy file of size 67 bytes)
-Skipped unused resource res/drawable-hdpi-v4/googleg_standard_color_18.png: 808 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-hdpi-v4/ic_call_answer_low.png: 472 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-hdpi-v4/ic_call_answer_video_low.png: 254 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-hdpi-v4/ic_call_decline_low.png: 375 bytes (replaced with small dummy file of size 67 bytes)
@@ -4165,8 +4313,6 @@ Skipped unused resource res/drawable-xhdpi-v4/common_google_signin_btn_icon_dark
 Skipped unused resource res/drawable-xhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png: 776 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-xhdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png: 1086 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-xhdpi-v4/common_google_signin_btn_text_light_normal_background.9.png: 808 bytes (replaced with small dummy file of size 77 bytes)
-Skipped unused resource res/drawable-xhdpi-v4/googleg_disabled_color_18.png: 516 bytes (replaced with small dummy file of size 67 bytes)
-Skipped unused resource res/drawable-xhdpi-v4/googleg_standard_color_18.png: 982 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-xhdpi-v4/ic_call_answer_low.png: 623 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-xhdpi-v4/ic_call_answer_video_low.png: 290 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-xhdpi-v4/ic_call_decline_low.png: 452 bytes (replaced with small dummy file of size 67 bytes)
@@ -4174,8 +4320,6 @@ Skipped unused resource res/drawable-xxhdpi-v4/common_google_signin_btn_icon_dar
 Skipped unused resource res/drawable-xxhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png: 1138 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-xxhdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png: 1638 bytes (replaced with small dummy file of size 77 bytes)
 Skipped unused resource res/drawable-xxhdpi-v4/common_google_signin_btn_text_light_normal_background.9.png: 1255 bytes (replaced with small dummy file of size 77 bytes)
-Skipped unused resource res/drawable-xxhdpi-v4/googleg_disabled_color_18.png: 727 bytes (replaced with small dummy file of size 67 bytes)
-Skipped unused resource res/drawable-xxhdpi-v4/googleg_standard_color_18.png: 1441 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-xxhdpi-v4/ic_call_answer_low.png: 884 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-xxhdpi-v4/ic_call_answer_video_low.png: 384 bytes (replaced with small dummy file of size 67 bytes)
 Skipped unused resource res/drawable-xxhdpi-v4/ic_call_decline_low.png: 628 bytes (replaced with small dummy file of size 67 bytes)

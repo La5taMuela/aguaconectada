@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:8:5-39:19
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:10:5-42:19
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-15:19
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-15:19
 MERGED from [:firebase_storage] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_storage\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-15:19
@@ -44,17 +44,20 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Jo
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] C:\Users\Joaquin\.gradle\caches\transforms-3\3d5c2f63a860b91cf6ae308022fbe34a\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
 	android:label
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:9:9-39
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:12:9-39
 	android:icon
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:11:9-43
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:14:9-43
+	android:enableOnBackInvokedCallback
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:11:9-51
 	android:name
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:10:9-42
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:13:9-42
 manifest
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
+MERGED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-12:12
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_storage] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_storage\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_core] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-17:12
@@ -97,26 +100,26 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Joaquin\.gradle\ca
 MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\Joaquin\.gradle\caches\transforms-3\d9bc88eac96d3ba7c7dca1cc90441a74\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Joaquin\.gradle\caches\transforms-3\c1da5780ce471b02499b09c16f97d51b\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Joaquin\.gradle\caches\transforms-3\7e86457955bc6d0f14bfde64ce24d3ce\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
-MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Joaquin\.gradle\caches\transforms-3\680a936a53c2748fcc3d71b1083941c9\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:15:1-20:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Joaquin\.gradle\caches\transforms-3\67cbc8bade01dcc76faab6ec89319181\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Joaquin\.gradle\caches\transforms-3\680a936a53c2748fcc3d71b1083941c9\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:15:1-20:12
 MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\Joaquin\.gradle\caches\transforms-3\adc4f0a6ae76731e378a316fd9081ce6\transformed\jetified-core-1.0.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\Joaquin\.gradle\caches\transforms-3\6774c0f733259c3c8f00df03297364ef\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:2:1-7:12
 MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\Joaquin\.gradle\caches\transforms-3\5deb89eae1ce69ecc7f20307a46536d3\transformed\jetified-grpc-android-1.57.2\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\Joaquin\.gradle\caches\transforms-3\8d053756734c8a3778e5b2f5f1951f4a\transformed\jetified-protolite-well-known-types-18.0.0\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
-INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
+INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
 	package
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-51:12
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:1-54:12
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -126,26 +129,34 @@ ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\An
 		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:5:9-33
 	android:name
 		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:4:9-47
+uses-permission#android.permission.CAMERA
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:7:5-65
+MERGED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-65
+MERGED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-65
+	android:name
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:7:22-62
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:7:5-79
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:9:5-79
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:7:22-77
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:9:22-77
 queries
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:45:5-50:15
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:5-53:15
 intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:46:9-49:18
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:49:9-52:18
 action#android.intent.action.PROCESS_TEXT
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:47:13-72
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:50:13-72
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:47:21-70
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:50:21-70
 data
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:13-50
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:51:13-50
 	android:mimeType
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:48:19-48
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:51:19-48
 uses-sdk
 INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
+MERGED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_storage] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_storage\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-7:41
@@ -230,10 +241,10 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Joaquin\.gradle\
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Joaquin\.gradle\caches\transforms-3\c1da5780ce471b02499b09c16f97d51b\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Joaquin\.gradle\caches\transforms-3\7e86457955bc6d0f14bfde64ce24d3ce\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Joaquin\.gradle\caches\transforms-3\7e86457955bc6d0f14bfde64ce24d3ce\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Joaquin\.gradle\caches\transforms-3\680a936a53c2748fcc3d71b1083941c9\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:18:5-44
-MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Joaquin\.gradle\caches\transforms-3\680a936a53c2748fcc3d71b1083941c9\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:18:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Joaquin\.gradle\caches\transforms-3\67cbc8bade01dcc76faab6ec89319181\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Joaquin\.gradle\caches\transforms-3\67cbc8bade01dcc76faab6ec89319181\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Joaquin\.gradle\caches\transforms-3\680a936a53c2748fcc3d71b1083941c9\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Joaquin\.gradle\caches\transforms-3\680a936a53c2748fcc3d71b1083941c9\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:18:5-44
 MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\Joaquin\.gradle\caches\transforms-3\adc4f0a6ae76731e378a316fd9081ce6\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\Joaquin\.gradle\caches\transforms-3\adc4f0a6ae76731e378a316fd9081ce6\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\Joaquin\.gradle\caches\transforms-3\6774c0f733259c3c8f00df03297364ef\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
@@ -253,45 +264,49 @@ INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main
 		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml
 activity#com.example.aguaconectada.MainActivity
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:12:9-33:20
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:15:9-36:20
 	android:launchMode
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:15:13-43
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:18:13-43
 	android:hardwareAccelerated
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:19:13-47
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:22:13-47
 	android:windowSoftInputMode
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:20:13-55
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:23:13-55
 	android:exported
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:14:13-36
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:17:13-36
 	android:configChanges
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:18:13-163
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:21:13-163
 	android:theme
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:17:13-47
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:20:13-47
 	android:taskAffinity
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:16:13-36
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:19:13-36
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:13:13-41
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:16:13-41
 meta-data#io.flutter.embedding.android.NormalTheme
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:25:13-28:17
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:28:13-31:17
 	android:resource
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:27:15-52
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:30:15-52
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:26:15-70
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:29:15-70
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:29:13-32:29
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:32:13-35:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:30:17-68
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:33:17-68
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:30:25-66
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:33:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:31:17-76
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:34:17-76
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:31:27-74
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:34:27-74
 meta-data#flutterEmbedding
-ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:36:9-38:33
+ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:39:9-41:33
 	android:value
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:38:13-30
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:41:13-30
 	android:name
-		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:37:13-44
+		ADDED from C:\Users\Joaquin\StudioProjects\AguaConectada\android\app\src\main\AndroidManifest.xml:40:13-44
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:5-71
+	android:name
+		ADDED from [:camera_android] C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\intermediates\merged_manifest\release\AndroidManifest.xml:10:22-68
 service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [:cloud_firestore] C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-14:19
 MERGED from [:firebase_storage] C:\Users\Joaquin\StudioProjects\AguaConectada\build\firebase_storage\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-14:19

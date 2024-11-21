@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../models/user.dart';
+import 'upload_consumo_page.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 import 'create_report_page.dart';
@@ -366,8 +367,15 @@ class _UserMenuState extends State<UserMenu> {
               apellidoPaterno: widget.user.apellidoPaterno,
               socio: widget.user.socio.toString(),
             ),
+            UploadConsumoPage(
+              userRut: widget.user.rut,
+              nombre: widget.user.nombre,
+              apellidoPaterno: widget.user.apellidoPaterno,
+              socio: widget.user.socio.toString(),
+
+            ),
             ProfileWidget(
-              user: widget.user, // Make sure you're passing the entire User object
+              user: widget.user,
               onLogout: () {
                 print('Logging out user ${widget.user.rut}');
                 Navigator.of(context).pushReplacementNamed('/login');
@@ -396,7 +404,7 @@ class _UserMenuState extends State<UserMenu> {
                 label: 'Crear un reporte',
               ),
               NavigationDestination(
-                icon: Icon(Icons.person, color: Colors.black87),
+                icon: Icon(Icons.image, color: Colors.black87),
                 label: 'Subir consumo',
               ),
               NavigationDestination(

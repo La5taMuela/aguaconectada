@@ -1495,7 +1495,24 @@ androidx.core.location.LocationRequestCompat$Api31Impl
 androidx.core.location.LocationRequestCompat$Builder
 androidx.core.location.LocationRequestCompat$Quality
 androidx.core.location.LocationRequestCompat
-androidx.core.math.MathUtils
+androidx.core.math.MathUtils:
+    private void <init>()
+    public static int addExact(int,int)
+    public static long addExact(long,long)
+    public static double clamp(double,double,double)
+    public static int clamp(int,int,int)
+    public static long clamp(long,long,long)
+    public static int decrementExact(int)
+    public static long decrementExact(long)
+    public static int incrementExact(int)
+    public static long incrementExact(long)
+    public static int multiplyExact(int,int)
+    public static long multiplyExact(long,long)
+    public static int negateExact(int)
+    public static long negateExact(long)
+    public static int subtractExact(int,int)
+    public static long subtractExact(long,long)
+    public static int toIntExact(long)
 androidx.core.net.ConnectivityManagerCompat$Api24Impl
 androidx.core.net.ConnectivityManagerCompat$RestrictBackgroundStatus
 androidx.core.net.ConnectivityManagerCompat
@@ -17066,7 +17083,6 @@ io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterPluginBinding:
     public io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterAssets getFlutterAssets()
     public io.flutter.embedding.engine.FlutterEngine getFlutterEngine()
     public io.flutter.plugin.platform.PlatformViewRegistry getPlatformViewRegistry()
-    public io.flutter.view.TextureRegistry getTextureRegistry()
 io.flutter.embedding.engine.plugins.PluginRegistry:
     public abstract void add(java.util.Set)
     public abstract io.flutter.embedding.engine.plugins.FlutterPlugin get(java.lang.Class)
@@ -17292,6 +17308,177 @@ io.flutter.plugin.platform.VirtualDisplayController:
 io.flutter.plugin.text.ProcessTextPlugin:
     private static final java.lang.String TAG
     public void destroy()
+io.flutter.plugins.camera.BuildConfig
+io.flutter.plugins.camera.Camera$HandlerFactory:
+    void <init>()
+io.flutter.plugins.camera.Camera$HandlerThreadFactory:
+    void <init>()
+io.flutter.plugins.camera.Camera$VideoCaptureSettings:
+    public void <init>(io.flutter.plugins.camera.features.resolution.ResolutionPreset,boolean)
+io.flutter.plugins.camera.Camera:
+    private static final java.lang.String TAG
+    private android.view.Display getDefaultDisplay()
+io.flutter.plugins.camera.CameraCaptureCallback:
+    private static final java.lang.String TAG
+io.flutter.plugins.camera.CameraPermissions:
+    private static final java.lang.String AUDIO_ACCESS_DENIED
+    private static final java.lang.String AUDIO_ACCESS_DENIED_MESSAGE
+    private static final java.lang.String CAMERA_ACCESS_DENIED
+    private static final java.lang.String CAMERA_ACCESS_DENIED_MESSAGE
+    private static final java.lang.String CAMERA_PERMISSIONS_REQUEST_ONGOING
+    private static final java.lang.String CAMERA_PERMISSIONS_REQUEST_ONGOING_MESSAGE
+    private static final int CAMERA_REQUEST_ID
+io.flutter.plugins.camera.CameraPlugin:
+    private static final java.lang.String TAG
+io.flutter.plugins.camera.CameraProperties:
+    public abstract int getHardwareLevel()
+io.flutter.plugins.camera.CameraPropertiesImpl:
+    public int getHardwareLevel()
+io.flutter.plugins.camera.CameraRegionUtils$MeteringRectangleFactory:
+    void <init>()
+io.flutter.plugins.camera.CameraRegionUtils$SizeFactory:
+    void <init>()
+io.flutter.plugins.camera.CameraUtils:
+    private void <init>()
+io.flutter.plugins.camera.DeviceInfo:
+    public void <init>()
+io.flutter.plugins.camera.ImageSaver$FileOutputStreamFactory:
+    void <init>()
+io.flutter.plugins.camera.Messages$CameraEventApi:
+    public void <init>(io.flutter.plugin.common.BinaryMessenger)
+io.flutter.plugins.camera.Messages$CanIgnoreReturnValue
+io.flutter.plugins.camera.Messages$NullableResult
+io.flutter.plugins.camera.Messages$PlatformCameraDescription:
+    public io.flutter.plugins.camera.Messages$PlatformCameraLensDirection getLensDirection()
+    public java.lang.String getName()
+    public java.lang.Long getSensorOrientation()
+io.flutter.plugins.camera.Messages$PlatformCameraState:
+    public io.flutter.plugins.camera.Messages$PlatformExposureMode getExposureMode()
+    public java.lang.Boolean getExposurePointSupported()
+    public io.flutter.plugins.camera.Messages$PlatformFocusMode getFocusMode()
+    public java.lang.Boolean getFocusPointSupported()
+    public io.flutter.plugins.camera.Messages$PlatformSize getPreviewSize()
+io.flutter.plugins.camera.Messages$PlatformMediaSettings$Builder
+io.flutter.plugins.camera.Messages$PlatformPoint$Builder
+io.flutter.plugins.camera.Messages$PlatformSize:
+    public java.lang.Double getHeight()
+    public java.lang.Double getWidth()
+io.flutter.plugins.camera.Messages:
+    public void <init>()
+io.flutter.plugins.camera.R$anim
+io.flutter.plugins.camera.R$animator
+io.flutter.plugins.camera.R$attr
+io.flutter.plugins.camera.R$color
+io.flutter.plugins.camera.R$dimen
+io.flutter.plugins.camera.R$drawable
+io.flutter.plugins.camera.R$id
+io.flutter.plugins.camera.R$integer
+io.flutter.plugins.camera.R$layout
+io.flutter.plugins.camera.R$string
+io.flutter.plugins.camera.R$style
+io.flutter.plugins.camera.R$styleable
+io.flutter.plugins.camera.R
+io.flutter.plugins.camera.SdkCapabilityChecker:
+    public void <init>()
+io.flutter.plugins.camera.VideoRenderer:
+    private static final java.lang.String fragmentShaderCode
+    private static final java.lang.String vertexShaderCode
+io.flutter.plugins.camera.features.CameraFeature:
+    public abstract boolean checkIsSupported()
+    public abstract java.lang.String getDebugName()
+    public abstract java.lang.Object getValue()
+    public abstract void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.CameraFeatures:
+    private static final java.lang.String AUTO_FOCUS
+    private static final java.lang.String EXPOSURE_LOCK
+    private static final java.lang.String EXPOSURE_OFFSET
+    private static final java.lang.String EXPOSURE_POINT
+    private static final java.lang.String FLASH
+    private static final java.lang.String FOCUS_POINT
+    private static final java.lang.String FPS_RANGE
+    private static final java.lang.String NOISE_REDUCTION
+    private static final java.lang.String REGION_BOUNDARIES
+    private static final java.lang.String RESOLUTION
+    private static final java.lang.String SENSOR_ORIENTATION
+    private static final java.lang.String ZOOM_LEVEL
+    public io.flutter.plugins.camera.features.fpsrange.FpsRangeFeature getFpsRange()
+    public io.flutter.plugins.camera.features.noisereduction.NoiseReductionFeature getNoiseReduction()
+io.flutter.plugins.camera.features.autofocus.AutoFocusFeature:
+    public java.lang.String getDebugName()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.autofocus.FocusMode:
+    public static io.flutter.plugins.camera.features.autofocus.FocusMode getValueForString(java.lang.String)
+io.flutter.plugins.camera.features.exposurelock.ExposureLockFeature:
+    public java.lang.String getDebugName()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.exposurelock.ExposureMode:
+    public static io.flutter.plugins.camera.features.exposurelock.ExposureMode getValueForString(java.lang.String)
+io.flutter.plugins.camera.features.exposureoffset.ExposureOffsetFeature:
+    public java.lang.String getDebugName()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.exposurepoint.ExposurePointFeature:
+    public java.lang.String getDebugName()
+    public io.flutter.plugins.camera.features.Point getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.flash.FlashFeature:
+    public java.lang.String getDebugName()
+    public io.flutter.plugins.camera.features.flash.FlashMode getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.flash.FlashMode:
+    public static io.flutter.plugins.camera.features.flash.FlashMode getValueForString(java.lang.String)
+io.flutter.plugins.camera.features.focuspoint.FocusPointFeature:
+    public java.lang.String getDebugName()
+    public io.flutter.plugins.camera.features.Point getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.fpsrange.FpsRangeFeature:
+    public java.lang.String getDebugName()
+    public android.util.Range getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.noisereduction.NoiseReductionFeature:
+    public java.lang.String getDebugName()
+    public io.flutter.plugins.camera.features.noisereduction.NoiseReductionMode getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public void setValue(io.flutter.plugins.camera.features.noisereduction.NoiseReductionMode)
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.noisereduction.NoiseReductionMode:
+    public static io.flutter.plugins.camera.features.noisereduction.NoiseReductionMode getValueForString(java.lang.String)
+io.flutter.plugins.camera.features.resolution.ResolutionFeature:
+    public java.lang.String getDebugName()
+    public io.flutter.plugins.camera.features.resolution.ResolutionPreset getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public void setValue(io.flutter.plugins.camera.features.resolution.ResolutionPreset)
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.sensororientation.DeviceOrientationManager:
+    io.flutter.embedding.engine.systemchannels.PlatformChannel$DeviceOrientation calculateSensorOrientation(int)
+    int getDeviceDefaultOrientation()
+io.flutter.plugins.camera.features.sensororientation.SensorOrientationFeature:
+    public boolean checkIsSupported()
+    public java.lang.String getDebugName()
+    public java.lang.Integer getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.zoomlevel.ZoomLevelFeature:
+    public java.lang.String getDebugName()
+    public java.lang.Float getValue()
+    public synthetic bridge java.lang.Object getValue()
+    public synthetic bridge void setValue(java.lang.Object)
+io.flutter.plugins.camera.features.zoomlevel.ZoomUtils:
+    void <init>()
+io.flutter.plugins.camera.media.ImageStreamReader:
+    public void <init>(android.media.ImageReader,int,io.flutter.plugins.camera.media.ImageStreamReaderUtils)
+io.flutter.plugins.camera.media.MediaRecorderBuilder$RecordingParameters:
+    public void <init>(java.lang.String)
+io.flutter.plugins.camera.types.ExposureMode
+io.flutter.plugins.camera.types.FlashMode
+io.flutter.plugins.camera.types.FocusMode
+io.flutter.plugins.camera.types.ResolutionPreset
 io.flutter.plugins.firebase.core.BuildConfig
 io.flutter.plugins.firebase.core.GeneratedAndroidFirebaseCore$FlutterError:
     public void <init>(java.lang.String,java.lang.String,java.lang.Object)
@@ -26900,6 +27087,13 @@ io.flutter.plugin.platform.PlatformPlugin$PlatformPluginDelegate$-CC
 io.flutter.plugin.platform.PlatformView$-CC
 io.flutter.plugin.platform.VirtualDisplayController:
     private static java.lang.String TAG
+io.flutter.plugins.camera.CameraApiImpl:
+    static final synthetic boolean $assertionsDisabled
+io.flutter.plugins.camera.CameraRegionUtils:
+    static final synthetic boolean $assertionsDisabled
+    public void <init>()
+io.flutter.plugins.camera.DartMessenger:
+    static final synthetic boolean $assertionsDisabled
 io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestorePlugin:
     static final synthetic boolean $assertionsDisabled
 io.flutter.plugins.firebase.firestore.utils.PigeonParser:

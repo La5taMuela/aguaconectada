@@ -174,11 +174,21 @@ class OperatorController extends ChangeNotifier {
       }
 
       if (applicableTariff == null) {
-        throw Exception('No se encontró una tarifa aplicable para el consumo');
+        // If no applicable tariff is found, use the highest tariff
+        applicableTariff = tariffData.last;
       }
 
-      // Use the total_a_pagar_1 value from the applicable tariff
-      return applicableTariff.totalAPagar1;
+      // Calculate the payment based on the difference and the applicable tariff
+      double payment = 0;
+      if (previousConsumption == 0) {
+        // If it's the first month or previous consumption was 0, use the full consumption
+        payment = applicableTariff.totalAPagar1;
+      } else {
+        // Calculate based on the difference
+        payment = (difference / applicableTariff.m3) * applicableTariff.totalAPagar1;
+      }
+
+      return payment;
     } catch (e) {
       print('Error calculating monthly payment: $e');
       rethrow;

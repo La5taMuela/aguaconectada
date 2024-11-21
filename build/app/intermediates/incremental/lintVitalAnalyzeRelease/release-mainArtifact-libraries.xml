@@ -4,6 +4,19 @@
       jars="C:\Users\Joaquin\StudioProjects\AguaConectada\build\app\intermediates\flutter\release\libs.jar"
       resolved="__local_aars__:C:\Users\Joaquin\StudioProjects\AguaConectada\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
   <library
+      name="C:\Users\Joaquin\StudioProjects\AguaConectada\android@@:camera_android::release"
+      jars="C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\.transforms\ea2081af9c6b0c8a02a574f6f66f8743\transformed\out\jars\classes.jar;C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\.transforms\ea2081af9c6b0c8a02a574f6f66f8743\transformed\out\jars\libs\R.jar"
+      resolved="io.flutter.plugins.camera:camera_android:unspecified"
+      folder="C:\Users\Joaquin\StudioProjects\AguaConectada\build\camera_android\.transforms\ea2081af9c6b0c8a02a574f6f66f8743\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="C:\Users\Joaquin\StudioProjects\AguaConectada\android@@:cloud_firestore::release"
       jars="C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\.transforms\8fa5c0357ffc5b3542c7443b4326dbc2\transformed\out\jars\classes.jar;C:\Users\Joaquin\StudioProjects\AguaConectada\build\cloud_firestore\.transforms\8fa5c0357ffc5b3542c7443b4326dbc2\transformed\out\jars\libs\R.jar"
       resolved="io.flutter.plugins.firebase.cloudfirestore:cloud_firestore:unspecified"
@@ -326,36 +339,6 @@
       jars="C:\Users\Joaquin\.gradle\caches\modules-2\files-2.1\io.flutter\x86_64_release\1.0.0-db49896cf25ceabc44096d5f088d86414e05a7aa\83a2eccb20dc431a621bd3822c83654cc1737ee9\x86_64_release-1.0.0-db49896cf25ceabc44096d5f088d86414e05a7aa.jar"
       resolved="io.flutter:x86_64_release:1.0.0-db49896cf25ceabc44096d5f088d86414e05a7aa"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20@jar"
-      jars="C:\Users\Joaquin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.20\3aa51faf20aae8b31e1a4bc54f8370673d7b7df4\kotlin-stdlib-jdk7-1.8.20.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20"/>
-  <library
-      name="androidx.annotation:annotation-experimental:1.4.0@aar"
-      jars="C:\Users\Joaquin\.gradle\caches\transforms-3\6774c0f733259c3c8f00df03297364ef\transformed\jetified-annotation-experimental-1.4.0\jars\classes.jar"
-      resolved="androidx.annotation:annotation-experimental:1.4.0"
-      folder="C:\Users\Joaquin\.gradle\caches\transforms-3\6774c0f733259c3c8f00df03297364ef\transformed\jetified-annotation-experimental-1.4.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.savedstate:savedstate:1.2.1@aar"
-      jars="C:\Users\Joaquin\.gradle\caches\transforms-3\aeca124cf6e206238105c6d6a450619a\transformed\jetified-savedstate-1.2.1\jars\classes.jar"
-      resolved="androidx.savedstate:savedstate:1.2.1"
-      folder="C:\Users\Joaquin\.gradle\caches\transforms-3\aeca124cf6e206238105c6d6a450619a\transformed\jetified-savedstate-1.2.1"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
       name="androidx.arch.core:core-runtime:2.2.0@aar"
       jars="C:\Users\Joaquin\.gradle\caches\transforms-3\67cbc8bade01dcc76faab6ec89319181\transformed\core-runtime-2.2.0\jars\classes.jar"
       resolved="androidx.arch.core:core-runtime:2.2.0"
@@ -390,9 +373,39 @@
       jars="C:\Users\Joaquin\.gradle\caches\modules-2\files-2.1\androidx.collection\collection\1.1.0\1f27220b47669781457de0d600849a5de0e89909\collection-1.1.0.jar"
       resolved="androidx.collection:collection:1.1.0"/>
   <library
+      name="androidx.savedstate:savedstate:1.2.1@aar"
+      jars="C:\Users\Joaquin\.gradle\caches\transforms-3\aeca124cf6e206238105c6d6a450619a\transformed\jetified-savedstate-1.2.1\jars\classes.jar"
+      resolved="androidx.savedstate:savedstate:1.2.1"
+      folder="C:\Users\Joaquin\.gradle\caches\transforms-3\aeca124cf6e206238105c6d6a450619a\transformed\jetified-savedstate-1.2.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.annotation:annotation-jvm:1.9.0@jar"
       jars="C:\Users\Joaquin\.gradle\caches\modules-2\files-2.1\androidx.annotation\annotation-jvm\1.9.0\3a2db038d9b614a6be762cb37e84bbf2bef69cfa\annotation-jvm-1.9.0.jar"
       resolved="androidx.annotation:annotation-jvm:1.9.0"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20@jar"
+      jars="C:\Users\Joaquin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.20\3aa51faf20aae8b31e1a4bc54f8370673d7b7df4\kotlin-stdlib-jdk7-1.8.20.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20"/>
+  <library
+      name="androidx.annotation:annotation-experimental:1.4.0@aar"
+      jars="C:\Users\Joaquin\.gradle\caches\transforms-3\6774c0f733259c3c8f00df03297364ef\transformed\jetified-annotation-experimental-1.4.0\jars\classes.jar"
+      resolved="androidx.annotation:annotation-experimental:1.4.0"
+      folder="C:\Users\Joaquin\.gradle\caches\transforms-3\6774c0f733259c3c8f00df03297364ef\transformed\jetified-annotation-experimental-1.4.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
   <library
       name="org.jetbrains.kotlin:kotlin-stdlib:1.8.22@jar"
       jars="C:\Users\Joaquin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.8.22\636bf8b320e7627482771bbac9ed7246773c02bd\kotlin-stdlib-1.8.22.jar"
