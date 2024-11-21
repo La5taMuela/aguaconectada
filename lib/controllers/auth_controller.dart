@@ -19,7 +19,6 @@ class AuthController {
 
     String formattedRut = _formatRut(rut);
     int? socio = int.tryParse(numeroSocio);
-
     if (socio == null) {
       return {'success': false, 'message': 'Número de socio inválido.'};
     }
@@ -33,29 +32,16 @@ class AuthController {
 
       if (userSnapshot.docs.isNotEmpty) {
         var userData = userSnapshot.docs.first.data();
-
-        print('Raw user data from Firestore: $userData'); // Add this line for debugging
-
         User user = User.fromMap(userData);
-        print('Parsed User object: ${user.toMap()}'); // Add this line for debugging
-
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('userData', jsonEncode(userData));
-
+        await _saveUserData(user);
         return {
           'success': true,
           'userType': 'Usuarios',
-          'userData': user,
-          'nombre': user.nombreCompleto(),
-          'rut': formattedRut,
+          'user': user,
         };
-
-
       }
 
-      // Si no es un usuario normal, verificamos las otras colecciones
       List<String> collections = ['Administrador', 'Operador'];
-
       for (String collection in collections) {
         var querySnapshot = await FirebaseFirestore.instance
             .collection(collection)
@@ -66,17 +52,11 @@ class AuthController {
         if (querySnapshot.docs.isNotEmpty) {
           var userData = querySnapshot.docs.first.data();
           User user = User.fromMap(userData);
-
-          // Almacena todos los datos del usuario en SharedPreferences como JSON
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('userData', jsonEncode(userData));
-
+          await _saveUserData(user);
           return {
             'success': true,
             'userType': collection,
-            'userData': user,
-            'nombre': user.nombreCompleto(),
-            'rut': formattedRut,
+            'user': user,
           };
         }
       }
@@ -91,20 +71,19 @@ class AuthController {
     }
   }
 
-  // Método para obtener los datos del usuario actual
+  Future<void> _saveUserData(User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userData', jsonEncode(user.toMap()));
+  }
+
   Future<User?> getCurrentUser() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       String? userDataString = prefs.getString('userData');
-
       if (userDataString == null) return null;
 
       Map<String, dynamic> userDataMap = jsonDecode(userDataString);
-      print('Retrieved user data from SharedPreferences: $userDataMap'); // Add this line for debugging
-
       User user = User.fromMap(userDataMap);
-      print('Parsed User object: ${user.toMap()}'); // Add this line for debugging
-
       return user;
     } catch (e) {
       print('Error al obtener usuario actual: $e');

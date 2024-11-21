@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../controllers/user_controller.dart';
 import '../../models/user.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 import 'create_report_page.dart';
 import '../../controllers/payment_controller.dart';
-import 'perfil_page.dart';
+import '../../widgets/profile_witget.dart';
+import '../../controllers/user_controller.dart';
+import 'notification_report_user.dart';
 
 class UserMenu extends StatefulWidget {
   final User user;
@@ -26,6 +27,7 @@ class _UserMenuState extends State<UserMenu> {
   late PaymentController _paymentController;
   late ConsumptionController _consumptionController;
   late Stream<DocumentSnapshot> _userStream;
+  late UserController _userController;
   String? selectedYear;
   int? currentMonthConsumption;
 
@@ -40,7 +42,70 @@ class _UserMenuState extends State<UserMenu> {
         .collection('Usuarios')
         .doc(widget.user.rut)
         .snapshots();
+    _userController = UserController();
     print("User stream initialized for user: ${widget.user.rut}");
+  }
+
+  void _showNotificationModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StreamBuilder<QuerySnapshot>(
+          stream: _userController.getUserReportsStream(widget.user.rut),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (snapshot.hasError) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: Text("Error: ${snapshot.error}"),
+                actions: [
+                  TextButton(
+                    child: const Text("Cerrar"),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              );
+            }
+
+            final reports = snapshot.data?.docs.map((doc) {
+              final data = doc.data() as Map<String, dynamic>;
+              return {
+                'id': doc.id,
+                'title': data['title'] as String? ?? 'Sin título',
+                'description': data['description'] as String? ?? '',
+                'status': data['status'] as String? ?? 'Desconocido',
+                'operatorComment': data['operatorComment'] as String?,
+              };
+            }).toList() ?? [];
+
+            if (reports.isEmpty) {
+              return AlertDialog(
+                title: const Text("Notificaciones"),
+                content: const Text("No hay notificaciones nuevas"),
+                actions: [
+                  TextButton(
+                    child: const Text("Cerrar"),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              );
+            }
+
+            return NotificationModal(
+              reports: reports,
+              onReportTap: (String reportId) {
+                _userController.markNotificationAsRead(reportId);
+                Navigator.of(context).pop();
+                // Add navigation to report details if needed
+              },
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -55,11 +120,48 @@ class _UserMenuState extends State<UserMenu> {
             title: Text('${widget.user.nombreCompleto()}'),
             backgroundColor: Colors.blue[400],
             actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications, color: Colors.black87),
-                iconSize: 40.0,
-                onPressed: () {
-                  print('Notificaciones presionadas');
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('reportes')
+                    .where('userRut', isEqualTo: widget.user.rut)
+                    .where('notificationState', isEqualTo: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  final hasNotifications = snapshot.hasData && snapshot.data!.docs.isNotEmpty;
+
+                  return Stack(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.notifications, color: Colors.black87),
+                        iconSize: 40.0,
+                        onPressed: () => _showNotificationModal(context),
+                      ),
+                      if (hasNotifications)
+                        Positioned(
+                          right: 8,
+                          top: 8,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: const BoxConstraints(
+                              minWidth: 14,
+                              minHeight: 14,
+                            ),
+                            child: Text(
+                              '${snapshot.data!.docs.length}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
                 },
               ),
             ],
@@ -264,7 +366,7 @@ class _UserMenuState extends State<UserMenu> {
               apellidoPaterno: widget.user.apellidoPaterno,
               socio: widget.user.socio.toString(),
             ),
-            PerfilPage(
+            ProfileWidget(
               user: widget.user, // Make sure you're passing the entire User object
               onLogout: () {
                 print('Logging out user ${widget.user.rut}');

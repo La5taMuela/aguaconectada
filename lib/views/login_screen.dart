@@ -4,7 +4,7 @@ import 'package:aguaconectada/controllers/auth_controller.dart';
 import 'package:aguaconectada/views/admin/admin_home.dart';
 import 'package:aguaconectada/views/operator/operator_home.dart';
 import 'package:aguaconectada/views/user/user_home.dart';
-import 'package:aguaconectada/utils/utils.dart'; // Import the utility function
+import 'package:aguaconectada/utils/utils.dart';
 import 'package:aguaconectada/models/user.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -83,24 +83,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _rutController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su R.U.T',
-                                prefixIcon: const Icon(Icons.person,
-                                    color: Colors.white70),
+                                prefixIcon: const Icon(Icons.person, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintStyle:
-                                    const TextStyle(color: Colors.white70),
+                                hintStyle: const TextStyle(color: Colors.white70),
                               ),
                               style: const TextStyle(color: Colors.white),
                               onChanged: (value) {
                                 setState(() {
                                   _rutController.text = formatRut(value);
-                                  _rutController.selection =
-                                      TextSelection.fromPosition(TextPosition(
-                                          offset: _rutController.text.length));
+                                  _rutController.selection = TextSelection.fromPosition(
+                                    TextPosition(offset: _rutController.text.length),
+                                  );
                                 });
                               },
                             ),
@@ -109,16 +107,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _socioController,
                               decoration: InputDecoration(
                                 hintText: 'Ingrese su N° de socio',
-                                prefixIcon: const Icon(Icons.numbers,
-                                    color: Colors.white70),
+                                prefixIcon: const Icon(Icons.numbers, color: Colors.white70),
                                 filled: true,
                                 fillColor: Colors.white.withOpacity(0.1),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide.none,
                                 ),
-                                hintStyle:
-                                    const TextStyle(color: Colors.white70),
+                                hintStyle: const TextStyle(color: Colors.white70),
                               ),
                               keyboardType: TextInputType.number,
                               style: const TextStyle(color: Colors.white),
@@ -130,9 +126,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 foregroundColor: Colors.blue[800],
                                 backgroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 15),
+                                  horizontal: 50,
+                                  vertical: 15,
+                                ),
                                 textStyle: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
@@ -161,25 +161,31 @@ class _LoginScreenState extends State<LoginScreen> {
     var result = await _authController.login(rut, socioString);
 
     if (result["success"]) {
+      User user = result['user'];
       Widget homeScreen;
+
       switch (result['userType']) {
         case 'Administrador':
           homeScreen = AdminHome(
-              userName: result['nombre'], userType: result['userType']);
+            userName: user.nombreCompleto(),
+            userType: result['userType'],
+          );
           break;
         case 'Operador':
           homeScreen = OperatorHome(
-              userName: result['nombre'], userType: result['userType']);
+            user: user,
+            userName: user.nombreCompleto(),
+            userType: result['userType'],
+          );
           break;
         case 'Usuarios':
-        // Create a User object from the login result
-          User user = User.fromMap(result);
           homeScreen = UserMenu(user: user);
           break;
         default:
           _showMessage('Error: Tipo de usuario desconocido');
           return;
       }
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => homeScreen),

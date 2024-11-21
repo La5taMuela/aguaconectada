@@ -9,6 +9,20 @@ class UserController extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ValidationController _validationController = ValidationController();
 
+  Stream<QuerySnapshot> getUserReportsStream(String userRut) {
+    return _firestore
+        .collection('reportes')
+        .where('userRut', isEqualTo: userRut)
+        .where('notificationState', isEqualTo: true)
+        .snapshots();
+  }
+
+  Future<void> markNotificationAsRead(String reportId) async {
+    await _firestore.collection('reportes').doc(reportId).update({
+      'notificationState': false,
+    });
+  }
+
   Future<int> getNextUserId() async {
     try {
       final usuarios = await _firestore
@@ -243,4 +257,5 @@ extension StringCapitalize on String {
     if (isEmpty) return this;
     return this[0].toUpperCase() + substring(1);
   }
+
 }

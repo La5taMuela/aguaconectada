@@ -9,14 +9,14 @@ class ReportController {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> createReport(
-    String userRut,
-    String nombre,
-    String apellidoPaterno,
-    String socio,
-    String title,
-    String description,
-    List<dynamic> images,
-  ) async {
+      String userRut,
+      String nombre,
+      String apellidoPaterno,
+      String socio,
+      String title,
+      String description,
+      List<dynamic> images,
+      ) async {
     try {
       print('Creating report with:');
       print(
@@ -88,7 +88,7 @@ class ReportController {
     try {
       // Delete images from storage
       final report =
-          await _firestore.collection('reportes').doc(reportId).get();
+      await _firestore.collection('reportes').doc(reportId).get();
       final imageUrls = List<String>.from(report.data()?['imageUrls'] ?? []);
       for (var imageUrl in imageUrls) {
         await _storage.refFromURL(imageUrl).delete();

@@ -182,24 +182,6 @@ class OperatorController extends ChangeNotifier {
     }
   }
 
-  double _calculateVariablePayment(
-      int consumption, List<TariffData> tariffData) {
-    if (consumption <= 0) return 0;
-    if (consumption > 360) consumption = 360;
-
-    for (var tariff in tariffData) {
-      if (consumption <= tariff.m3) {
-        print(
-            'Variable payment found for consumption $consumption: ${tariff.variable1}');
-        return tariff.variable1;
-      }
-    }
-
-    print(
-        'Using last total payment as fallback: ${tariffData.last.totalAPagar1}');
-    return tariffData.isEmpty ? 0 : tariffData.last.totalAPagar1;
-  }
-
   Future<Map<String, int>> getMonthlyConsumption(String rut) async {
     try {
       print('Fetching monthly consumption for RUT: $rut');

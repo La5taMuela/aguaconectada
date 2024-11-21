@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:aguaconectada/views/operator/profile_page.dart';
 import 'package:aguaconectada/views/operator/reports_page.dart';
 import 'package:aguaconectada/views/operator/tasks_page.dart';
 import 'package:aguaconectada/views/operator/add_user_page.dart';
 import 'package:aguaconectada/views/operator/user_list_page.dart';
 import 'package:aguaconectada/controllers/operator_controller.dart';
 import 'package:badges/badges.dart' as badges;
-import '../../widgets/notification_modal.dart';  // Importamos nuestro modal
+import '../../models/user.dart';
+import 'notification_report_operator.dart';
+import '../../widgets/profile_witget.dart';
 
 class OperatorHome extends StatefulWidget {
   final String userType;
   final String userName;
+  final User user;
 
   const OperatorHome({
-    super.key,
+    Key? key,
     required this.userType,
     required this.userName,
-  });
+    required this.user,
+  }) : super(key: key);
 
   @override
   _OperatorHomeState createState() => _OperatorHomeState();
 }
 
 class _OperatorHomeState extends State<OperatorHome> {
-  int currentPageIndex = 4; // Página inicial (Lista de usuarios)
+  int currentPageIndex = 4;
   final OperatorController _operatorController = OperatorController();
   String? selectedReportId;
 
-  // Lista de páginas disponibles
   List<Widget> get pages => [
     const TasksPage(),
     ReportsPage(reportId: selectedReportId ?? ''),
-    const ProfilePage(),
+    ProfileWidget(
+      user: widget.user,
+      onLogout: () {
+        Navigator.of(context).pushReplacementNamed('/login');
+      },
+    ),
     const AddUserPage(),
     const UserListPage(),
   ];
@@ -43,15 +50,11 @@ class _OperatorHomeState extends State<OperatorHome> {
         return NotificationModal(
           reports: reports,
           onReportTap: (reportId) {
-            // Update Firestore to mark notification as viewed
             _operatorController.updateNotificationState(reportId);
-
-            Navigator.of(context).pop(); // Close modal
-
-            // Set the selected report ID and navigate to ReportsPage
+            Navigator.of(context).pop();
             setState(() {
               selectedReportId = reportId;
-              currentPageIndex = 1; // Index of ReportsPage in the pages list
+              currentPageIndex = 1;
             });
           },
         );
