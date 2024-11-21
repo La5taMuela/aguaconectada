@@ -164,23 +164,27 @@ class OperatorController extends ChangeNotifier {
       // Only calculate payment if there's consumption
       if (difference <= 0) return 0;
 
-      // Base fee only added when there's consumption
-      double payment = 4460.0;
-
       // Find the corresponding tariff for the consumption difference
+      TariffData? applicableTariff;
       for (var tariff in tariffData) {
         if (difference <= tariff.m3) {
-          payment += tariff.variable1;
+          applicableTariff = tariff;
           break;
         }
       }
 
-      return payment;
+      if (applicableTariff == null) {
+        throw Exception('No se encontró una tarifa aplicable para el consumo');
+      }
+
+      // Use the total_a_pagar_1 value from the applicable tariff
+      return applicableTariff.totalAPagar1;
     } catch (e) {
       print('Error calculating monthly payment: $e');
       rethrow;
     }
   }
+
 
   Future<Map<String, int>> getMonthlyConsumption(String rut) async {
     try {

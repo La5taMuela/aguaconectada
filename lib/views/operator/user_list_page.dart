@@ -123,46 +123,94 @@ class UserListPage extends StatelessWidget {
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: months.map((month) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                        controller: controllers[month],
-                        decoration: InputDecoration(
-                          labelText: month,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                  children: [
+                    // Header row
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text('Mes', style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
+                          Expanded(
+                            flex: 1,
+                            child: Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
-                    );
-                  }).toList(),
+                    ),
+                    // Month rows
+                    ...months.map((month) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                        child: Row(
+                          children: [
+                            // Month input
+                            Expanded(
+                              flex: 1,
+                              child: TextFormField(
+                                controller: controllers[month],
+                                decoration: InputDecoration(
+                                  labelText: month,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            // Total display (non-editable)
+                            Expanded(
+                              flex: 1,
+                              child: FutureBuilder<double>(
+                                future: controller.calculateMonthlyPayment(rut, month, int.tryParse(controllers[month]!.text) ?? 0),
+                                builder: (context, snapshot) {
+                                  return TextFormField(
+                                    controller: TextEditingController(
+                                        text: snapshot.data?.toString() ?? '0'
+                                    ),
+                                    enabled: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Total',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.grey[200],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ],
                 ),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancelar'),
+                  child: const Text('Cancelar', style: TextStyle(color: Colors.black)),
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     Map<String, int> consumoData = {};
                     for (var month in months) {
-                      final value =
-                          int.tryParse(controllers[month]!.text) ?? 0;
+                      final value = int.tryParse(controllers[month]!.text) ?? 0;
                       consumoData[month] = value;
                     }
 
                     try {
-                      await controller.saveMonthlyConsumption(
-                          rut, consumoData);
+                      await controller.saveMonthlyConsumption(rut, consumoData);
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Consumo guardado exitosamente')),
+                        const SnackBar(content: Text('Consumo guardado exitosamente')),
                       );
                       Navigator.pop(context);
                     } catch (e) {

@@ -397,6 +397,10 @@ class _UserMenuState extends State<UserMenu> {
               ),
               NavigationDestination(
                 icon: Icon(Icons.person, color: Colors.black87),
+                label: 'Subir consumo',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person, color: Colors.black87),
                 label: 'Perfil',
               ),
             ],
