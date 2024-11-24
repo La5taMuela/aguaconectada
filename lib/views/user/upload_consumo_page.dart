@@ -6,14 +6,14 @@ import 'package:aguaconectada/controllers/consumo_controller_user.dart';
 import 'package:aguaconectada/controllers/operator_controller.dart';
 
 class UploadConsumoPage extends StatefulWidget {
-  final String userRut;
+  final String rut;
   final String nombre;
   final String apellidoPaterno;
   final String socio;
 
   const UploadConsumoPage({
     Key? key,
-    required this.userRut,
+    required this.rut,
     required this.nombre,
     required this.apellidoPaterno,
     required this.socio,
@@ -42,8 +42,8 @@ class _UploadConsumoPageState extends State<UploadConsumoPage> {
     final currentMonth = _getMonthName(DateTime.now().month);
 
     try {
-      final Map<String, int> userConsumption = await _operatorController.getMonthlyConsumption(widget.userRut);
-      final int? consumoUsuario = await _consumoControllerUser.getCurrentMonthConsumption(widget.userRut);
+      final Map<String, int> userConsumption = await _operatorController.getMonthlyConsumption(widget.rut);
+      final int? consumoUsuario = await _consumoControllerUser.getCurrentMonthConsumption(widget.rut);
 
       if (userConsumption[currentMonth] == consumoUsuario && consumoUsuario != null) {
         setState(() {
@@ -125,7 +125,7 @@ class _UploadConsumoPageState extends State<UploadConsumoPage> {
 
       try {
         await _consumoControllerUser.uploadConsumo(
-          userRut: widget.userRut,
+          rut: widget.rut,
           nombre: widget.nombre,
           apellidoPaterno: widget.apellidoPaterno,
           socio: widget.socio,

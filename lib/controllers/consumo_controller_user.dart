@@ -9,7 +9,7 @@ class ConsumoControllerUser extends ChangeNotifier {
   final OperatorController _operatorController = OperatorController();
 
   Future<void> uploadConsumo({
-    required String userRut,
+    required String rut,
     required String nombre,
     required String apellidoPaterno,
     required String socio,
@@ -19,7 +19,7 @@ class ConsumoControllerUser extends ChangeNotifier {
   }) async {
     try {
       // Upload image to Firebase Storage
-      final String fileName = '${userRut}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final String fileName = '${rut}_${DateTime.now().millisecondsSinceEpoch}.jpg';
       final Reference ref = _storage.ref().child('consumo_images/$fileName');
 
       UploadTask uploadTask;
@@ -34,7 +34,7 @@ class ConsumoControllerUser extends ChangeNotifier {
 
       // Register consumption data in Firestore
       await _firestore.collection('consumo_usuario').add({
-        'userRut': userRut,
+        'rut': rut,
         'nombre': nombre,
         'apellidoPaterno': apellidoPaterno,
         'socio': socio,
@@ -47,12 +47,12 @@ class ConsumoControllerUser extends ChangeNotifier {
       final String month = _getMonthName(fecha.month);
       final String year = fecha.year.toString();
 
-      await _firestore.collection('Usuarios').doc(userRut).update({
+      await _firestore.collection('Usuarios').doc(rut).update({
         'consumos.$year.$month': consumo,
       });
 
       // Calculate and update payment amount
-      await _calculateAndUpdatePayment(userRut, month, year, consumo);
+      await _calculateAndUpdatePayment(rut, month, year, consumo);
 
       notifyListeners();
     } catch (e) {
@@ -61,11 +61,11 @@ class ConsumoControllerUser extends ChangeNotifier {
     }
   }
 
-  Future<void> _calculateAndUpdatePayment(String userRut, String month, String year, int consumo) async {
+  Future<void> _calculateAndUpdatePayment(String rut, String month, String year, int consumo) async {
     try {
-      double paymentAmount = await _operatorController.calculateMonthlyPayment(userRut, month, consumo);
+      double paymentAmount = await _operatorController.calculateMonthlyPayment(rut, month, consumo);
 
-      await _firestore.collection('Usuarios').doc(userRut).update({
+      await _firestore.collection('Usuarios').doc(rut).update({
         'montosMensuales.$year.$month': paymentAmount,
       });
     } catch (e) {
@@ -82,12 +82,12 @@ class ConsumoControllerUser extends ChangeNotifier {
     return monthNames[month - 1];
   }
 
-  Future<int?> getCurrentMonthConsumption(String userRut) async {
+  Future<int?> getCurrentMonthConsumption(String rut) async {
     try {
 
       final consumoSnapshot = await _firestore
           .collection('consumo_usuario')
-          .where('userRut', isEqualTo: userRut)
+          .where('rut', isEqualTo: rut)
           .where('fecha', isGreaterThanOrEqualTo: DateTime(DateTime.now().year, DateTime.now().month, 1).toIso8601String())
           .where('fecha', isLessThan: DateTime(DateTime.now().year, DateTime.now().month + 1, 1).toIso8601String())
           .orderBy('fecha', descending: true)

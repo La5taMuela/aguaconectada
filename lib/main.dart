@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           ),
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.blue,
-            primary: Colors.white,
+            primary: Colors.black87,
             secondary: Colors.blue[400]!,
           ),
           textTheme: const TextTheme(

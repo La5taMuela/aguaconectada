@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TariffData {
   final int m3;
@@ -33,6 +35,101 @@ class OperatorController extends ChangeNotifier {
       rethrow;
     }
   }
+  Future<String> _uploadConsumptionImage(String rut, String month, dynamic image) async {
+    try {
+      String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      Reference ref = _storage.ref().child('consumos/$rut/$month/$fileName');
+
+      if (kIsWeb) {
+        await ref.putData(await (image as XFile).readAsBytes());
+      } else {
+        await ref.putFile(image as File);
+      }
+
+      String downloadUrl = await ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error al subir la imagen de consumo: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> saveMonthlyConsumptionWithImage(
+      String rut, String month, int consumption, dynamic image) async {
+    try {
+      String? imageUrl;
+      if (image != null) {
+        imageUrl = await _uploadConsumptionImage(rut, month, image);
+      }
+
+      final currentYear = DateTime.now().year.toString();
+      final userRef = _firestore.collection('Usuarios').doc(rut);
+
+      Map<String, dynamic> consumptionData = {
+        'consumo': consumption,
+        'fecha': DateTime.now().toIso8601String(),
+      };
+
+      if (imageUrl != null) {
+        consumptionData['imageUrl'] = imageUrl;
+      }
+
+      // Save consumption data with image URL
+      await _firestore.collection('consumo_usuario').add({
+        'rut': rut,
+        'consumo': consumption,
+        'fecha': DateTime.now().toIso8601String(),
+        'imageUrl': imageUrl,
+      });
+
+      // Update user's consumption history
+      await userRef.update({
+        'consumos.$currentYear.$month': consumption,
+      });
+
+      notifyListeners();
+    } catch (e) {
+      print('Error saving consumption data with image: $e');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>> verifyUserConsumption(String rut) async {
+    try {
+      final consumoDoc = await _firestore
+          .collection('consumo_usuario')
+          .where('rut', isEqualTo: rut)
+          .get();
+
+      Map<String, dynamic> consumos = {};
+
+      if (consumoDoc.docs.isNotEmpty) {
+        for (var doc in consumoDoc.docs) {
+          final data = doc.data();
+          final fecha = DateTime.parse(data['fecha']);
+          final mes = _getMonthName(fecha.month);
+          consumos[mes] = {
+            'consumo': data['consumo'],
+            'imageUrl': data['imageUrl'],
+          };
+        }
+      }
+
+      return consumos;
+    } catch (e) {
+      print('Error verificando consumo del usuario: $e');
+      rethrow;
+    }
+  }
+
+  String _getMonthName(int month) {
+    const monthNames = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    return monthNames[month - 1];
+  }
+
 
   Future<void> saveMonthlyConsumption(
       String rut, Map<String, int> consumptionData) async {

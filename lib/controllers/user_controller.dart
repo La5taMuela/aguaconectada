@@ -13,13 +13,12 @@ class UserController extends ChangeNotifier {
     return _firestore
         .collection('reportes')
         .where('userRut', isEqualTo: userRut)
-        .where('notificationState', isEqualTo: true)
         .snapshots();
   }
 
   Future<void> markNotificationAsRead(String reportId) async {
     await _firestore.collection('reportes').doc(reportId).update({
-      'notificationState': false,
+      'read': true,
     });
   }
 

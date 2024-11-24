@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:aguaconectada/views/operator/reports_page.dart';
-import 'package:aguaconectada/views/operator/tasks_page.dart';
 import 'package:aguaconectada/views/operator/add_user_page.dart';
 import 'package:aguaconectada/views/operator/user_list_page.dart';
 import 'package:aguaconectada/controllers/operator_controller.dart';
@@ -26,12 +25,11 @@ class OperatorHome extends StatefulWidget {
 }
 
 class _OperatorHomeState extends State<OperatorHome> {
-  int currentPageIndex = 4;
+  int currentPageIndex = 3;
   final OperatorController _operatorController = OperatorController();
   String? selectedReportId;
 
   List<Widget> get pages => [
-    const TasksPage(),
     ReportsPage(reportId: selectedReportId ?? ''),
     ProfileWidget(
       user: widget.user,
@@ -119,22 +117,11 @@ class _OperatorHomeState extends State<OperatorHome> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.task),
-              title: const Text('Tareas'),
-              onTap: () {
-                setState(() {
-                  currentPageIndex = 0;
-                  selectedReportId = null;
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.report),
               title: const Text('Reportes'),
               onTap: () {
                 setState(() {
-                  currentPageIndex = 1;
+                  currentPageIndex = 0;
                   selectedReportId = null;
                 });
                 Navigator.pop(context);
@@ -145,7 +132,7 @@ class _OperatorHomeState extends State<OperatorHome> {
               title: const Text('Perfil'),
               onTap: () {
                 setState(() {
-                  currentPageIndex = 2;
+                  currentPageIndex = 1;
                   selectedReportId = null;
                 });
                 Navigator.pop(context);
@@ -156,7 +143,7 @@ class _OperatorHomeState extends State<OperatorHome> {
               title: const Text('Agregar Usuario'),
               onTap: () {
                 setState(() {
-                  currentPageIndex = 3;
+                  currentPageIndex = 2;
                   selectedReportId = null;
                 });
                 Navigator.pop(context);
@@ -167,7 +154,7 @@ class _OperatorHomeState extends State<OperatorHome> {
               title: const Text('Lista de Usuarios'),
               onTap: () {
                 setState(() {
-                  currentPageIndex = 4;
+                  currentPageIndex = 3;
                   selectedReportId = null;
                 });
                 Navigator.pop(context);

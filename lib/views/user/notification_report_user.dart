@@ -17,7 +17,7 @@ class NotificationModal extends StatelessWidget {
       case 'revisado':
         return 'Su reporte ha sido resuelto';
       default:
-        return 'Estado desconocido';
+        return 'Su reporte esta esperando ser revisado por un operador';
     }
   }
 
@@ -36,32 +36,45 @@ class NotificationModal extends StatelessWidget {
               elevation: 2,
               margin: const EdgeInsets.symmetric(vertical: 5),
               child: ListTile(
-                title: Text(_getStatusMessage(report['status'] ?? ''),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-
-                ),),
+                title: Text(
+                  _getStatusMessage(report['status'] ?? ''),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: report['read'] == true ? Colors.grey : Colors.black,
+                  ),
+                ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(report['title'] ?? 'Sin título'),
+                    Text(
+                      'Titulo:  ${report['title']}',
+
+                      style: TextStyle(
+                        color: report['read'] == true ? Colors.grey[600] : Colors.black87,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(report['description'] ?? 'Sin descripción'),
-                    if (report['operatorComment'] == null) ...[
+                    Text(
+                      'Descripcion: ${report['description'] ?? 'Sin descripción'}',
+                      style: TextStyle(
+                        color: report['read'] == true ? Colors.grey[600] : Colors.black87,
+                      ),
+                    ),
+                    if (report['operatorComment'] != null) ...[  // Changed from == null to != null
                       const SizedBox(height: 4),
                       Text(
                         'Comentario del operador: ${report['operatorComment']}',
                         style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey[600],
+                          fontSize: 16,
+                          color: report['read'] == true ? Colors.grey[600] : Colors.grey[800],
                         ),
                       ),
                     ],
                   ],
                 ),
                 onTap: () {
+                  onReportTap(report['reportId']);
                 },
               ),
             );
@@ -82,3 +95,4 @@ class NotificationModal extends StatelessWidget {
     );
   }
 }
+

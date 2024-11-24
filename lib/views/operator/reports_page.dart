@@ -38,7 +38,6 @@ class _ReportsPageState extends State<ReportsPage> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +107,7 @@ class _ReportsPageState extends State<ReportsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 8),
-                        Text(reporte['description'] ?? ''),
+                        Text('Titulo: ${reporte['title']}'),
                         const SizedBox(height: 8),
                         Text(
                           'Estado: ${reporte['status']}',
@@ -151,10 +150,12 @@ class _ReportsPageState extends State<ReportsPage> {
 
   void _showReportDetails(BuildContext context, Map<String, dynamic> reporte,
       List<String> imagenes) {
-    final commentController = TextEditingController();
+    final commentController = TextEditingController(text: reporte['operatorComment'] ?? '');
     String buttonStatus = reporte['status'] == 'pendiente'
         ? 'Marcar en proceso'
-        : 'Marcar en revisado';
+        : reporte['status'] == 'en proceso'
+        ? 'Marcar en revisado'
+        : 'Actualizar comentario';
 
     showDialog(
       context: context,
@@ -195,33 +196,52 @@ class _ReportsPageState extends State<ReportsPage> {
                   Text('RUT: ${reporte['userRut']}'),
                   Text('Socio: ${reporte['socio'] ?? 'No disponible'}'),
                   const SizedBox(height: 8),
+                  Text('Titulo: ${reporte['title']}'),
                   Text('Descripción: ${reporte['description']}'),
                   const SizedBox(height: 16),
                   if (imagenes.isNotEmpty) ...[
                     const Text('Imágenes:',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
-                    SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: imagenes.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: Image.network(
-                              imagenes[index],
-                              height: 200,
-                              width: 200,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return const Center(
-                                    child: Text('Imagen no disponible'));
-                              },
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SizedBox(
+                          height: imagenes.length == 1 ? 200 : 400,
+                          child: GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: imagenes.length == 1 ? 1 : 2,
+                              childAspectRatio: 1,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
                             ),
-                          );
-                        },
-                      ),
+                            itemCount: imagenes.length,
+                            itemBuilder: (context, index) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  imagenes[index],
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Center(
+                                        child: Text('Imagen no disponible'));
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                   const SizedBox(height: 16),
@@ -239,24 +259,20 @@ class _ReportsPageState extends State<ReportsPage> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          if (buttonStatus == 'Marcar en proceso') {
-                            await _reportController.reviewReport(
-                              reporte['id'],
-                              commentController.text,
-                              'en proceso',
-                            );
-                            setState(() {
-                              buttonStatus = 'Marcar en revisado';
-                            });
-                            Navigator.of(context).pop();
-                          } else if (buttonStatus == 'Marcar en revisado') {
-                            await _reportController.reviewReport(
-                              reporte['id'],
-                              commentController.text,
-                              'revisado',
-                            );
-                            Navigator.of(context).pop();
+                          String newStatus;
+                          if (reporte['status'] == 'pendiente') {
+                            newStatus = 'en proceso';
+                          } else if (reporte['status'] == 'en proceso') {
+                            newStatus = 'revisado';
+                          } else {
+                            newStatus = reporte['status'];
                           }
+                          await _reportController.reviewReport(
+                            reporte['reportId'],
+                            commentController.text,
+                            newStatus,
+                          );
+                          Navigator.of(context).pop();
                         },
                         child: Text(buttonStatus),
                       ),

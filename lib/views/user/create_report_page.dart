@@ -31,6 +31,12 @@ class _CreateReportPageState extends State<CreateReportPage> {
   bool _isSubmitting = false;
 
   Future<void> _pickImage() async {
+    if (_images.length >= 4) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Máximo 4 imágenes permitidas')),
+      );
+      return;
+    }
     // Mostrar un diálogo para elegir entre cámara o galería
     final pickedSource = await showDialog<ImageSource>(
       context: context,
@@ -164,7 +170,6 @@ class _CreateReportPageState extends State<CreateReportPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const SizedBox(height: 8),
                       TextFormField(
                         controller: _titleController,
                         decoration: InputDecoration(
@@ -182,6 +187,7 @@ class _CreateReportPageState extends State<CreateReportPage> {
                           return null;
                         },
                       ),
+                      const SizedBox(height: 16),
                       Text(
                         'Descripción del Reporte',
                         style: TextStyle(
@@ -190,6 +196,7 @@ class _CreateReportPageState extends State<CreateReportPage> {
                           color: Colors.blue[700],
                         ),
                       ),
+                      const SizedBox(height: 8),
                       TextFormField(
                         controller: _descriptionController,
                         decoration: InputDecoration(
@@ -252,8 +259,8 @@ class _CreateReportPageState extends State<CreateReportPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: _images.length,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
                             crossAxisSpacing: 4.0,
                             mainAxisSpacing: 4.0,
                           ),
@@ -265,13 +272,13 @@ class _CreateReportPageState extends State<CreateReportPage> {
                               ),
                               child: kIsWeb
                                   ? Image.network(
-                                      (_images[index] as XFile).path,
-                                      fit: BoxFit.cover,
-                                    )
+                                (_images[index] as XFile).path,
+                                fit: BoxFit.cover,
+                              )
                                   : Image.file(
-                                      _images[index] as File,
-                                      fit: BoxFit.cover,
-                                    ),
+                                _images[index] as File,
+                                fit: BoxFit.cover,
+                              ),
                             );
                           },
                         ),
@@ -279,6 +286,47 @@ class _CreateReportPageState extends State<CreateReportPage> {
                     ),
                   ),
                 ),
+              const SizedBox(height: 16),
+              const Divider(
+                thickness: 4,
+                color: Colors.black54,
+                indent: 40,
+                endIndent: 40,
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Instrucciones',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '1. Ingrese un título claro y conciso para su reporte.\n'
+                          '2. Proporcione una descripción detallada del problema.\n'
+                          '3. Puede agregar hasta 4 imágenes para ilustrar el problema.\n'
+                          '4. Asegúrese de revisar toda la información antes de enviar el reporte.',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _isSubmitting ? null : _submitReport,
@@ -293,9 +341,9 @@ class _CreateReportPageState extends State<CreateReportPage> {
                 child: _isSubmitting
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text(
-                        'Enviar Reporte',
-                        style: TextStyle(fontSize: 18),
-                      ),
+                  'Enviar Reporte',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ],
           ),
@@ -304,3 +352,4 @@ class _CreateReportPageState extends State<CreateReportPage> {
     );
   }
 }
+

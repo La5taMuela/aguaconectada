@@ -30,7 +30,7 @@ class ReportController {
           images.map((image) => _uploadImage(reportRef.id, image)));
 
       await reportRef.set({
-        'id': reportId, // Add the ID to the document
+        'reportId': reportId, // Add the ID to the document
         'userRut': userRut,
         'nombre': nombre,
         'apellidoPaterno': apellidoPaterno,
@@ -41,6 +41,7 @@ class ReportController {
         'status': 'pendiente',
         'imageUrls': imageUrls,
         'notificationState': false,
+        'read': false,
       });
 
       print('Reporte creado exitosamente');

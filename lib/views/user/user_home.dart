@@ -72,15 +72,16 @@ class _UserMenuState extends State<UserMenu> {
             }
 
             final reports = snapshot.data?.docs.map((doc) {
-                  final data = doc.data() as Map<String, dynamic>;
-                  return {
-                    'id': doc.id,
-                    'title': data['title'] as String? ?? 'Sin título',
-                    'description': data['description'] as String? ?? '',
-                    'status': data['status'] as String? ?? 'Desconocido',
-                    'operatorComment': data['operatorComment'] as String?,
-                  };
-                }).toList() ??
+              final data = doc.data() as Map<String, dynamic>;
+              return {
+                'reportId': doc.id,
+                'title': data['title'] as String? ?? 'Sin título',
+                'description': data['description'] as String? ?? '',
+                'status': data['status'] as String? ?? 'Desconocido',
+                'operatorComment': data['operatorComment'] as String?,
+                'read': data['read'] as bool? ?? false,
+              };
+            }).toList() ??
                 [];
 
             if (reports.isEmpty) {
@@ -100,8 +101,7 @@ class _UserMenuState extends State<UserMenu> {
               reports: reports,
               onReportTap: (String reportId) {
                 _userController.markNotificationAsRead(reportId);
-                Navigator.of(context).pop();
-                // Add navigation to report details if needed
+                setState(() {}); // Trigger a rebuild to update the UI
               },
             );
           },
@@ -126,11 +126,11 @@ class _UserMenuState extends State<UserMenu> {
                 stream: FirebaseFirestore.instance
                     .collection('reportes')
                     .where('userRut', isEqualTo: widget.user.rut)
-                    .where('notificationState', isEqualTo: true)
+                    .where('notificationState', isEqualTo: false)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  final hasNotifications =
-                      snapshot.hasData && snapshot.data!.docs.isNotEmpty;
+                  final unreadNotifications =
+                  snapshot.hasData ? snapshot.data!.docs.length : 0;
 
                   return Stack(
                     children: [
@@ -140,7 +140,7 @@ class _UserMenuState extends State<UserMenu> {
                         iconSize: 40.0,
                         onPressed: () => _showNotificationModal(context),
                       ),
-                      if (hasNotifications)
+                      if (unreadNotifications > 0)
                         Positioned(
                           right: 8,
                           top: 8,
@@ -155,7 +155,7 @@ class _UserMenuState extends State<UserMenu> {
                               minHeight: 14,
                             ),
                             child: Text(
-                              '${snapshot.data!.docs.length}',
+                              '$unreadNotifications',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 8,
@@ -223,7 +223,7 @@ class _UserMenuState extends State<UserMenu> {
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(2),
+                          padding: const EdgeInsets.all(0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
@@ -415,7 +415,7 @@ class _UserMenuState extends State<UserMenu> {
               socio: widget.user.socio.toString(),
             ),
             UploadConsumoPage(
-              userRut: widget.user.rut,
+              rut: widget.user.rut,
               nombre: widget.user.nombre,
               apellidoPaterno: widget.user.apellidoPaterno,
               socio: widget.user.socio.toString(),

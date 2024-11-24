@@ -6,6 +6,273 @@ import '../../controllers/operator_controller.dart';
 class UserListPage extends StatelessWidget {
   const UserListPage({super.key});
 
+  void _showImageDialog(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      barrierDismissible: true, // Permitir cerrar tocando afuera
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // CircularProgressIndicator mientras carga
+                const CircularProgressIndicator(),
+                // Imagen cargada
+                Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.8,
+                    maxHeight: MediaQuery.of(context).size.height * 0.6,
+                  ),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+  void _showConsumptionModal(BuildContext context, String rut) {
+    final OperatorController controller = OperatorController();
+    final Map<String, TextEditingController> controllers = {};
+
+    final months = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    for (var month in months) {
+      controllers[month] = TextEditingController();
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return FutureBuilder<Map<String, Map<String, dynamic>>>(
+          future: Future.wait([
+            controller.getMonthlyConsumption(rut),
+            controller.verifyUserConsumption(rut)
+          ]).then((results) => {
+            'monthlyConsumption': results[0],
+            'verifiedConsumption': results[1],
+          }),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            if (snapshot.hasData) {
+              final monthlyConsumption = snapshot.data!['monthlyConsumption']!;
+              final verifiedConsumption = snapshot.data!['verifiedConsumption'] as Map<String, dynamic>;
+
+              for (var month in months) {
+                controllers[month]!.text = monthlyConsumption[month]?.toString() ?? '';
+              }
+
+              return Dialog(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Ingresar Consumo Mensual',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Header row
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 40), // Space for icon
+                            Expanded(
+                              child: Text('Mes',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text('Total',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      // Scrollable content
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: months.map((month) {
+                              final consumoData = verifiedConsumption[month];
+                              final hasImage = consumoData != null && consumoData['imageUrl'] != null;
+
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  children: [
+                                    // Icon container
+                                    SizedBox(
+                                      width: 40,
+                                      child: hasImage
+                                          ? IconButton(
+                                        icon: Icon(Icons.image,
+                                            color: Colors.blue,
+                                            size: 24),
+                                        onPressed: () => _showImageDialog(
+                                            context, consumoData['imageUrl']),
+                                      )
+                                          : null,
+                                    ),
+                                    // Month input
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: TextFormField(
+                                          controller: controllers[month],
+                                          decoration: InputDecoration(
+                                            labelText: month,
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.digitsOnly,
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // Total field
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: FutureBuilder<double>(
+                                          future: controller.calculateMonthlyPayment(
+                                              rut, month,
+                                              int.tryParse(controllers[month]!.text) ?? 0),
+                                          builder: (context, snapshot) {
+                                            return TextFormField(
+                                              controller: TextEditingController(
+                                                  text: snapshot.data?.toString() ?? '0'),
+                                              enabled: false,
+                                              decoration: InputDecoration(
+                                                labelText: 'Total',
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.grey[200],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                      // Buttons
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancelar',
+                                  style: TextStyle(color: Colors.black)),
+                            ),
+                            const SizedBox(width: 8),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 12),
+                              ),
+                              onPressed: () async {
+                                Map<String, int> consumoData = {};
+                                for (var month in months) {
+                                  final value =
+                                      int.tryParse(controllers[month]!.text) ?? 0;
+                                  consumoData[month] = value;
+                                }
+
+                                try {
+                                  await controller.saveMonthlyConsumption(
+                                      rut, consumoData);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                        Text('Consumo guardado exitosamente')),
+                                  );
+                                  Navigator.pop(context);
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Error: $e')),
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                'Guardar',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return AlertDialog(
+                title: const Text('Error'),
+                content: Text(snapshot.error.toString()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Cerrar'),
+                  ),
+                ],
+              );
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +323,7 @@ class UserListPage extends StatelessWidget {
                     onPressed: () {
                       _showConsumptionModal(context, usuario['rut']);
                     },
-                    child: const Text('Consumo'),
+                    child: const Text ('Consumo'),
                   ),
                 ),
               );
@@ -64,174 +331,6 @@ class UserListPage extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-
-  void _showConsumptionModal(BuildContext context, String rut) {
-    final OperatorController controller = OperatorController();
-    final Map<String, TextEditingController> controllers = {};
-
-    final months = [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre'
-    ];
-    for (var month in months) {
-      controllers[month] = TextEditingController();
-    }
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return FutureBuilder<Map<String, int>>(
-          future: controller.getMonthlyConsumption(rut),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            if (snapshot.hasData) {
-              final consumptionData = snapshot.data!;
-              for (var month in months) {
-                controllers[month]!.text =
-                    consumptionData[month]?.toString() ?? '';
-              }
-            } else if (snapshot.hasError) {
-              return AlertDialog(
-                title: const Text('Error'),
-                content: Text(snapshot.error.toString()),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cerrar'),
-                  ),
-                ],
-              );
-            }
-
-            return AlertDialog(
-              title: const Text('Ingresar Consumo Mensual'),
-              content: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // Header row
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text('Mes', style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Month rows
-                    ...months.map((month) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                        child: Row(
-                          children: [
-                            // Month input
-                            Expanded(
-                              flex: 1,
-                              child: TextFormField(
-                                controller: controllers[month],
-                                decoration: InputDecoration(
-                                  labelText: month,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 16),
-                            // Total display (non-editable)
-                            Expanded(
-                              flex: 1,
-                              child: FutureBuilder<double>(
-                                future: controller.calculateMonthlyPayment(rut, month, int.tryParse(controllers[month]!.text) ?? 0),
-                                builder: (context, snapshot) {
-                                  return TextFormField(
-                                    controller: TextEditingController(
-                                        text: snapshot.data?.toString() ?? '0'
-                                    ),
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Total',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.grey[200],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancelar', style: TextStyle(color: Colors.black)),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    Map<String, int> consumoData = {};
-                    for (var month in months) {
-                      final value = int.tryParse(controllers[month]!.text) ?? 0;
-                      consumoData[month] = value;
-                    }
-
-                    try {
-                      await controller.saveMonthlyConsumption(rut, consumoData);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Consumo guardado exitosamente')),
-                      );
-                      Navigator.pop(context);
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error: $e')),
-                      );
-                    }
-                  },
-                  child: const Text(
-                    'Guardar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
     );
   }
 }
