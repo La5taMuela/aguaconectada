@@ -15,7 +15,6 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

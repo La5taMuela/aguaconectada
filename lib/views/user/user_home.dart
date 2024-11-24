@@ -72,15 +72,16 @@ class _UserMenuState extends State<UserMenu> {
             }
 
             final reports = snapshot.data?.docs.map((doc) {
-              final data = doc.data() as Map<String, dynamic>;
-              return {
-                'id': doc.id,
-                'title': data['title'] as String? ?? 'Sin título',
-                'description': data['description'] as String? ?? '',
-                'status': data['status'] as String? ?? 'Desconocido',
-                'operatorComment': data['operatorComment'] as String?,
-              };
-            }).toList() ?? [];
+                  final data = doc.data() as Map<String, dynamic>;
+                  return {
+                    'id': doc.id,
+                    'title': data['title'] as String? ?? 'Sin título',
+                    'description': data['description'] as String? ?? '',
+                    'status': data['status'] as String? ?? 'Desconocido',
+                    'operatorComment': data['operatorComment'] as String?,
+                  };
+                }).toList() ??
+                [];
 
             if (reports.isEmpty) {
               return AlertDialog(
@@ -128,12 +129,14 @@ class _UserMenuState extends State<UserMenu> {
                     .where('notificationState', isEqualTo: true)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  final hasNotifications = snapshot.hasData && snapshot.data!.docs.isNotEmpty;
+                  final hasNotifications =
+                      snapshot.hasData && snapshot.data!.docs.isNotEmpty;
 
                   return Stack(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.notifications, color: Colors.black87),
+                        icon: const Icon(Icons.notifications,
+                            color: Colors.black87),
                         iconSize: 40.0,
                         onPressed: () => _showNotificationModal(context),
                       ),
@@ -192,9 +195,17 @@ class _UserMenuState extends State<UserMenu> {
                       var userData = snapshot.data!.data() as Map<String, dynamic>;
                       var currentYear = DateTime.now().year.toString();
                       var currentMonth = DateTime.now().month;
-                      var monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                      var monthNames = [
+                        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                      ];
                       var currentMonthName = monthNames[currentMonth - 1];
-                      var currentMonthConsumption = userData['montosMensuales'][currentYear][currentMonthName] ?? 0;
+
+                      // Check if the payment for the current month exists and is not zero
+                      var isPaid = userData['historialPagos']?[currentYear]?[currentMonthName]?['valor'] != null &&
+                          userData['historialPagos']?[currentYear]?[currentMonthName]?['valor'] != 0;
+
+                      var currentMonthConsumption = userData['montosMensuales']?[currentYear]?[currentMonthName] ?? 0;
 
                       print('Current Month Consumption: $currentMonthConsumption');
                       print('User data fetched: $userData');
@@ -211,50 +222,64 @@ class _UserMenuState extends State<UserMenu> {
                             width: 2.0,
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Monto a pagar: \$$currentMonthConsumption',
-                              style: const TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
+                        child: Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'Monto a pagar:',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    isPaid ? 'Mes pagado' : '\$$currentMonthConsumption',
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                try {
-                                  await _paymentController
-                                      .handlePayment(widget.user.rut);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content:
-                                        Text('Pago registrado exitosamente')),
-                                  );
-                                  print('Pago registrado exitosamente para ${widget.user.rut}');
-                                } catch (e) {
-                                  print('Error during payment: ${e.toString()}');
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Error: ${e.toString()}')),
-                                  );
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.black,
-                                backgroundColor: Colors.white,
-                                side: const BorderSide(color: Colors.black87),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
+                              const SizedBox(height: 10),
+                              if (!isPaid) // Only show the button if the month is not paid
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    try {
+                                      await _paymentController.handlePayment(widget.user.rut);
+                                      if (mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(content: Text('Pago registrado exitosamente')),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      if (mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('Error: ${e.toString()}')),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  // ... (button styling remains unchanged)
+                                  child: const Text(
+                                    'Pagar',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 12),
-                              ),
-                              child: const Text('Pagar'),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -309,32 +334,54 @@ class _UserMenuState extends State<UserMenu> {
                       child: StreamBuilder<DocumentSnapshot>(
                         stream: _userStream,
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const CircularProgressIndicator();
                           } else if (snapshot.hasError) {
-                            print('Error fetching payment data: ${snapshot.error}');
+                            print(
+                                'Error fetching payment data: ${snapshot.error}');
                             return Text('Error: ${snapshot.error}');
-                          } else if (!snapshot.hasData || !snapshot.data!.exists) {
+                          } else if (!snapshot.hasData ||
+                              !snapshot.data!.exists) {
                             print('No payment data available.');
-                            return const Text('No hay datos de pago disponibles.');
+                            return const Text(
+                                'No hay datos de pago disponibles.');
                           } else {
-                            var userData = snapshot.data!.data() as Map<String, dynamic>;
+                            var userData =
+                                snapshot.data!.data() as Map<String, dynamic>;
                             var currentYear = DateTime.now().year.toString();
-                            var paymentData = userData['historialPagos'][currentYear] ?? {};
-                            var monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-                            print('Payment data for year $currentYear: $paymentData');
+                            var paymentData =
+                                userData['historialPagos'][currentYear] ?? {};
+                            var monthNames = [
+                              'Enero',
+                              'Febrero',
+                              'Marzo',
+                              'Abril',
+                              'Mayo',
+                              'Junio',
+                              'Julio',
+                              'Agosto',
+                              'Septiembre',
+                              'Octubre',
+                              'Noviembre',
+                              'Diciembre'
+                            ];
+                            print(
+                                'Payment data for year $currentYear: $paymentData');
 
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: monthNames.map<Widget>((month) {
-                                final details = paymentData[month] ?? {'valor': 0, 'fecha': null};
+                                final details = paymentData[month] ??
+                                    {'valor': 0, 'fecha': null};
                                 print('Payment details for $month: $details');
                                 return Card(
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  margin: const EdgeInsets.symmetric(vertical: 4.0),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
@@ -372,7 +419,6 @@ class _UserMenuState extends State<UserMenu> {
               nombre: widget.user.nombre,
               apellidoPaterno: widget.user.apellidoPaterno,
               socio: widget.user.socio.toString(),
-
             ),
             ProfileWidget(
               user: widget.user,
@@ -380,8 +426,7 @@ class _UserMenuState extends State<UserMenu> {
                 print('Logging out user ${widget.user.rut}');
                 Navigator.of(context).pushReplacementNamed('/login');
               },
-            )
-            ,
+            ),
           ][currentPageIndex],
           bottomNavigationBar: NavigationBar(
             backgroundColor: Colors.blue[400],

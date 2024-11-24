@@ -40,7 +40,6 @@ class _UploadConsumoPageState extends State<UploadConsumoPage> {
 
   Future<void> _checkCurrentMonthConsumption() async {
     final currentMonth = _getMonthName(DateTime.now().month);
-    final currentYear = DateTime.now().year.toString();
 
     try {
       final Map<String, int> userConsumption = await _operatorController.getMonthlyConsumption(widget.userRut);

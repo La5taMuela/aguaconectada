@@ -84,8 +84,6 @@ class ConsumoControllerUser extends ChangeNotifier {
 
   Future<int?> getCurrentMonthConsumption(String userRut) async {
     try {
-      final currentMonth = _getMonthName(DateTime.now().month);
-      final currentYear = DateTime.now().year.toString();
 
       final consumoSnapshot = await _firestore
           .collection('consumo_usuario')

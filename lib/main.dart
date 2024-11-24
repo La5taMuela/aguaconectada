@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
             secondary: Colors.blue[400]!,
           ),
           textTheme: const TextTheme(
+            bodySmall: TextStyle(color: Colors.black),
             bodyLarge: TextStyle(color: Colors.black),
             bodyMedium: TextStyle(color: Colors.black),
           ),
