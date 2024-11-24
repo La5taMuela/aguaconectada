@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:aguaconectada/controllers/auth_controller.dart';
-import 'package:aguaconectada/views/admin/admin_home.dart';
 import 'package:aguaconectada/views/operator/operator_home.dart';
 import 'package:aguaconectada/views/user/user_home.dart';
 import 'package:aguaconectada/utils/utils.dart';
@@ -165,12 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
       Widget homeScreen;
 
       switch (result['userType']) {
-        case 'Administrador':
-          homeScreen = AdminHome(
-            userName: user.nombreCompleto(),
-            userType: result['userType'],
-          );
-          break;
         case 'Operador':
           homeScreen = OperatorHome(
             user: user,

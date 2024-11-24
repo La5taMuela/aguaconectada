@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ConsumptionController extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Map<String, double> consumptionData = {};
+  Map<String, double> monthlyDifferences = {}; // Agregamos este mapa para las diferencias
   bool isLoading = true;
   String error = '';
   String? userRut;
 
-  ConsumptionController() {
-    // We'll call fetchConsumptionData after setting the userRut
-  }
+  ConsumptionController();
 
   void setUserRut(String rut) {
     print("Setting userRut: $rut"); // Debug log
@@ -41,7 +40,7 @@ class ConsumptionController extends ChangeNotifier {
           .listen((DocumentSnapshot userDoc) {
         if (userDoc.exists) {
           Map<String, dynamic> userData =
-              userDoc.data() as Map<String, dynamic>;
+          userDoc.data() as Map<String, dynamic>;
 
           // Access the 'consumos' map and then the specific year (e.g., '2024')
           Map<String, dynamic> consumos =
@@ -51,6 +50,7 @@ class ConsumptionController extends ChangeNotifier {
 
           print("Fetched yearData for 2024: $yearData"); // Debug log
 
+          // Procesar los consumos mensuales
           consumptionData = {
             'Enero': (yearData['Enero'] ?? 0).toDouble(),
             'Febrero': (yearData['Febrero'] ?? 0).toDouble(),
@@ -66,7 +66,43 @@ class ConsumptionController extends ChangeNotifier {
             'Diciembre': (yearData['Diciembre'] ?? 0).toDouble(),
           };
 
-          print("Processed consumptionData: $consumptionData"); // Debug log
+          // Calcular las diferencias mensuales
+          final months = [
+            'Enero',
+            'Febrero',
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+            'Septiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre',
+          ];
+
+          monthlyDifferences = {};
+          for (int i = 0; i < months.length; i++) {
+            final currentMonth = months[i];
+            final currentValue = consumptionData[currentMonth] ?? 0;
+
+            if (i == 0) {
+              // Para el primer mes, no hay un mes anterior, usar el valor original
+              monthlyDifferences[currentMonth] = currentValue;
+            } else {
+              final previousMonth = months[i - 1];
+              final previousValue = consumptionData[previousMonth] ?? 0;
+              final difference = currentValue - previousValue;
+
+              // Evitar valores negativos, si la diferencia es menor a 0, forzar a 0
+              monthlyDifferences[currentMonth] = difference < 0 ? 0 : difference;
+            }
+          }
+
+
+
+          print("Processed monthlyDifferences: $monthlyDifferences"); // Debug log
         } else {
           error = 'No se encontraron datos de consumo para este usuario';
         }

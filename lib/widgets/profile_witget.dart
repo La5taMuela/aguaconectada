@@ -58,7 +58,6 @@ class ProfileWidget extends StatelessWidget {
                   if (user.apellidoMaterno.isNotEmpty) _buildInfoRow('Apellido Materno', user.apellidoMaterno),
                   if (user.rut.isNotEmpty) _buildInfoRow('RUT', user.rut),
                   if (user.socio != 0) _buildInfoRow('N° Socio', user.socio.toString()),
-                  if (user.idUsuario != 0) _buildInfoRow('ID Usuario', user.idUsuario.toString()),
                 ]),
                 if (user.nota.isNotEmpty) ...[
                   const SizedBox(height: 20),

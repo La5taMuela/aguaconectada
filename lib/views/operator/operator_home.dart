@@ -52,7 +52,7 @@ class _OperatorHomeState extends State<OperatorHome> {
             Navigator.of(context).pop();
             setState(() {
               selectedReportId = reportId;
-              currentPageIndex = 1;
+              currentPageIndex = 0;
             });
           },
         );

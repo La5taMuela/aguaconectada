@@ -41,7 +41,7 @@ class AuthController {
         };
       }
 
-      List<String> collections = ['Administrador', 'Operador'];
+      List<String> collections = ['Operador'];
       for (String collection in collections) {
         var querySnapshot = await FirebaseFirestore.instance
             .collection(collection)

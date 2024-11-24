@@ -18,25 +18,40 @@ class ConsumptionChart extends StatelessWidget {
           return Center(child: Text(controller.error));
         }
 
-        final Map<String, double> chartData = controller.consumptionData.isEmpty
+        final Map<String, double> chartData = controller.monthlyDifferences.isEmpty
             ? {
-                'Enero': 0,
-                'Febrero': 0,
-                'Marzo': 0,
-                'Abril': 0,
-                'Mayo': 0,
-                'Junio': 0,
-                'Julio': 0,
-                'Agosto': 0,
-                'Septiembre': 0,
-                'Octubre': 0,
-                'Noviembre': 0,
-                'Diciembre': 0
-              }
-            : controller.consumptionData;
+          'Enero': 0,
+          'Febrero': 0,
+          'Marzo': 0,
+          'Abril': 0,
+          'Mayo': 0,
+          'Junio': 0,
+          'Julio': 0,
+          'Agosto': 0,
+          'Septiembre': 0,
+          'Octubre': 0,
+          'Noviembre': 0,
+          'Diciembre': 0,
+        }
+            : controller.monthlyDifferences;
 
         final maxY =
-            chartData.values.reduce((max, value) => value > max ? value : max);
+        chartData.values.reduce((max, value) => value > max ? value : max);
+
+        final months = [
+          'Enero',
+          'Febrero',
+          'Marzo',
+          'Abril',
+          'Mayo',
+          'Junio',
+          'Julio',
+          'Agosto',
+          'Septiembre',
+          'Octubre',
+          'Noviembre',
+          'Diciembre',
+        ];
 
         return Container(
           height: 300,
@@ -50,24 +65,10 @@ class ConsumptionChart extends StatelessWidget {
                     showTitles: true,
                     reservedSize: 30,
                     getTitlesWidget: (double value, TitleMeta meta) {
-                      const months = [
-                        'Ene',
-                        'Feb',
-                        'Mar',
-                        'Abr',
-                        'May',
-                        'Jun',
-                        'Jul',
-                        'Ago',
-                        'Sep',
-                        'Oct',
-                        'Nov',
-                        'Dic'
-                      ];
                       final index = value.toInt();
                       if (index >= 0 && index < months.length) {
                         return Text(
-                          months[index],
+                          months[index].substring(0, 3),
                           style: const TextStyle(
                             color: Color(0xff68737d),
                             fontWeight: FontWeight.bold,
@@ -96,20 +97,23 @@ class ConsumptionChart extends StatelessWidget {
                   ),
                 ),
                 topTitles:
-                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                 rightTitles:
-                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               ),
               borderData: FlBorderData(
                 show: true,
                 border: Border.all(color: const Color(0xff37434d), width: 1),
               ),
-              barGroups: chartData.entries.map((entry) {
+              barGroups: List.generate(months.length, (index) {
+                final month = months[index];
+                final value = chartData[month] ?? 0;
+
                 return BarChartGroupData(
-                  x: chartData.keys.toList().indexOf(entry.key),
+                  x: index,
                   barRods: [
                     BarChartRodData(
-                      toY: entry.value,
+                      toY: value,
                       color: Colors.orange[200],
                       width: 16,
                       borderRadius: const BorderRadius.only(
@@ -119,12 +123,35 @@ class ConsumptionChart extends StatelessWidget {
                     ),
                   ],
                 );
-              }).toList(),
-              maxY: maxY > 0 ? maxY : 1, // Use 1 as minimum to show the x-axis
+              }),
+              maxY: maxY > 0 ? maxY : 1, // Use 1 como mínimo para mostrar el eje x
+              barTouchData: BarTouchData(
+                enabled: true,
+                touchTooltipData: BarTouchTooltipData(
+                  tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+                  tooltipPadding: const EdgeInsets.all(8),
+                  tooltipMargin: 8,
+                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                    final value = rod.toY.toStringAsFixed(0); // Mostrar como entero
+                    return BarTooltipItem(
+                      '$value',
+                      const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
+            swapAnimationDuration: const Duration(milliseconds: 500),
           ),
         );
       },
     );
   }
 }
+
+
+
+
