@@ -66,7 +66,6 @@ class AuthController {
         'message': 'Datos incorrectos, verifique su RUT o número de socio.'
       };
     } catch (e) {
-      print('Error durante el login: $e');
       return {'success': false, 'message': 'Error al iniciar sesión: $e'};
     }
   }
@@ -86,7 +85,7 @@ class AuthController {
       User user = User.fromMap(userDataMap);
       return user;
     } catch (e) {
-      print('Error al obtener usuario actual: $e');
+
       return null;
     }
   }

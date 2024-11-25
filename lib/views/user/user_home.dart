@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'tutorial_modals.dart';
+import '../../controllers/tutorial_controller.dart';
 import '../../models/user.dart';
 import 'upload_consumo_page.dart';
 import 'consumption_chart.dart';
 import 'package:aguaconectada/controllers/consumption_controller.dart';
 import 'create_report_page.dart';
 import '../../controllers/payment_controller.dart';
-import '../../widgets/profile_witget.dart';
+import '../../widgets/profile_widget.dart';
 import '../../controllers/user_controller.dart';
 import 'notification_report_user.dart';
 
@@ -32,6 +34,10 @@ class _UserMenuState extends State<UserMenu> {
   String? selectedYear;
   int? currentMonthConsumption;
 
+  late TutorialController _tutorialController;
+  int _currentTutorialStep = 0;
+  bool _showTutorial = false;  // Add this line to define _showTutorial
+
   @override
   void initState() {
     super.initState();
@@ -44,7 +50,154 @@ class _UserMenuState extends State<UserMenu> {
         .doc(widget.user.rut)
         .snapshots();
     _userController = UserController();
+    _tutorialController = TutorialController();
+
+    // Remove the duplicate call to _checkTutorialStatus
+    // Only keep the post-frame callback
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAndShowTutorial();
+    });
+
     print("User stream initialized for user: ${widget.user.rut}");
+  }
+
+
+  void _handleRestartTutorial(bool restart) {
+    if (restart) {
+      setState(() {
+        currentPageIndex = 0;
+        _currentTutorialStep = 0;
+        _showTutorial = true;
+      });
+      _showTutorialStep();
+    }
+  }
+
+  Future<void> _checkAndShowTutorial() async {
+    bool tutorialCompleted = await _tutorialController.checkTutorialStatus(widget.user.rut);
+    if (!tutorialCompleted) {
+      setState(() {
+        _currentTutorialStep = 0;
+        _showTutorial = true;
+      });
+      _showTutorialStep();
+    }
+  }
+
+
+  void _showTutorialStep() {
+    final List<Map<String, dynamic>> tutorialSteps = [
+      {
+        'title': '¡Bienvenido a Agua Conectada!',
+        'description': 'Esta es tu página principal donde podrás gestionar todos tus servicios de agua. Aquí encontrarás información sobre tus pagos, consumos y más.',
+        'alignment': Alignment.center,
+      },
+      {
+        'title': 'Sistema de Notificaciones',
+        'description': 'El icono de campana te mantendrá informado sobre el estado de tus reportes y otras notificaciones importantes. ¡No te pierdas ninguna actualización!',
+        'alignment': const Alignment(0.8, -0.8),
+        'highlightWidget': _buildHighlightedArea(
+            top: 0, height: 60, left: MediaQuery.of(context).size.width - 60, width: 60),
+      },
+      {
+        'title': 'Estado de Pagos',
+        'description': 'Aquí podrás ver tu monto actual a pagar y realizar pagos de manera rápida y segura. El sistema te mostrará si el mes está pagado o pendiente.',
+        'alignment': const Alignment(0, -0.5),
+        'highlightWidget': _buildHighlightedArea(top: 80, height: 120),
+      },
+      {
+        'title': 'Gráfico de Consumo',
+        'description': 'Visualiza y analiza tu consumo mensual de agua en este gráfico interactivo. Te ayudará a entender mejor tus patrones de consumo y planificar mejor.',
+        'alignment': const Alignment(0, 0.3),
+        'highlightWidget': _buildHighlightedArea(top: 220, height: 200),
+      },
+      {
+        'title': 'Historial de Pagos',
+        'description': 'Accede a tu historial completo de pagos y consumos mensuales. Mantén un registro detallado de todas tus transacciones anteriores.',
+        'alignment': const Alignment(0, -0.3),
+        'highlightWidget': _buildHighlightedArea(top: 440, height: 200),
+      },
+      {
+        'title': 'Crear Reportes',
+        'description': 'En esta sección podrás crear reportes sobre problemas o consultas. Incluye un título, descripción y hasta 4 imágenes para mejor explicación.',
+        'alignment': Alignment.bottomCenter,
+        'navigateTo': 1,
+      },
+      {
+        'title': 'Subir Consumo',
+        'description': 'Aquí podrás registrar tu consumo mensual de agua. Recuerda que debes incluir una foto del medidor para mantener un registro preciso.',
+        'alignment': Alignment.bottomCenter,
+        'navigateTo': 2,
+      },
+    ];
+
+    if (_currentTutorialStep < tutorialSteps.length) {
+      if (tutorialSteps[_currentTutorialStep]['navigateTo'] != null) {
+        setState(() {
+          currentPageIndex = tutorialSteps[_currentTutorialStep]['navigateTo'];
+        });
+      }
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return TutorialModal(
+            title: tutorialSteps[_currentTutorialStep]['title'],
+            description: tutorialSteps[_currentTutorialStep]['description'],
+            isLastStep: _currentTutorialStep == tutorialSteps.length - 1,
+            alignment: tutorialSteps[_currentTutorialStep]['alignment'],
+            highlightWidget: tutorialSteps[_currentTutorialStep]['highlightWidget'],
+            onNext: () async {
+              Navigator.of(context).pop();
+              if (_currentTutorialStep == tutorialSteps.length - 1) {
+                await _tutorialController.completeTutorial(widget.user.rut);
+              } else {
+                setState(() {
+                  _currentTutorialStep++;
+                });
+                _showTutorialStep();
+              }
+            },
+            onSkip: _currentTutorialStep == 0 ? () async {
+              Navigator.of(context).pop();
+              await _tutorialController.completeTutorial(widget.user.rut);
+            } : null,
+          );
+        },
+      );
+    }
+  }
+
+  Widget _buildHighlightedArea({required double top, required double height, double? left, double? width}) {
+    return Stack(
+      children: [
+        // Fondo oscuro superior
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          height: top,
+          child: Container(color: Colors.black12),
+        ),
+        // Área destacada (transparente)
+        Positioned(
+          top: top,
+          left: left ?? 0,
+          width: width ?? double.infinity,
+          height: height,
+          child: Container(color: Colors.transparent),
+        ),
+        // Fondo oscuro inferior
+        Positioned(
+          top: top + height,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: Container(color: Colors.black12),
+        ),
+      ],
+    );
   }
 
   void _showNotificationModal(BuildContext context) {
@@ -232,7 +385,8 @@ class _UserMenuState extends State<UserMenu> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'Monto a pagar:',
+                                      isPaid ?
+                                      'Mes Pagado' : 'Monto a pagar:',
                                       style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold,
@@ -241,7 +395,7 @@ class _UserMenuState extends State<UserMenu> {
                                     ),
                                   ),
                                   Text(
-                                    isPaid ? 'Mes pagado' : '\$$currentMonthConsumption',
+                                    isPaid ? '' : '\$$currentMonthConsumption',
                                     style: const TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
@@ -371,24 +525,36 @@ class _UserMenuState extends State<UserMenu> {
 
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: monthNames.map<Widget>((month) {
-                                final details = paymentData[month] ??
-                                    {'valor': 0, 'fecha': null};
-                                print('Payment details for $month: $details');
+                              children: List.generate(monthNames.length, (i) {
+                                final currentMonth = monthNames[i];
+                                final currentDetails = paymentData[currentMonth] ?? {'valor': 0, 'fecha': null};
+                                final currentConsumption = userData['consumos'][currentYear]?[currentMonth] ?? 0;
+
+                                // Calcular la diferencia de consumo con el mes anterior
+                                int consumptionDifference = 0;
+                                if (i > 0) {
+                                  final previousMonth = monthNames[i - 1];
+                                  final previousConsumption = userData['consumos'][currentYear]?[previousMonth] ?? 0;
+                                  consumptionDifference = currentConsumption - previousConsumption;
+                                  if (consumptionDifference < 0) consumptionDifference = 0; // Evitar valores negativos
+                                } else {
+                                  // Para enero (primer mes), no hay consumo anterior
+                                  consumptionDifference = currentConsumption;
+                                }
+
                                 return Card(
                                   color: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  margin: const EdgeInsets.symmetric(vertical: 4.0),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                       child: Text(
-                                        details['valor'] == 0
-                                            ? '$month: Mes no pagado'
-                                            : '$month: Pago ${details['fecha']}\nTotal: \$${details['valor']}',
+                                        currentDetails['valor'] == 0
+                                            ? '$currentMonth: Mes no pagado'
+                                            : '$currentMonth: Pago ${currentDetails['fecha']}\nTotal: \$${currentDetails['valor']}\nConsumo: ${consumptionDifference}',
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -398,8 +564,9 @@ class _UserMenuState extends State<UserMenu> {
                                     ),
                                   ),
                                 );
-                              }).toList(),
+                              }),
                             );
+
                           }
                         },
                       ),
@@ -426,6 +593,7 @@ class _UserMenuState extends State<UserMenu> {
                 print('Logging out user ${widget.user.rut}');
                 Navigator.of(context).pushReplacementNamed('/login');
               },
+              onRestartTutorial: _handleRestartTutorial,
             ),
           ][currentPageIndex],
           bottomNavigationBar: NavigationBar(

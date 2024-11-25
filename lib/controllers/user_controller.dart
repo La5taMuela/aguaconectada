@@ -115,6 +115,7 @@ class UserController extends ChangeNotifier {
       montosMensuales, // Add montosMensuales with just months
       'historialPagos':
       historialPagos, // Add historialPagos with valor and timestamp
+     'tutorialCompleted':false,
     };
 
     try {

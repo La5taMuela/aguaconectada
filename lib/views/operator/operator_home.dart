@@ -6,7 +6,7 @@ import 'package:aguaconectada/controllers/operator_controller.dart';
 import 'package:badges/badges.dart' as badges;
 import '../../models/user.dart';
 import 'notification_report_operator.dart';
-import '../../widgets/profile_witget.dart';
+import '../../widgets/profile_widget.dart';
 
 class OperatorHome extends StatefulWidget {
   final String userType;
